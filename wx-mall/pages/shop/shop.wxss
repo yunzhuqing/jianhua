@@ -1,0 +1,43 @@
+/* pages/shop/shop.wxss */
+.top {
+  height:  300rpx;
+  width: 100%;
+  background: #6ea52f;
+}
+
+.list {
+  background: rgb(155, 146, 146);
+  width: 100%;
+  height: 850rpx;
+  margin-top: 20rpx;
+}
+
+.head_wd {
+  height: 5%;
+  background: rgb(124, 49, 49);
+}
+
+.head_shop {
+  height: 70%;
+  background: rgb(0, 162, 255);
+}
+
+.head_shop_combine {
+  height: 25%;
+  background: rgb(183, 0, 255);
+}
+
+.head_shop_name {
+  padding-left: 20rpx;
+  padding-top: 20rpx;
+}
+
+.head_shop_desc {
+  padding-left: 20rpx;
+  padding-top: 10rpx;
+}
+
+.shop_name {
+  font-size: 40rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}

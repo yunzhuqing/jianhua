@@ -1,0 +1,18 @@
+<!--pages/shop/shop.wxml-->
+<view class='container'>
+    <view class='top'>
+      <view class='head_wd'></view>
+      <view class='head_shop'>
+         <view class='head_shop_name'>
+           <text class='shop_name'>xxx 花艺旗舰店</text>
+         </view>
+         <view class='head_shop_desc'>
+           <text class='desc'>描述</text>
+         </view>
+      </view>
+      <view class='head_shop_combine'>
+          <Input search placeholder="Enter something..." />
+      </view>
+    </view>
+    <view class='list'></view>
+</view>

@@ -1,0 +1,134 @@
+<!--pages/indexv2/indexv2.wxml-->
+<view class='container'>
+  <view class='top'>
+    <image src='../../static/images/maps.png' style='' class='maps'></image>
+    <label class='city'>杭州</label>
+    <input class='search'></input>
+    <button class=''>搜索</button>
+  </view>
+
+  <view class='suggest'> 
+    <view class='item-header'>
+      <label class='item-header-title'>为你推荐</label>/
+      <label class='more'>更多</label>
+    </view>
+    <scroll-view scroll-x='true'>
+      <view class='suggest-item'>
+        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
+        <view class='suggest-item-bottom'>
+          <view class='suggest-item-bottom-item'>新人专享</view>
+          <view class='suggest-item-bottom-item'>99</view>
+        </view>
+      </view>
+
+      <view class='suggest-item'>
+        <image class='suggest-item-pic' src='../../static/images/flower-b.svg'></image>
+        <view class='suggest-item-bottom'>
+          <view class='suggest-item-bottom-item'>经典玫瑰</view>
+          <view class='suggest-item-bottom-item'>300</view>
+        </view>
+      </view>
+
+      <view class='suggest-item'>
+        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
+        <view class='suggest-item-bottom'>
+          <view class='suggest-item-bottom-item'>玫瑰护理</view>
+          <view class='suggest-item-bottom-item'>作者: 杨佳奇</view>
+        </view>
+      </view>
+
+      <view class='suggest-item'>
+        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
+        <view class='suggest-item-bottom'>
+          <view class='suggest-item-bottom-item'>书与花</view>
+          <view class='suggest-item-bottom-item'>￥100</view>
+        </view>
+      </view>
+
+      <view class='suggest-item'>
+        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
+        <view class='suggest-item-bottom'>
+          <view class='suggest-item-bottom-item'>7夕珍品</view>
+          <view class='suggest-item-bottom-item'>￥520</view>
+        </view>
+      </view>
+    
+    </scroll-view>
+  </view>
+
+  <view class='common-scene'> 
+    <view class='item-header'>
+      <label class='item-header-title'>送TA</label>/
+      <label class='more'>更多</label>
+    </view>
+    <view class='scene'>
+      <view class='scene-list'>
+        <button class='scene-item'>生日</button>
+        <button class='scene-item'>女友</button>
+        <button class='scene-item'>老婆</button>
+        <button class='scene-item'>同事</button>
+      </view>
+
+      <view class='scene-list'>
+        <button class='scene-item'>父母</button> 
+        <button class='scene-item'>同学</button>
+        <button class='scene-item'>居家</button>
+        <button class='scene-item'>办公室</button>
+      </view>
+      
+    </view>
+  </view>
+
+  <view class='nearest-distince'>
+    <view class='item-header'>
+      <label class='item-header-title'>距离最近</label>/
+      <label class='more'>更多</label>
+    </view>
+
+    <scroll-view scroll-x='true'>
+      <view class='suggest-item' bindtap='shopClick'>
+        <image class='suggest-item-pic' src='../../static/images/shop.svg'></image>
+        <view class='suggest-item-bottom'>
+          <view class='suggest-item-bottom-item'>xxx花艺</view>
+          <view class='suggest-item-bottom-item'>精致生活</view>
+        </view>
+      </view>
+
+      <view class='suggest-item'>
+        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
+        <view class='suggest-item-bottom'>
+          <view class='suggest-item-bottom-item'>经典玫瑰</view>
+          <view class='suggest-item-bottom-item'>300</view>
+        </view>
+      </view>
+
+      <view class='suggest-item'>
+        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
+        <view class='suggest-item-bottom'>
+          <view class='suggest-item-bottom-item'>玫瑰护理</view>
+          <view class='suggest-item-bottom-item'>作者: 杨佳奇</view>
+        </view>
+      </view>
+    
+    </scroll-view>
+  </view>
+
+  <view class='other'>
+    <label class='item-header-title'>小趣</label>
+    <scroll-view scroll-x='true' class='choice'>
+      <button>每日精选</button>
+      <button>意见反馈</button>
+      <button>你的专属</button>
+    </scroll-view>
+  </view>
+
+  <view class='gift-goods'>
+    <view class='item-header'>
+      <label class='item-header-title'>小物件</label>/
+      <label class='more'>更多</label>
+    </view>
+    <view>
+      <view class='gift-goods-item'></view>
+    </view>
+  </view>
+</view>

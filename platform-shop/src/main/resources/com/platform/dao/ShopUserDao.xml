@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.platform.dao.ShopUserDao">
+
+    <resultMap type="com.platform.entity.ShopUserEntity" id="shopUserMap">
+        <result property="id" column="id"/>
+        <result property="shopId" column="shop_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="shopLevel" column="shop_level"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    
+    <sql id="shopUserFields">
+    	`id`,
+		`shop_id`,
+		`user_id`,
+		`user_level`,
+		`create_time`,
+		`update_time`
+    </sql>
+
+    <sql id="query">
+        <where>
+            <if test="user_id != null">
+                AND user_id = #{user_id}
+            </if>
+
+            <if test="shop_id != null">
+                AND shop_id = #{shop_id}
+            </if>
+
+            <if test="shop_id_list != null">
+                AND shop_id in
+                <foreach item="item" collection="shop_id_list" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <choose>
+                <when test="sidx != null and sidx.trim() != ''">
+                    order by ${sidx} ${order}
+                </when>
+                <otherwise>
+                    order by id desc
+                </otherwise>
+            </choose>
+
+            <if test="offset != null and limit != null">
+                limit #{offset}, #{limit}
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryObject" resultMap="shopUserMap">
+		select
+			<include refid="shopUserFields"></include>
+		from jianhua_shop_user
+		where id = #{id}
+	</select>
+
+    <select id="queryList" resultMap="shopUserMap">
+        select
+            <include refid="shopUserFields"></include>
+        from jianhua_shop_user
+        <include refid="query" />
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(id) from jianhua_shop_user
+        <include refid="query" />
+    </select>
+
+    <insert id="save" parameterType="com.platform.entity.ShopUserEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into jianhua_shop_user (
+			`shop_id`,
+			`user_id`,
+			`user_level`,
+			`create_time`,
+			`update_time`)
+		values(
+			#{shopId},
+			#{userId},
+			#{userLevel},
+			now(),now())
+	</insert>
+
+    <update id="update" parameterType="com.platform.entity.ShopUserEntity">
+        update jianhua_shop_user
+        <set>
+            <if test="shopId != null">`shop_id` = #{shopId},</if>
+            <if test="userId != null">`user_id` = #{userId},</if>
+            <if test="userLevel != null">`user_level` = #{userLevel},</if>
+            update_time=now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+		delete from jianhua_shop_user where id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from jianhua_shop_user where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
