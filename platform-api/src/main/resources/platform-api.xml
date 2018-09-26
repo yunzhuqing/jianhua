@@ -10,7 +10,6 @@
     <mvc:annotation-driven>
         <mvc:argument-resolvers>
             <bean class="com.platform.resolver.LoginUserHandlerMethodArgumentResolver">
-                <property name="userService" ref="apiUserService"></property>
             </bean>
         </mvc:argument-resolvers>
 

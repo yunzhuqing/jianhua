@@ -1,12 +1,17 @@
 /* pages/shop/shop.wxss */
-.top {
-  height:  300rpx;
-  width: 100%;
-  background: #6ea52f;
+
+.container {
+  background: #f8f8f9;
+  border: #dddee1;
+  height: 1200rpx;
 }
 
-.list {
-  background: rgb(155, 146, 146);
+.top {
+  height: 180rpx;
+  width: 100%;
+}
+
+.shops {
   width: 100%;
   height: 850rpx;
   margin-top: 20rpx;
@@ -14,17 +19,24 @@
 
 .head_wd {
   height: 5%;
-  background: rgb(124, 49, 49);
 }
 
 .head_shop {
-  height: 70%;
-  background: rgb(0, 162, 255);
+  height: 60%;
 }
 
 .head_shop_combine {
-  height: 25%;
-  background: rgb(183, 0, 255);
+  height: 35%;
+  display: flex;
+  white-space: nowrap;
+}
+
+.shop_title {
+  font-size: 35rpx;
+  margin-left: 25rpx;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: inline-block;
+  background: white;
 }
 
 .head_shop_name {
@@ -37,7 +49,81 @@
   padding-top: 10rpx;
 }
 
-.shop_name {
-  font-size: 40rpx;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.navbar {
+    display: flex;
+    z-index: 500;
+    width: 100%;
+    background: black;
+    height: 70rpx;
+    
+}
+
+.navbar__item {
+    display: block;
+    font-size: 0;
+    margin-left: 30rpx;
+    padding-top: 10rpx;
+}
+
+.navbar__item_on {
+}
+
+.navbar__title{
+    display: inline-block;
+    font-size: 15px;
+    max-width: 8em;
+    text-align: center;
+}
+
+.navbar_item_name {
+  font-size: 35rpx;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: rgb(202, 199, 199);
+}
+
+.navbar_item_name_on {
+  font-size: 35rpx;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: white;
+}
+
+swiper {
+  height: 100%;
+}
+
+swiper-item{
+  width: 100%;
+}
+
+.goods {
+  width: 100%;
+  background: white;
+}
+
+.goods-item {
+  width:45%;
+  height:180px;
+  background:white;
+  display:inline-block;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  padding-top: 2%;
+  padding-left: 2%;
+}
+
+.goods-item-pic {
+  width: 95%;
+  height: 70%;
+  box-shadow:1px 1px 1px #aaaaaa;
+}
+
+.goods-item-bottom {
+  width: 95%;
+}
+
+.goods-item-bottom-item {
+  width: 50%;
+  height: 10%;
+  margin-left: 20%;
+  font-size: 25rpx;
 }

@@ -15,6 +15,10 @@ import java.util.Map;
  */
 public interface SysUserDao extends BaseDao<SysUserEntity> {
 
+    static final String FIELD_OPEN_ID = "openid";
+
+    static final String FIELD_MOBILE = "mobile";
+
     /**
      * 查询用户的所有权限
      *

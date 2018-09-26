@@ -43,6 +43,13 @@ public interface SysUserService {
     SysUserEntity queryObject(Long userId);
 
     /**
+     * 根据openId 查询对应的用户
+     * @param openId
+     * @return
+     */
+    SysUserEntity queryByOpenId(String openId);
+
+    /**
      * 查询用户列表
      */
     List<SysUserEntity> queryList(Map<String, Object> map);
@@ -51,6 +58,14 @@ public interface SysUserService {
      * 查询总数
      */
     int queryTotal(Map<String, Object> map);
+
+    /**
+     * 根据手机号码和密码登录
+     * @param mobile
+     * @param password
+     * @return
+     */
+    long login(String mobile, String password);
 
     /**
      * 保存用户

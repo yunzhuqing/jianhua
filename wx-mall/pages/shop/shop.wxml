@@ -1,18 +1,99 @@
 <!--pages/shop/shop.wxml-->
 <view class='container'>
-    <view class='top'>
-      <view class='head_wd'></view>
-      <view class='head_shop'>
-         <view class='head_shop_name'>
-           <text class='shop_name'>xxx 花艺旗舰店</text>
-         </view>
-         <view class='head_shop_desc'>
-           <text class='desc'>描述</text>
-         </view>
-      </view>
-      <view class='head_shop_combine'>
-          <Input search placeholder="Enter something..." />
-      </view>
+  <view class='top'>
+    <view class='head_wd'></view>
+    <view class='head_shop'>
+       <view class='shop_title'>
+         <view class='head_shop_name'>xxx花艺店</view>
+         <view class='head_shop_desc'>描述</view>
+       </view>
     </view>
-    <view class='list'></view>
+  </view>
+
+  <view>
+    <view class="navbar">
+      <block wx:for="{{tabs}}" wx:key="*this">
+        <view id="{{index}}" class="navbar__item {{activeIndex == index ? 'navbar__item_on' : ''}}" bindtap="navTabClick">
+          <view><label class="{{activeIndex == index ? 'navbar_item_name_on' : 'navbar_item_name'}}">{{item.name}}</label></view>
+        </view>
+      </block>
+    </view>
+    <view style="width: 100%;height:2000rpx">
+      <swiper current="{{activeIndex}}" duration="300" bindchange="bindChange">
+        <swiper-item>
+          <view class='goods'>
+            <view class='goods-item' bindtap='itemClick'>
+              <image class='goods-item-pic' src='../../static/images/flower-p.svg'></image>
+              <view class='goods-item-bottom'>
+                <view class='goods-item-bottom-item'>新人专享</view>
+                <view class='goods-item-bottom-item'>99</view>
+              </view>
+            </view>
+
+            <view class='goods-item'>
+              <image class='goods-item-pic' src='../../static/images/flower-p.svg'></image>
+              <view class='goods-item-bottom'>
+                <view class='goods-item-bottom-item'>新人专享</view>
+                <view class='goods-item-bottom-item'>99</view>
+              </view>
+            </view>
+
+            <view class='goods-item'>
+              <image class='goods-item-pic' src='../../static/images/flower-p.svg'></image>
+              <view class='goods-item-bottom'>
+                <view class='goods-item-bottom-item'>新人专享</view>
+                <view class='goods-item-bottom-item'>99</view>
+              </view>
+            </view>
+
+            <view class='goods-item'>
+              <image class='goods-item-pic' src='../../static/images/flower-p.svg'></image>
+              <view class='goods-item-bottom'>
+                <view class='goods-item-bottom-item'>新人专享</view>
+                <view class='goods-item-bottom-item'>99</view>
+              </view>
+            </view>
+
+            <view class='goods-item'>
+              <image class='goods-item-pic' src='../../static/images/flower-p.svg'></image>
+              <view class='goods-item-bottom'>
+                <view class='goods-item-bottom-item'>新人专享</view>
+                <view class='goods-item-bottom-item'>99</view>
+              </view>
+            </view>
+
+          </view>
+        </swiper-item>
+        <swiper-item>
+          <view class='goods'>
+            <view class='goods-item'>
+              <image class='goods-item-pic' src='../../static/images/flower-p.svg'></image>
+              <view class='goods-item-bottom'>
+                <view class='goods-item-bottom-item'>新人专享</view>
+                <view class='goods-item-bottom-item'>99</view>
+              </view>
+            </view>
+
+            <view class='goods-item'>
+              <image class='goods-item-pic' src='../../static/images/flower-p.svg'></image>
+              <view class='goods-item-bottom'>
+                <view class='goods-item-bottom-item'>新人专享</view>
+                <view class='goods-item-bottom-item'>99</view>
+              </view>
+            </view>
+
+            <view class='goods-item'>
+              <image class='goods-item-pic' src='../../static/images/flower-b.svg'></image>
+              <view class='goods-item-bottom'>
+                <view class='goods-item-bottom-item'>新人专享</view>
+                <view class='goods-item-bottom-item'>99</view>
+              </view>
+            </view>
+          
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>
+  
 </view>

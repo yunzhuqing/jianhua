@@ -28,7 +28,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -57,7 +57,19 @@
 				{
 					"id": -1,
 					"name": "店铺首页",
-					"pathName": "pages/shop/shop"
+					"pathName": "pages/shop/shop",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "搜索",
+					"pathName": "pages/search/search",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品",
+					"pathName": "pages/goods/goods"
 				}
 			]
 		}

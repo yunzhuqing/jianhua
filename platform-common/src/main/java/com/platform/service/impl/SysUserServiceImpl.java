@@ -11,11 +11,13 @@ import com.platform.service.SysUserRoleService;
 import com.platform.service.SysUserService;
 import com.platform.utils.Constant;
 import com.platform.utils.RRException;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -66,15 +68,46 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    public SysUserEntity queryByOpenId(String openId) {
+        SysUserEntity user = null;
+        Map<String, Object> attr = new HashMap<>();
+        attr.put(SysUserDao.FIELD_OPEN_ID, openId);
+        List<SysUserEntity> users = queryList(attr);
+        if(!CollectionUtils.isEmpty(users)) {
+            user = users.get(0);
+        }
+        return user;
+    }
+
+    @Override
     public int queryTotal(Map<String, Object> map) {
         return sysUserDao.queryTotal(map);
+    }
+
+    @Override
+    public long login(String mobile, String password) {
+        SysUserEntity user = null;
+        Map<String, Object> attr = new HashMap<>();
+        attr.put(SysUserDao.FIELD_MOBILE, mobile);
+        List<SysUserEntity> users = queryList(attr);
+        if(!CollectionUtils.isEmpty(users)) {
+            user = users.get(0);
+            //密码错误
+            if (!user.getPassword().equals(DigestUtils.sha256Hex(password))) {
+                throw new RRException("手机号或密码错误");
+            }
+            return user.getUserId();
+        }
+        return 0;
     }
 
     @Override
     @Transactional
     public void save(SysUserEntity user) {
         user.setCreateTime(new Date());
-        user.setUserType(SysUserTypeEnum.SYS.ordinal());
+        if(null == user.getUserType()) {
+            user.setUserType(SysUserTypeEnum.SYS.ordinal());
+        }
         //sha256加密
         user.setPassword(new Sha256Hash(Constant.DEFAULT_PASS_WORD).toHex());
         sysUserDao.save(user);
