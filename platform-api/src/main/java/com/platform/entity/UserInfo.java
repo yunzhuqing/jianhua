@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private Long userId;
     //
     private String avatarUrl;
     //
@@ -21,6 +22,14 @@ public class UserInfo implements Serializable {
     private String nickName;
     //
     private String province;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getAvatarUrl() {
         return avatarUrl;

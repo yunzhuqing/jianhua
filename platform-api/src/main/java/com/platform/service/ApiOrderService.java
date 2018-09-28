@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.platform.entity.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,6 @@ import com.platform.dao.ApiCartMapper;
 import com.platform.dao.ApiCouponMapper;
 import com.platform.dao.ApiOrderGoodsMapper;
 import com.platform.dao.ApiOrderMapper;
-import com.platform.entity.AddressVo;
-import com.platform.entity.BuyGoodsVo;
-import com.platform.entity.CartVo;
-import com.platform.entity.CouponVo;
-import com.platform.entity.OrderGoodsVo;
-import com.platform.entity.OrderVo;
-import com.platform.entity.ProductVo;
-import com.platform.entity.UserVo;
 import com.platform.util.CommonUtil;
 
 
@@ -84,7 +77,7 @@ public class ApiOrderService {
 
 
     @Transactional
-    public Map<String, Object> submit(JSONObject jsonParam, UserVo loginUser) {
+    public Map<String, Object> submit(JSONObject jsonParam, SysUserEntity loginUser) {
         Map<String, Object> resultObj = new HashMap<String, Object>();
 
         Integer couponId = jsonParam.getInteger("couponId");

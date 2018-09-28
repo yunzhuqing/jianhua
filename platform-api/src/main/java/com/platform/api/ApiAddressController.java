@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.annotation.LoginUser;
 import com.platform.entity.AddressVo;
+import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserVo;
 import com.platform.service.ApiAddressService;
 import com.platform.util.ApiBaseAction;
@@ -38,7 +39,7 @@ public class ApiAddressController extends ApiBaseAction {
      */
     @ApiOperation(value = "获取用户的收货地址接口", response = Map.class)
     @GetMapping("list")
-    public Object list(@LoginUser UserVo loginUser) {
+    public Object list(@LoginUser SysUserEntity loginUser) {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("user_id", loginUser.getUserId());
         List<AddressVo> addressEntities = addressService.queryList(param);
@@ -51,7 +52,7 @@ public class ApiAddressController extends ApiBaseAction {
     @ApiOperation(value = "获取收货地址的详情", response = Map.class)
     @ApiImplicitParams({@ApiImplicitParam(name = "id", value = "收获地址ID", required = true, dataType = "Integer")})
     @GetMapping("detail")
-    public Object detail(Integer id, @LoginUser UserVo loginUser) {
+    public Object detail(Integer id, @LoginUser SysUserEntity loginUser) {
         AddressVo entity = addressService.queryObject(id);
         //判断越权行为
         if (!entity.getUserId().equals(loginUser.getUserId())) {
@@ -65,7 +66,7 @@ public class ApiAddressController extends ApiBaseAction {
      */
     @ApiOperation(value = "添加或更新收货地址", response = Map.class)
     @PostMapping("save")
-    public Object save(@LoginUser UserVo loginUser) {
+    public Object save(@LoginUser SysUserEntity loginUser) {
         JSONObject addressJson = this.getJsonRequest();
         AddressVo entity = new AddressVo();
         if (null != addressJson) {
@@ -95,7 +96,7 @@ public class ApiAddressController extends ApiBaseAction {
      */
     @ApiOperation(value = "删除指定的收货地址", response = Map.class)
     @PostMapping("delete")
-    public Object delete(@LoginUser UserVo loginUser) {
+    public Object delete(@LoginUser SysUserEntity loginUser) {
         JSONObject jsonParam = this.getJsonRequest();
         Integer id = jsonParam.getIntValue("id");
 

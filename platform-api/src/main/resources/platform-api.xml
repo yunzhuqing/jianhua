@@ -18,6 +18,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/api/**"/>
+            <mvc:exclude-mapping path="/api/suggest/*"/>
             <ref bean="authorizationInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
