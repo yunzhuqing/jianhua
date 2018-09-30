@@ -15,6 +15,12 @@
 			<if test="username != null and username.trim() != ''">
 				and u.`username` like concat('%',#{username},'%')
 			</if>
+			<if test="openid != null">
+				and u.`openid` = #{openid}
+			</if>
+			<if test="mobile != null">
+				and u.`mobile` = #{mobile}
+			</if>
 		</where>
 		<choose>
 			<when test="sidx != null and sidx.trim() != ''">
@@ -84,7 +90,18 @@
 			`status`, 
 			`create_user_id`,
 			`dept_id`,
-			`create_time`
+			`create_time`,
+			`gender`,
+			`birthday`,
+			`last_login_time`,
+			`last_login_ip`,
+			`user_level_id`,
+			`nickname`,
+			`register_ip`,
+			`avatar`,
+			`openid`,
+			`open_type`,
+			`user_type`
 		)
 		values
 		(
@@ -96,7 +113,18 @@
 			#{status}, 
 			#{createUserId},
 			#{deptId},
-			#{createTime}
+			#{createTime},
+			#{gender},
+			#{birthday},
+			#{lastLoginTime},
+			#{lastLoginIp},
+			#{userLevelId},
+			#{nickname},
+			#{registerIp},
+			#{avatar},
+			#{openId},
+			#{openType},
+			#{userType}
 		)
 	</insert>
 	 
@@ -108,6 +136,17 @@
 			<if test="mobile != null">`mobile` = #{mobile}, </if>
 			<if test="status != null">`status` = #{status}, </if>
 			<if test="deptId != null">`dept_id` = #{deptId}, </if>
+			<if test="gender != null">`gender` = #{gender}, </if>
+			<if test="birthday != null">`birthday` = #{birthday}, </if>
+			<if test="lastLoginTime != null">`last_login_time` = now(), </if>
+			<if test="lastLoginIp != null">`last_login_ip` = #{lastLoginIp}, </if>
+			<if test="userLevelId != null">`user_level_id` = #{userLevelId}, </if>
+			<if test="nickname != null">`nickname` = #{nickname}, </if>
+			<if test="registerIp != null">`register_ip` = #{registerIp}, </if>
+			<if test="avatar != null">`avatar` = #{avatar}, </if>
+			<if test="openId != null">`openid` = #{openId}, </if>
+			<if test="openType != null">`open_type` = #{openType}, </if>
+			<if test="userType != null">`user_type` = #{userType} </if>
 		</set>
 		where user_id = #{userId} 
 		<if test="createUserId != null">

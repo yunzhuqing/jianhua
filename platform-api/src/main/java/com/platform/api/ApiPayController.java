@@ -4,6 +4,7 @@ import com.platform.annotation.LoginUser;
 import com.platform.cache.J2CacheUtils;
 import com.platform.entity.OrderGoodsVo;
 import com.platform.entity.OrderVo;
+import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserVo;
 import com.platform.service.ApiOrderGoodsService;
 import com.platform.service.ApiOrderService;
@@ -53,7 +54,7 @@ public class ApiPayController extends ApiBaseAction {
      */
     @ApiOperation(value = "获取支付的请求参数")
     @GetMapping("prepay")
-    public Object payPrepay(@LoginUser UserVo loginUser, Integer orderId) {
+    public Object payPrepay(@LoginUser SysUserEntity loginUser, Integer orderId) {
         //
         OrderVo orderInfo = orderService.queryObject(orderId);
 
@@ -104,7 +105,7 @@ public class ApiPayController extends ApiBaseAction {
             // 交易类型APP
             parame.put("trade_type", ResourceUtil.getConfigByName("wx.tradeType"));
             parame.put("spbill_create_ip", getClientIp());
-            parame.put("openid", loginUser.getWeixin_openid());
+            parame.put("openid", loginUser.getOpenId());
             String sign = WechatUtil.arraySign(parame, ResourceUtil.getConfigByName("wx.paySignKey"));
             // 数字签证
             parame.put("sign", sign);

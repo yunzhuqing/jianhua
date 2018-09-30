@@ -43,16 +43,15 @@
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.OrderEntity">
-		select o.*,u.username as username
-        from nideshop_order o
-        left join nideshop_user u on o.user_id = u.id
+		select * from nideshop_order o
         where o.id = #{value}
+        <if test="userId != null">
+            AND o.user_id = #{userId}
+        </if>
 	</select>
 
     <select id="queryList" resultType="com.platform.entity.OrderEntity">
-        select o.*,u.username as username
-        from nideshop_order o
-        left join nideshop_user u on o.user_id = u.id
+        select * from nideshop_order o
         WHERE 1=1
         <if test="orderSn != null and orderSn.trim() != ''">
             AND o.order_sn LIKE concat('%',#{orderSn},'%')
@@ -68,6 +67,9 @@
         </if>
         <if test="orderType != null and orderType.trim() != ''">
             AND o.order_type = #{orderType}
+        </if>
+        <if test="userId != null">
+            AND o.user_id = #{userId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -98,6 +100,9 @@
         </if>
         <if test="orderType != null and orderType.trim() != ''">
             AND order_type = #{orderType}
+        </if>
+        <if test="userId != null">
+            AND user_id = #{userId}
         </if>
     </select>
 

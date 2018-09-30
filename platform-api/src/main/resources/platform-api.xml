@@ -10,7 +10,6 @@
     <mvc:annotation-driven>
         <mvc:argument-resolvers>
             <bean class="com.platform.resolver.LoginUserHandlerMethodArgumentResolver">
-                <property name="userService" ref="apiUserService"></property>
             </bean>
         </mvc:argument-resolvers>
 
@@ -19,6 +18,8 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/api/**"/>
+            <mvc:exclude-mapping path="/api/suggest/*"/>
+            <mvc:exclude-mapping path="/api/scene/*"/>
             <ref bean="authorizationInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

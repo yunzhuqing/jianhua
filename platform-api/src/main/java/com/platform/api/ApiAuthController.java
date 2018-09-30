@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.FullUserInfo;
+import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserInfo;
 import com.platform.entity.UserVo;
 import com.platform.service.ApiUserService;
+import com.platform.service.SysUserService;
 import com.platform.service.TokenService;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.ApiUserUtils;
@@ -41,8 +43,10 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class ApiAuthController extends ApiBaseAction {
     private Logger logger = Logger.getLogger(getClass());
+
     @Autowired
-    private ApiUserService userService;
+    private SysUserService sysUserService;
+
     @Autowired
     private TokenService tokenService;
     @Autowired
@@ -59,7 +63,7 @@ public class ApiAuthController extends ApiBaseAction {
         Assert.isBlank(password, "密码不能为空");
 
         //用户登录
-        long userId = userService.login(mobile, password);
+        long userId = sysUserService.login(mobile, password);
 
         //生成token
         Map<String, Object> map = tokenService.createToken(userId);
@@ -103,24 +107,25 @@ public class ApiAuthController extends ApiBaseAction {
             return toResponsFail("登录失败");
         }
         Date nowTime = new Date();
-        UserVo userVo = userService.queryByOpenId(sessionData.getString("openid"));
+        SysUserEntity userVo = sysUserService.queryByOpenId(sessionData.getString("openid"));
         if (null == userVo) {
-            userVo = new UserVo();
+            userVo = new SysUserEntity();
             userVo.setUsername("微信用户" + CharUtil.getRandomString(12));
             userVo.setPassword(sessionData.getString("openid"));
-            userVo.setRegister_time(nowTime);
-            userVo.setRegister_ip(this.getClientIp());
-            userVo.setLast_login_ip(userVo.getRegister_ip());
-            userVo.setLast_login_time(userVo.getRegister_time());
-            userVo.setWeixin_openid(sessionData.getString("openid"));
+            userVo.setCreateTime(nowTime);
+            userVo.setCreateUserId(0L);
+            userVo.setRegisterIp(this.getClientIp());
+            userVo.setLastLoginIp(getClientIp());
+            userVo.setLastLoginTime(nowTime);
+            userVo.setOpenId(sessionData.getString("openid"));
             userVo.setAvatar(userInfo.getAvatarUrl());
             userVo.setGender(userInfo.getGender()); // //性别 0：未知、1：男、2：女
             userVo.setNickname(userInfo.getNickName());
-            userService.save(userVo);
+            sysUserService.save(userVo);
         } else {
-            userVo.setLast_login_ip(this.getClientIp());
-            userVo.setLast_login_time(nowTime);
-            userService.update(userVo);
+            userVo.setRegisterIp(this.getClientIp());
+            userVo.setLastLoginTime(nowTime);
+            sysUserService.update(userVo);
         }
 
         Map<String, Object> tokenMap = tokenService.createToken(userVo.getUserId());
@@ -129,6 +134,8 @@ public class ApiAuthController extends ApiBaseAction {
         if (null == userInfo || StringUtils.isNullOrEmpty(token)) {
             return toResponsFail("登录失败");
         }
+
+        userInfo.setUserId(userVo.getUserId());
 
         resultObj.put("token", token);
         resultObj.put("userInfo", userInfo);

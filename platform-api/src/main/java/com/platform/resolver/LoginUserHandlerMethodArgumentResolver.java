@@ -1,9 +1,11 @@
 package com.platform.resolver;
 
 import com.platform.annotation.LoginUser;
+import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserVo;
 import com.platform.interceptor.AuthorizationInterceptor;
-import com.platform.service.ApiUserService;
+import com.platform.service.SysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -19,15 +21,13 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * @date 2017-03-23 22:02
  */
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    private ApiUserService userService;
 
-    public void setUserService(ApiUserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private SysUserService sysUserService;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterType().isAssignableFrom(UserVo.class) && parameter.hasParameterAnnotation(LoginUser.class);
+        return parameter.getParameterType().isAssignableFrom(SysUserEntity.class) && parameter.hasParameterAnnotation(LoginUser.class);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
         }
 
         //获取用户信息
-        UserVo user = userService.queryObject((Long) object);
+        SysUserEntity user = sysUserService.queryObject((Long) object);
 
         return user;
     }

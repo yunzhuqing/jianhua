@@ -367,7 +367,7 @@ public class ApiCartController extends ApiBaseAction {
     //  获取购物车商品的总件件数
     @ApiOperation(value = "获取购物车商品的总件件数")
     @GetMapping("goodscount")
-    public Object goodscount(@LoginUser UserVo loginUser) {
+    public Object goodscount(@LoginUser SysUserEntity loginUser) {
         if (null == loginUser || null == loginUser.getUserId()) {
             return toResponsFail("未登录");
         }

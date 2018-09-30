@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.LoginUser;
 import com.platform.cache.J2CacheUtils;
 import com.platform.entity.BuyGoodsVo;
+import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserVo;
 import com.platform.util.ApiBaseAction;
 import io.swagger.annotations.Api;
@@ -19,7 +20,7 @@ public class ApiBuyController extends ApiBaseAction {
 
     @ApiOperation(value = "商品添加")
     @PostMapping("/add")
-    public Object addBuy(@LoginUser UserVo loginUser) {
+    public Object addBuy(@LoginUser SysUserEntity loginUser) {
         JSONObject jsonParam = getJsonRequest();
         Integer goodsId = jsonParam.getInteger("goodsId");
         Integer productId = jsonParam.getInteger("productId");

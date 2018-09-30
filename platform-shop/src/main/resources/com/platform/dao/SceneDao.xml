@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.platform.dao.SceneDao">
+
+    <resultMap type="com.platform.entity.SceneEntity" id="map">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="userId" column="user_id"/>
+        <result property="order" column="order"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    
+    <sql id="fields">
+    	`id`,
+    	`name`,
+		`user_id`,
+		`order`,
+		`create_time`,
+		`update_time`
+    </sql>
+
+    <sql id="tableName">
+        jianhua_scene
+    </sql>
+
+    <sql id="query">
+        <where>
+            <if test="user_id != null">
+                AND user_id = #{user_id}
+            </if>
+        </where>
+        order by `order` desc
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </sql>
+
+    <select id="queryObject" resultMap="map">
+		select
+			<include refid="fields"></include>
+		from <include refid="tableName" />
+		where id = #{id}
+	</select>
+
+    <select id="queryList" resultMap="map">
+        select
+            <include refid="fields"></include>
+        from <include refid="tableName" />
+        <include refid="query" />
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(id) from <include refid="tableName" />
+        <include refid="query" />
+    </select>
+
+    <insert id="save" parameterType="com.platform.entity.SceneEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into <include refid="tableName" /> (
+			`name`,
+			`user_id`,
+			`order`,
+			`create_time`,
+			`update_time`)
+		values(
+			#{name},
+			#{userId},
+			#{order},
+			now(),now())
+	</insert>
+
+    <update id="update" parameterType="com.platform.entity.SceneEntity">
+        update <include refid="tableName" />
+        <set>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="order != null">`order` = #{order},</if>
+            <if test="userId != null">`user_id` = #{userId},</if>
+            update_time=now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+		delete from <include refid="tableName" /> where id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from <include refid="tableName" /> where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

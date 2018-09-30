@@ -4,6 +4,7 @@ import com.platform.annotation.IgnoreAuth;
 import com.platform.annotation.LoginUser;
 import com.platform.entity.OrderGoodsVo;
 import com.platform.entity.OrderVo;
+import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserVo;
 import com.platform.service.ApiKdniaoService;
 import com.platform.service.ApiOrderGoodsService;
@@ -56,7 +57,7 @@ public class ApiOrderController extends ApiBaseAction {
      */
     @ApiOperation(value = "获取订单列表")
     @GetMapping("list")
-    public Object list(@LoginUser UserVo loginUser,
+    public Object list(@LoginUser SysUserEntity loginUser,
                        @RequestParam(value = "page", defaultValue = "1") Integer page,
                        @RequestParam(value = "size", defaultValue = "10") Integer size) {
         //
@@ -153,7 +154,7 @@ public class ApiOrderController extends ApiBaseAction {
      */
     @ApiOperation(value = "订单提交")
     @PostMapping("submit")
-    public Object submit(@LoginUser UserVo loginUser) {
+    public Object submit(@LoginUser SysUserEntity loginUser) {
         Map resultObj = null;
         try {
             resultObj = orderService.submit(getJsonRequest(), loginUser);
