@@ -1,3 +1,6 @@
+var util = require('../../utils/util.js');
+var api = require('../../config/api.js');
+
 // pages/indexv2/indexv2.js
 Page({
 
@@ -5,14 +8,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    suggestItems:[],
+    suggestScenes:[],
+    suggestGifts:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getSuggestItems();
+    this.getSuggestScene();
+    this.getSuggestGift();
   },
 
   /**
@@ -67,5 +74,38 @@ Page({
     wx.navigateTo({
       url: '../shop/shop',
     })
+  },
+  getSuggestItems: function () {
+    let that = this;
+    util.request(api.SuggestItem, {scene:0}).then(function(res) {
+      console.log(res);
+      if (res.code == 0) {
+        that.setData({
+          suggestItems: res.items
+        });
+      }
+    });
+  },
+  getSuggestScene: function() {
+    let that = this;
+    util.request(api.SuggestScene).then(function (res) {
+      console.log("this is items>>");
+      console.log(res.items);
+      if (res.code == 0) {
+        that.setData({
+          suggestScenes: res.items
+        });
+      }
+    });
+  },
+  getSuggestGift: function () {
+    let that = this;
+    util.request(api.SuggestItem, {scene:1}).then(function (res) {
+      if (res.code == 0) {
+        that.setData({
+          suggestGifts: res.items
+        });
+      }
+    });
   }
 })

@@ -14,6 +14,9 @@ Page({
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
     // 页面显示
+    this.setData({
+      userId: options.userId
+    });
 
     wx.showLoading({
       title: '加载中...',
@@ -42,7 +45,7 @@ Page({
       return;
     }
 
-    util.request(api.OrderList, {page: that.data.page, size: that.data.size}).then(function (res) {
+    util.request(api.OrderList, {userId: that.data.userId, page: that.data.page, size: that.data.size}).then(function (res) {
       if (res.errno === 0) {
         console.log(res.data);
         that.setData({

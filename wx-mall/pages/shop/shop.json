@@ -1,1 +1,12 @@
-{}
+{
+  "usingComponents" : {
+    "i-button" : "../../component/dist/button/index",
+    "i-icon": "../../component/dist/icon/index",
+    "i-row": "../../component/dist/row/index",
+    "i-col": "../../component/dist/col/index",
+    "i-tabs": "../../component/dist/tabs/index",
+    "i-tab": "../../component/dist/tab/index",
+    "i-divider": "../../component/dist/divider/index",
+    "i-card": "../../component/dist/card/index"
+  }
+}

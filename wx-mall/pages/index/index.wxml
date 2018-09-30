@@ -13,46 +13,15 @@
       <label class='more'>更多</label>
     </view>
     <scroll-view scroll-x='true'>
-      <view class='suggest-item'>
-        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
-        <view class='suggest-item-bottom'>
-          <view class='suggest-item-bottom-item'>新人专享</view>
-          <view class='suggest-item-bottom-item'>99</view>
+      <block wx:for="{{suggestItems}}" wx:for-item="item" wx:for-index="idx">
+        <view class='suggest-item' >
+          <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
+          <view class='suggest-item-bottom'>
+            <view class='suggest-item-bottom-item'>{{item.itemFirst}}</view>
+            <view class='suggest-item-bottom-item'>{{item.itemSecond}}</view>
+          </view>
         </view>
-      </view>
-
-      <view class='suggest-item'>
-        <image class='suggest-item-pic' src='../../static/images/flower-b.svg'></image>
-        <view class='suggest-item-bottom'>
-          <view class='suggest-item-bottom-item'>经典玫瑰</view>
-          <view class='suggest-item-bottom-item'>300</view>
-        </view>
-      </view>
-
-      <view class='suggest-item'>
-        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
-        <view class='suggest-item-bottom'>
-          <view class='suggest-item-bottom-item'>玫瑰护理</view>
-          <view class='suggest-item-bottom-item'>作者: 杨佳奇</view>
-        </view>
-      </view>
-
-      <view class='suggest-item'>
-        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
-        <view class='suggest-item-bottom'>
-          <view class='suggest-item-bottom-item'>书与花</view>
-          <view class='suggest-item-bottom-item'>￥100</view>
-        </view>
-      </view>
-
-      <view class='suggest-item'>
-        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
-        <view class='suggest-item-bottom'>
-          <view class='suggest-item-bottom-item'>7夕珍品</view>
-          <view class='suggest-item-bottom-item'>￥520</view>
-        </view>
-      </view>
-    
+      </block>
     </scroll-view>
   </view>
 
@@ -63,19 +32,10 @@
     </view>
     <view class='scene'>
       <view class='scene-list'>
-        <button class='scene-item'>生日</button>
-        <button class='scene-item'>女友</button>
-        <button class='scene-item'>老婆</button>
-        <button class='scene-item'>同事</button>
+        <block wx:for="{{suggestScenes}}" wx:for-item="item" wx:for-index="idx">
+          <label class='scene-item'>{{item.name}}</label>
+        </block>
       </view>
-
-      <view class='scene-list'>
-        <button class='scene-item'>父母</button> 
-        <button class='scene-item'>同学</button>
-        <button class='scene-item'>居家</button>
-        <button class='scene-item'>办公室</button>
-      </view>
-      
     </view>
   </view>
 
@@ -128,7 +88,15 @@
       <label class='more'>更多</label>
     </view>
     <view>
-      <view class='gift-goods-item'></view>
+        <block wx:for="{{suggestGifts}}" wx:for-item="item" wx:for-index="idx" >
+          <view class='gift-goods-item'>
+            <image src='{{item.url}}' class='gift-goods-pic' mode='scaleToFill'/>
+            <view class='gift-goods-item-bottom'>
+              <text class='goods-bottom-font'>{{item.itemFirst}}</text>
+            </view>
+          </view>
+          
+        </block>
     </view>
   </view>
 </view>
