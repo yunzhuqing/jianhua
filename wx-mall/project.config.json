@@ -28,7 +28,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 8,
 			"list": [
 				{
 					"id": 0,
@@ -69,7 +69,19 @@
 				{
 					"id": -1,
 					"name": "商品",
-					"pathName": "pages/goods/goods"
+					"pathName": "pages/goods/goods",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "地图",
+					"pathName": "pages/map/map",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "栏目",
+					"pathName": "pages/catalog/catalog"
 				}
 			]
 		}

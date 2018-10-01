@@ -1,4 +1,4 @@
-//var NewApiRootUrl = 'http://47.75.86.219:8080/platform-framework/api/';
+// var NewApiRootUrl = 'http://47.75.86.219:8080/platform-framework/api/';
 var NewApiRootUrl = 'http://localhost:8080/api/';
 module.exports = {
   IndexUrlNewGoods: NewApiRootUrl + 'index/newGoods', //
@@ -79,6 +79,6 @@ module.exports = {
   OrderQuery: NewApiRootUrl + 'pay/query',
   OrderSuccess: NewApiRootUrl + 'order/updateSuccess',
   SuggestItem: NewApiRootUrl + 'suggest/list',
-  SuggestScene: NewApiRootUrl + 'scene/suggest'
-    
+  SuggestScene: NewApiRootUrl + 'scene/suggest',
+  SceneList: NewApiRootUrl + 'scene/catalog'
 };

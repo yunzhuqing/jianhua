@@ -1,7 +1,7 @@
 <!--pages/indexv2/indexv2.wxml-->
 <view class='container'>
   <view class='top'>
-    <image src='../../static/images/maps.png' style='' class='maps'></image>
+    <image src='../../static/images/maps.png' style='' class='maps' bindtap='clickMap'></image>
     <label class='city'>杭州</label>
     <input class='search'></input>
     <button class=''>搜索</button>
@@ -15,7 +15,7 @@
     <scroll-view scroll-x='true'>
       <block wx:for="{{suggestItems}}" wx:for-item="item" wx:for-index="idx">
         <view class='suggest-item' >
-          <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
+          <image class='suggest-item-pic' src='{{item.url}}'></image>
           <view class='suggest-item-bottom'>
             <view class='suggest-item-bottom-item'>{{item.itemFirst}}</view>
             <view class='suggest-item-bottom-item'>{{item.itemSecond}}</view>
@@ -95,7 +95,6 @@
               <text class='goods-bottom-font'>{{item.itemFirst}}</text>
             </view>
           </view>
-          
         </block>
     </view>
   </view>

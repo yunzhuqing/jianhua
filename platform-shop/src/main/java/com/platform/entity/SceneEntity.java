@@ -39,6 +39,16 @@ public class SceneEntity implements Serializable {
      */
     private Date updateTime;
 
+    /**
+     * 主图地址
+     */
+    private String primaryPicUrl;
+
+    /**
+     * 父目录
+     */
+    private Long parentId;
+
     public Long getId() {
         return id;
     }
@@ -85,5 +95,21 @@ public class SceneEntity implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getPrimaryPicUrl() {
+        return primaryPicUrl;
+    }
+
+    public void setPrimaryPicUrl(String primaryPicUrl) {
+        this.primaryPicUrl = primaryPicUrl;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }

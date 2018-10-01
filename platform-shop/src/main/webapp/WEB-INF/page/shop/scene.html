@@ -24,6 +24,16 @@
             <Form-item label="场景名称" prop="name">
                 <i-input type="textarea" v-model="scene.name"/>
             </Form-item>
+
+            <Form-item label="父节点" prop="parentId" style="width: 288px;">
+                <i-select v-model="scene.parentId">
+                    <i-option value="" key="">请选择</i-option>
+                    <i-option v-for="scene in parentScenes" :value="scene.id"
+                              :key="scene.id">{{scene.name}}
+                    </i-option>
+                </i-select>
+            </Form-item>
+
             <Form-item>
                 <i-button type="primary" @click="handleSubmit('formValidate')">提交</i-button>
                 <i-button type="warning" @click="reload" style="margin-left: 8px"/>

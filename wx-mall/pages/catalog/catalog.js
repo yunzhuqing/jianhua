@@ -20,10 +20,10 @@ Page({
     wx.showLoading({
       title: '加载中...',
     });
-    util.request(api.CatalogList).then(function (res) {
+    util.request(api.SceneList).then(function (res) {
         that.setData({
-          navList: res.data.categoryList,
-          currentCategory: res.data.currentCategory
+          navList: res.scenes,
+          currentCategory: res.current
         });
         wx.hideLoading();
       });

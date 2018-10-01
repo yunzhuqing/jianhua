@@ -71,6 +71,48 @@ public class SceneController extends AbstractController {
         return  R.ok().put("page", pageUtil);
     }
 
+    @GetMapping("catalog")
+    public R catalog() {
+        Map<String, Object> attrs = new HashMap<>();
+        List<SceneEntity> scenes = sceneService.queryList(attrs);
+        List<SceneInnerVO> items = new LinkedList<>();
+
+        if(!CollectionUtils.isEmpty(scenes)) {
+            scenes.forEach(item -> {
+                SceneInnerVO sceneVO = new SceneInnerVO();
+                sceneVO.setId(item.getId());
+                sceneVO.setName(item.getName());
+                sceneVO.setUserName(sysUserService.queryObject(item.getUserId()).getNickname());
+                sceneVO.setCt(item.getCreateTime());
+                items.add(sceneVO);
+            });
+        }
+        R r = R.ok();
+        r.put("scenes", scenes);
+        r.put("current", scenes.get(0));
+        return r;
+    }
+
+    @GetMapping("getParent")
+    public R getParent() {
+        List<SceneEntity> scenes = sceneService.queryParent();
+        List<SceneInnerVO> items = new LinkedList<>();
+
+        if(!CollectionUtils.isEmpty(scenes)) {
+            scenes.forEach(item -> {
+                SceneInnerVO sceneVO = new SceneInnerVO();
+                sceneVO.setId(item.getId());
+                sceneVO.setName(item.getName());
+                sceneVO.setUserName(sysUserService.queryObject(item.getUserId()).getNickname());
+                sceneVO.setCt(item.getCreateTime());
+                items.add(sceneVO);
+            });
+        }
+        R r = R.ok();
+        r.put("scenes", scenes);
+        return r;
+    }
+
     /**
      * 新建场景
      * @param scene

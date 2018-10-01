@@ -107,5 +107,10 @@ Page({
         });
       }
     });
+  },
+  clickMap: function() {
+    wx.chooseLocation({success: function(res) {
+      console.log(res);
+    }});
   }
 })

@@ -15,7 +15,11 @@ var vm = new Vue({
     data: {
         showList: true,
         title: null,
-        scene:{}
+        scene:{},
+        parentScenes:[]
+    },
+    mounted() {
+        this.getParentScenes();
     },
     methods: {
         query: function () {
@@ -72,12 +76,12 @@ var vm = new Vue({
                 });
             });
         },
-        getInfo: function (id) {
+        getParentScenes: function () {
             Ajax.request({
-                url: "../ad/info/" + id,
+                url: "../scene/getParent" ,
                 async: true,
                 successCallback: function (r) {
-                    vm.ad = r.ad;
+                    vm.parentScenes = r.scenes;
                 }
             });
         },

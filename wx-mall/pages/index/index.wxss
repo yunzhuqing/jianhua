@@ -35,7 +35,7 @@
 
 .top .city {
   width: 8%;
-  font-size: 5rpx;
+  font-size: 25rpx;
   margin-left: 20rpx;
   padding-top: 10rpx;
   float: left;
@@ -167,8 +167,8 @@
 }
 
 .gift-goods-item {
-  width: 45%;
-  height: 350rpx;
+  width: 48%;
+  height: 400rpx;
   margin-left: 20rpx;
   margin-top: 20rpx;
   box-shadow:1px 1px 1px #aaaaaa;
