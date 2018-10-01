@@ -64,11 +64,20 @@ public class SceneController extends AbstractController {
                 sceneVO.setName(item.getName());
                 sceneVO.setUserName(sysUserService.queryObject(item.getUserId()).getNickname());
                 sceneVO.setCt(item.getCreateTime());
+                sceneVO.setParentId(item.getParentId());
                 items.add(sceneVO);
             });
         }
-        PageUtils pageUtil = new PageUtils(items, items.size(), 100, 1);
-        return  R.ok().put("page", pageUtil);
+
+        SceneInnerVO root = new SceneInnerVO();
+        root.setId(0L);
+        root.setName("一级分类");
+        root.setParentId(-1L);
+        root.setOpen(true);
+        items.add(0,root);
+
+
+        return  R.ok().put("list", items);
     }
 
     @GetMapping("catalog")
@@ -127,6 +136,15 @@ public class SceneController extends AbstractController {
         } else {
             return R.error("保存失败");
         }
+    }
+
+    @GetMapping("/info/{id}")
+    public R info(@PathVariable("id") Long id) {
+        SceneEntity sceneEntity = sceneService.queryObject(id.intValue());
+        if(null == sceneEntity) {
+            return R.error("未找到对应的场景");
+        }
+        return R.ok().put("scene", sceneEntity);
     }
 
     /**

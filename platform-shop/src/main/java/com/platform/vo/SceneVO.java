@@ -1,5 +1,7 @@
 package com.platform.vo;
 
+import com.platform.entity.Tree;
+
 import java.io.Serializable;
 
 /**

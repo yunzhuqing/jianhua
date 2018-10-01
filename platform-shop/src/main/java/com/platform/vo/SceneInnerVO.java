@@ -20,6 +20,8 @@ public class SceneInnerVO extends SceneVO {
      */
     private Date ct;
 
+    private Long parentId;
+
     public String getUserName() {
         return userName;
     }
@@ -34,5 +36,13 @@ public class SceneInnerVO extends SceneVO {
 
     public void setCt(Date ct) {
         this.ct = ct;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }

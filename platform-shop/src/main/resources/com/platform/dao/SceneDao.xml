@@ -59,7 +59,7 @@
         select
         <include refid="fields"></include>
         from <include refid="tableName" />
-        where parent_id != 0;
+        where parent_id = 0;
     </select>
 
     <select id="queryTotal" resultType="int">
@@ -75,15 +75,15 @@
 			`create_time`,
 			`update_time`,
             `primary_pic_url`,
-            `parent_id`,
+            `parent_id`
         )
 		values(
 			#{name},
 			#{userId},
 			#{order},
-			now(),now()),
+			now(),now(),
             #{primaryPicUrl},
-            #{parentId}
+            #{parentId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.SceneEntity">

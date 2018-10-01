@@ -26,6 +26,7 @@ public class SceneDaoTest extends AbstractTransactionalJUnit4SpringContextTests 
         SceneEntity sceneEntity = new SceneEntity();
 
         sceneEntity.setName(name);
+        sceneEntity.setParentId(0L);
         assertTrue(sceneDao.save(sceneEntity) > 0);
         assertTrue(sceneEntity.getId() > 0);
 
