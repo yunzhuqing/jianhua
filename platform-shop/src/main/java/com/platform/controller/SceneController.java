@@ -69,14 +69,6 @@ public class SceneController extends AbstractController {
             });
         }
 
-        SceneInnerVO root = new SceneInnerVO();
-        root.setId(0L);
-        root.setName("一级分类");
-        root.setParentId(-1L);
-        root.setOpen(true);
-        items.add(0,root);
-
-
         return  R.ok().put("list", items);
     }
 
