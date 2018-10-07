@@ -7,12 +7,28 @@
   </view>
   <view class="catalog">
     <scroll-view class="nav" scroll-y="true">
-        <view class="item {{ currentCategory.id == item.id ? 'active' : ''}}" wx:for="{{navList}}"  data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCate">{{item.name}}</view>
+      <view class="item {{ currentCategory.id == item.id ? 'active' : ''}}" wx:for="{{navList}}" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCate">{{item.name}}</view>
     </scroll-view>
     <view class="subcatalog">
-      <view>热门鲜花</view>
-      <view>精选礼物</view>
-      <view>约会圣地</view>
+      <view class='subscene' wx:for="{{subList}}" wx:for-item="subscene" data-id="{{item}}" data-index="{{index}}">
+        <view class='subscene title'>
+          <label>{{subscene.name}}</label>
+        </view>
+
+        <block wx:for="{{ subscene.suggestItems.length / cols}}" wx:for-item="suggestId">
+          <view class='tr'>
+            <block wx:for="{{cols}}" wx:if="{{(index + 1) * (suggestId + 1) <= subscene.suggestItems.length}}"> 
+              <view class="td">
+                <view class='subscene cell' bindtap='itemClick' data-goodsid='{{subscene.suggestItems[suggestId * cols + index].rid}}'>
+                  <image src='{{subscene.suggestItems[suggestId * cols + index].url}}' class='subscene picture'></image>
+                  <label class='subscene itemFirst'>{{subscene.suggestItems[suggestId * cols + index].itemFirst}}</label>
+                  <label class='subscene itemSecond'>{{subscene.suggestItems[suggestId * cols + index].itemSecond}}</label>
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
+      </view>
     </view>
   </view>
 </view>

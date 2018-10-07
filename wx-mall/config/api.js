@@ -80,5 +80,6 @@ module.exports = {
   OrderSuccess: NewApiRootUrl + 'order/updateSuccess',
   SuggestItem: NewApiRootUrl + 'suggest/list',
   SuggestScene: NewApiRootUrl + 'scene/suggest',
-  SceneList: NewApiRootUrl + 'scene/catalog'
+  SceneList: NewApiRootUrl + 'scene/catalog',
+  SceneSubList: NewApiRootUrl + 'scene/subcatalog'
 };

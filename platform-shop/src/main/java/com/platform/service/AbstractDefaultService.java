@@ -23,7 +23,7 @@ public abstract class AbstractDefaultService<T> implements  AbstractService<T> {
      * @return 实体
      */
 	 @Override
-    public T queryObject(Integer id) {
+    public T queryObject(Long id) {
     	return baseDao.queryObject(id);
     }
 
@@ -78,7 +78,7 @@ public abstract class AbstractDefaultService<T> implements  AbstractService<T> {
      * @return 删除条数
      */
     @Override
-    public int delete(Integer id) {
+    public int delete(Long id) {
     	return baseDao.delete(id);
     }
 

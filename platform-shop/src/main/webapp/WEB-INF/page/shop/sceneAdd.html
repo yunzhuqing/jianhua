@@ -20,18 +20,22 @@
 
     <Card v-show="!showList">
         <p slot="title">{{title}}</p>
-        <i-form ref="formValidate" :model="scene" :label-width="80">
-            <Form-item label="场景名称" prop="name">
-                <i-input type="textarea" v-model="scene.name"/>
-            </Form-item>
-
-            <Form-item label="父节点" prop="parentId" style="width: 288px;">
-                <i-select v-model="scene.parentId">
-                    <i-option v-for="parentScene in parentScenes" :value="parentScene.id"
-                              :key="parentScene.id">{{parentScene.name}}
-                    </i-option>
+        <i-form ref="formValidate" :model="sceneGroup" :label-width="80">
+            <Form-item label="类型" prop="type">
+                <i-select v-model="sceneGroup.type">
+                    <i-option key="0" value="0">商品</i-option>
+                    <i-option key="1" value="1">活动</i-option>
                 </i-select>
             </Form-item>
+
+            <Form-item label="ID" prop="rid">
+                <i-input type="textarea" v-model="sceneGroup.rid"/>
+            </Form-item>
+
+            <Form-item label="顺序" prop="location">
+                <i-input type="textarea" v-model="sceneGroup.location"/>
+            </Form-item>
+
 
             <Form-item>
                 <i-button type="primary" @click="handleSubmit('formValidate')">提交</i-button>
@@ -43,6 +47,6 @@
     </Card>
 </div>
 
-<script src="${rc.contextPath}/js/shop/scene.js?_${date.systemTime}"></script>
+<script src="${rc.contextPath}/js/shop/sceneAdd.js?_${date.systemTime}"></script>
 </body>
 </html>

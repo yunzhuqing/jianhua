@@ -82,7 +82,7 @@ public class ShopController extends AbstractController {
      * 查看信息
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Integer id) {
+    public R info(@PathVariable("id") Long id) {
         ShopEntity shopEntity = shopService.queryObject(id);
         return R.ok().put("shop", shopEntity);
     }

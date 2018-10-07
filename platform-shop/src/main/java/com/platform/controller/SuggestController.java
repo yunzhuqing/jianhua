@@ -48,13 +48,14 @@ public class SuggestController {
             suggestItemVO.setId(item.getId());
             suggestItemVO.setType(item.getType());
             if(SuggestItemType.GOODS.ordinal() == item.getType()) {
-                GoodsEntity goodsEntity = goodsService.queryObject(item.getRid().intValue());
+                GoodsEntity goodsEntity = goodsService.queryObject(item.getRid());
                 SysUserEntity user = sysUserService.queryObject(item.getUserId());
                 if(null != goodsEntity) {
                     suggestItemVO.setItemFirst(goodsEntity.getName());
                     suggestItemVO.setUrl(goodsEntity.getPrimaryPicUrl());
                     suggestItemVO.setItemSecond(String.valueOf(goodsEntity.getMarketPrice()));
                     suggestItemVO.setUserName(user.getNickname());
+                    suggestItemVO.setRid((long)goodsEntity.getId().intValue());
                 }
                 items.add(suggestItemVO);
             }

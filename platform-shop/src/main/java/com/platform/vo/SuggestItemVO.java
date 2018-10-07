@@ -16,6 +16,11 @@ public class SuggestItemVO implements Serializable {
     private Integer type;
 
     /**
+     * 引用物品ID
+     */
+    private Long rid;
+
+    /**
      * 链接地址
      */
     private String url;
@@ -49,6 +54,14 @@ public class SuggestItemVO implements Serializable {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Long getRid() {
+        return rid;
+    }
+
+    public void setRid(Long rid) {
+        this.rid = rid;
     }
 
     public String getUrl() {

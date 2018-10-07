@@ -14,7 +14,7 @@
     </view>
     <scroll-view scroll-x='true'>
       <block wx:for="{{suggestItems}}" wx:for-item="item" wx:for-index="idx">
-        <view class='suggest-item' >
+        <view class='suggest-item' bindtap='itemClick' data-goodsid='{{item.rid}}'>
           <image class='suggest-item-pic' src='{{item.url}}'></image>
           <view class='suggest-item-bottom'>
             <view class='suggest-item-bottom-item'>{{item.itemFirst}}</view>

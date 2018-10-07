@@ -41,7 +41,7 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsGalleryDao goodsGalleryDao;
 
     @Override
-    public GoodsEntity queryObject(Integer id) {
+    public GoodsEntity queryObject(Long id) {
         return goodsDao.queryObject(id);
     }
 
@@ -141,7 +141,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public int delete(Integer id) {
+    public int delete(Long id) {
         SysUserEntity user = ShiroUtils.getUserEntity();
         GoodsEntity goodsEntity = queryObject(id);
         goodsEntity.setIsDelete(1);
@@ -153,9 +153,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public int deleteBatch(Integer[] ids) {
+    public int deleteBatch(Long[] ids) {
         int result = 0;
-        for (Integer id : ids) {
+        for (Long id : ids) {
             result += delete(id);
         }
         return result;
@@ -163,10 +163,10 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     @Transactional
-    public int back(Integer[] ids) {
+    public int back(Long[] ids) {
         SysUserEntity user = ShiroUtils.getUserEntity();
         int result = 0;
-        for (Integer id : ids) {
+        for (Long id : ids) {
             GoodsEntity goodsEntity = queryObject(id);
             goodsEntity.setIsDelete(0);
             goodsEntity.setIsOnSale(1);
@@ -178,7 +178,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public int enSale(Integer id) {
+    public int enSale(Long id) {
         SysUserEntity user = ShiroUtils.getUserEntity();
         GoodsEntity goodsEntity = queryObject(id);
         if (1 == goodsEntity.getIsOnSale()) {
@@ -191,7 +191,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public int unSale(Integer id) {
+    public int unSale(Long id) {
         SysUserEntity user = ShiroUtils.getUserEntity();
         GoodsEntity goodsEntity = queryObject(id);
         if (0 == goodsEntity.getIsOnSale()) {

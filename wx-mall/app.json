@@ -34,7 +34,6 @@
     "pages/topicDetail/topicDetail",
     "pages/auth/mobile/mobile",
     "pages/shopping/selCoupon/selCoupon",
-    "pages/indexbak/index",
     "pages/shop/shop"
   ],
   "window": {
