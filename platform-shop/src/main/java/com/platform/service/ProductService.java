@@ -23,6 +23,13 @@ public interface ProductService {
     ProductEntity queryObject(Integer id);
 
     /**
+     * 根据商品ID 查询产品信息
+     * @param goodsId
+     * @return
+     */
+    ProductEntity queryByGoodsId(Long goodsId);
+
+    /**
      * 分页查询
      *
      * @param map 参数
@@ -69,4 +76,6 @@ public interface ProductService {
      * @return 删除条数
      */
     int deleteBatch(Integer[] ids);
+
+
 }

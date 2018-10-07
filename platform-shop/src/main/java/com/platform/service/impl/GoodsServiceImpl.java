@@ -11,6 +11,7 @@ import com.platform.entity.GoodsEntity;
 import com.platform.entity.ProductEntity;
 import com.platform.entity.SysUserEntity;
 import com.platform.service.GoodsService;
+import com.platform.service.ProductService;
 import com.platform.utils.RRException;
 import com.platform.utils.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsAttributeDao goodsAttributeDao;
     @Autowired
     private ProductDao productDao;
+
+    @Autowired
+    private ProductService productService;
+
     @Autowired
     private GoodsGalleryDao goodsGalleryDao;
 
@@ -113,6 +118,19 @@ public class GoodsServiceImpl implements GoodsService {
     @Transactional
     public int update(GoodsEntity goods) {
         SysUserEntity user = ShiroUtils.getUserEntity();
+
+
+        ProductEntity productEntity = productService.queryByGoodsId((long)goods.getId());
+
+        if(null != productEntity) {
+            productEntity.setGoodsSn(goods.getGoodsSn());
+            productEntity.setGoodsNumber(goods.getGoodsNumber());
+            productEntity.setRetailPrice(goods.getRetailPrice());
+            productEntity.setMarketPrice(goods.getMarketPrice());
+            productEntity.setGoodsSpecificationIds("");
+            productService.update(productEntity);
+        }
+
         List<GoodsAttributeEntity> attributeEntityList = goods.getAttributeEntityList();
         if (null != attributeEntityList && attributeEntityList.size() > 0) {
             for (GoodsAttributeEntity goodsAttributeEntity : attributeEntityList) {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import com.platform.dao.ProductDao;
 import com.platform.entity.ProductEntity;
 import com.platform.service.ProductService;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Service实现类
@@ -60,6 +62,17 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return result;
+    }
+
+    @Override
+    public ProductEntity queryByGoodsId(Long goodsId) {
+        Map<String, Object> attrs = new HashMap<>();
+        attrs.put("goodsId", goodsId);
+        List<ProductEntity> products = productDao.queryList(attrs);
+        if(!CollectionUtils.isEmpty(products)) {
+            return products.get(0);
+        }
+        return null;
     }
 
     @Override

@@ -1,14 +1,22 @@
 package com.platform.controller;
 
+import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.GoodsEntity;
+import com.platform.entity.GoodsVo;
+import com.platform.entity.RelatedGoodsVo;
 import com.platform.service.GoodsService;
+import com.platform.service.RelatedGoodsService;
+import com.platform.util.ApiBaseAction;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,10 +28,13 @@ import java.util.Map;
  * @date 2017-08-21 21:19:49
  */
 @RestController
-@RequestMapping("goods")
-public class GoodsController {
+@RequestMapping(value = {"/api/goods", "/goods"})
+public class GoodsController extends ApiBaseAction {
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private RelatedGoodsService relatedGoodsService;
 
     /**
      * 查看列表
@@ -160,5 +171,39 @@ public class GoodsController {
         goodsService.unSale(id);
 
         return R.ok();
+    }
+
+    @ApiOperation(value = "商品详情页")
+    @IgnoreAuth
+    @GetMapping(value = "related")
+    public Map<String, Object> related(Long id) {
+        Map<String, Object> resultObj = new HashMap();
+        Map param = new HashMap();
+        param.put("goods_id", id);
+        param.put("fields", "related_goods_id");
+        List<RelatedGoodsVo> relatedGoodsEntityList = relatedGoodsService.queryList(param);
+
+        List<Integer> relatedGoodsIds = new ArrayList();
+        for (RelatedGoodsVo relatedGoodsEntity : relatedGoodsEntityList) {
+            relatedGoodsIds.add(relatedGoodsEntity.getRelated_goods_id());
+        }
+
+        List<GoodsVo> relatedGoods = new ArrayList<GoodsVo>();
+
+        if (null == relatedGoodsIds || relatedGoods.size() < 1) {
+            //查找同分类下的商品
+            GoodsEntity goodsCategory = goodsService.queryObject(id);
+            Map paramRelated = new HashMap();
+            paramRelated.put("fields", "id, name, list_pic_url, retail_price");
+            paramRelated.put("category_id", goodsCategory.getCategoryId());
+            relatedGoods = goodsService.queryList(paramRelated);
+        } else {
+            Map paramRelated = new HashMap();
+            paramRelated.put("goods_ids", relatedGoodsIds);
+            paramRelated.put("fields", "id, name, list_pic_url, retail_price");
+            relatedGoods = goodsService.queryList(paramRelated);
+        }
+        resultObj.put("goodsList", relatedGoods);
+        return toResponsSuccess(resultObj);
     }
 }

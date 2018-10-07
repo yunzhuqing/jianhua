@@ -499,7 +499,7 @@ public class ApiGoodsController extends ApiBaseAction {
      */
     @ApiOperation(value = "商品详情页")
     @IgnoreAuth
-    @GetMapping(value = "related")
+//    @GetMapping(value = "related")
     public Object related(Integer id) {
         Map<String, Object> resultObj = new HashMap();
         Map param = new HashMap();

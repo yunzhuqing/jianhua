@@ -34,7 +34,7 @@ public class DataFilterAspect {
     /**
      * 切点
      */
-    @Pointcut("@annotation(com.platform.annotation.DataFilter)")
+//    @Pointcut("@annotation(com.platform.annotation.DataFilter)")
     public void dataFilterCut() {
 
     }
@@ -44,7 +44,7 @@ public class DataFilterAspect {
      *
      * @param point 连接点
      */
-    @Before("dataFilterCut()")
+//    @Before("dataFilterCut()")
     public void dataFilter(JoinPoint point) {
         //获取参数
         Object params = point.getArgs()[0];
