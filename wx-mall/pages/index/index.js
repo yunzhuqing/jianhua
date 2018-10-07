@@ -107,5 +107,15 @@ Page({
         });
       }
     });
+  },
+  clickMap: function() {
+    wx.chooseLocation({success: function(res) {
+      console.log(res);
+    }});
+  },
+  itemClick: function(e) {
+    wx.navigateTo({
+      url: '../goods/goods?id=' + e.currentTarget.dataset.goodsid,
+    });
   }
 })

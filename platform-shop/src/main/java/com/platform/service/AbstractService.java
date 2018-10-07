@@ -34,7 +34,7 @@ public interface AbstractService<T> {
      * @param id 主键
      * @return 实体
      */
-    T queryObject(Integer id);
+    T queryObject(Long id);
 
     /**
      * 分页查询
@@ -74,7 +74,7 @@ public interface AbstractService<T> {
      * @param id
      * @return 删除条数
      */
-    int delete(Integer id);
+    int delete(Long id);
 
     /**
      * 根据主键批量删除

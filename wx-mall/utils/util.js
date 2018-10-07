@@ -134,6 +134,10 @@ function showSuccessToast(msg) {
   })
 }
 
+function toFixed(value, fix) {
+  return parseFloat(value).toFixed(fix);
+}
+
 module.exports = {
   formatTime,
   request,
@@ -142,6 +146,7 @@ module.exports = {
   showSuccessToast,
   checkSession,
   login,
+  toFixed
 }
 
 

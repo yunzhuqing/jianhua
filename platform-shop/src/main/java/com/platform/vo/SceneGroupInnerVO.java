@@ -1,51 +1,56 @@
-package com.platform.entity;
+package com.platform.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 场景定制
+ * 场景视图
  */
-public class SceneGroupEntity implements Serializable {
+public class SceneGroupInnerVO implements Serializable {
 
-    private static final long serialVersionUID = -5796085203396138520L;
+    private static final long serialVersionUID = -5505313893095755987L;
 
     private Long id;
 
-    /**
-     * 场景ID
-     */
     private Long sid;
 
     /**
-     * 场景类型
-     * 0-商品 1-活动
+     * scene 0-商品 1-活动
      */
     private Integer type;
 
     /**
-     * 引用ID
+     * 引用ID 商品ID或者活动ID
      */
     private Long rid;
 
     /**
-     * 场景ID
+     * 商品名称、活动名称
      */
+    private String name;
+
     private Long userId;
 
+    private String pictureUrl;
+
     /**
-     * 创建类型 0-系统 1-用户自定义
+     * 系统
      */
     private Integer from;
 
     /**
-     * 位置顺序
+     * 商品顺序
      */
     private Integer location;
 
     private Date createTime;
 
     private Date updateTime;
+
+    /**
+     * 用户姓名
+     */
+    private String userName;
 
     public Long getId() {
         return id;
@@ -61,6 +66,14 @@ public class SceneGroupEntity implements Serializable {
 
     public void setSid(Long sid) {
         this.sid = sid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getType() {
@@ -87,12 +100,28 @@ public class SceneGroupEntity implements Serializable {
         this.userId = userId;
     }
 
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
     public Integer getFrom() {
         return from;
     }
 
     public void setFrom(Integer from) {
         this.from = from;
+    }
+
+    public Integer getLocation() {
+        return location;
+    }
+
+    public void setLocation(Integer location) {
+        this.location = location;
     }
 
     public Date getCreateTime() {
@@ -111,11 +140,11 @@ public class SceneGroupEntity implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Integer getLocation() {
-        return location;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setLocation(Integer location) {
-        this.location = location;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

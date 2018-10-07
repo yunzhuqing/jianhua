@@ -4,6 +4,8 @@ var api = require('../../config/api.js');
 Page({
   data: {
     navList: [],
+    subList: [],
+    cols: 2,
     categoryList: [],
     currentCategory: {},
     scrollLeft: 0,
@@ -20,26 +22,21 @@ Page({
     wx.showLoading({
       title: '加载中...',
     });
-    util.request(api.CatalogList).then(function (res) {
+    util.request(api.SceneSubList + "/0").then(function (res) {
         that.setData({
-          navList: res.data.categoryList,
-          currentCategory: res.data.currentCategory
+          navList: res.scenes,
+          currentCategory: res.current
         });
         wx.hideLoading();
-      });
-    util.request(api.GoodsCount).then(function (res) {
-      that.setData({
-        goodsCount: res.data.goodsCount
-      });
+        that.getList(that.data.currentCategory.id);
     });
-
   },
   getCurrentCategory: function (id) {
     let that = this;
-    util.request(api.CatalogCurrent, { id: id })
+    util.request(api.SceneList + "/" + id)
       .then(function (res) {
         that.setData({
-          currentCategory: res.data.currentCategory
+          currentCategory: res.current
         });
       });
   },
@@ -55,12 +52,12 @@ Page({
   onUnload: function () {
     // 页面关闭
   },
-  getList: function () {
+  getList: function (id) {
     var that = this;
-    util.request(api.ApiRootUrl + 'api/catalog/' + that.data.currentCategory.cat_id)
-      .then(function (res) {
+    util.request(api.SceneSubList + "/" + id)
+      .then(function (res) {        
         that.setData({
-          categoryList: res.data,
+          subList: res.scenes
         });
       });
   },
@@ -70,7 +67,12 @@ Page({
     if (this.data.currentCategory.id == event.currentTarget.dataset.id) {
       return false;
     }
-
-    this.getCurrentCategory(event.currentTarget.dataset.id);
+    that.getCurrentCategory(event.currentTarget.dataset.id);
+    that.getList(event.currentTarget.dataset.id);
+  },
+  itemClick: function(e) {
+    wx.navigateTo({
+      url: '../goods/goods?id=' + e.currentTarget.dataset.goodsid,
+    });
   }
 })

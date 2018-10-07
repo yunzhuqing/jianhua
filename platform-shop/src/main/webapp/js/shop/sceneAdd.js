@@ -1,61 +1,43 @@
 $(function () {
-    getGrid();
-    initialPage();
+    var sceneId=getQueryString('sceneId');
+    $("#jqGrid").Grid({
+        url: '../scenegroup/list?sceneId=' + sceneId,
+        colModel: [{
+            label: 'id', name: 'id', index: 'id', key: true, hidden: true
+        }, {
+            label: '商品名称', name: 'name', index: 'name', width: 80
+        }, {
+            label: '商品类型', name: 'type', index: 'type', width: 80
+        }, {
+            label: '商品图片', name: 'pictureUrl', index: 'pictureUrl', width: 80, formatter: function (value) {
+                return transImg(value);
+            }
+        }, {
+            label: '商品顺序', name: 'location', index: 'location', width: 80
+        }, {
+            label: '创建时间', name: 'createTime', index: 'createTime', width: 80, formatter: function (value) {
+                return transDate(value);
+            }
+        }, {
+            label: '更新时间', name: 'updateTime', index: 'updateTime', width: 80, formatter: function (value) {
+                return transDate(value);
+            }
+        }, {
+            label: '创建人', name: 'userName', index: 'userName', width: 80
+        }]
+    });
 });
 
-function initialPage() {
-    $(window).resize(function () {
-        TreeGrid.table.resetHeight({height: $(window).height() - 100});
-    });
-}
-
-function getGrid() {
-    var columns = TreeGrid.initColumn();
-    var table = new TreeTable(TreeGrid.id, '../scene/list', columns);
-    table.setExpandColumn(2);
-    table.setIdField("id");
-    table.setCodeField("id");
-    table.setParentCodeField("parentId");
-    table.setExpandAll(false);
-    table.setHeight($(window).height() - 100);
-    table.init();
-    TreeGrid.table = table;
-}
-
-var TreeGrid = {
-    id: "jqGrid",
-    table: null,
-    layerIndex: -1
-};
-
-/**
- * 初始化表格的列
- */
-TreeGrid.initColumn = function () {
-    var columns = [
-        {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', align: 'center', valign: 'middle', width: '50px'},
-        {title: '场景名称', field: 'name', align: 'center', valign: 'middle', width: '100px'},
-        {title: '创建人', field: 'userName', align: 'center', valign: 'middle', width: '50px'},
-        {title: '创建时间', field: 'ct', align: 'center', valign: 'middle', width: '100px', formatter: function (value) {
-                return transDate(value);
-          }},
-        {title: '操作', field: 'operation', align: 'center', valign: 'middle', width: '100px', formatter: function (r, i) {
-                return "<a href='/shop/sceneAdd.html?sceneId=" + r.id +"'>添加商品</a>";
-            }}];
-    return columns;
-};
 
 var vm = new Vue({
     el: '#rrapp',
     data: {
         showList: true,
         title: null,
-        scene:{},
+        sceneGroup:{},
         parentScenes:[]
     },
     mounted() {
-        this.getParentScenes();
     },
     methods: {
         query: function () {
@@ -66,32 +48,32 @@ var vm = new Vue({
             vm.title = "新增";
         },
         update: function (event) {
-            var id = TreeGrid.table.getSelectedRow();
-            if (id.length == 0) {
-                iview.Message.error("请选择一条记录");
-                return;
+            var id = getSelectedRow("#jqGrid");
+            if (id == null) {
+                return false;
             }
             vm.showList = false;
             vm.title = "修改";
-            vm.getInfo(id[0].id);
+            vm.getInfo(id);
         },
         getInfo: function (id) {
             Ajax.request({
-                url: "../scene/info/" + id,
+                url: "../scenegroup/info/" + id,
                 async: true,
                 successCallback: function (r) {
-                    vm.scene = r.scene;
+                    vm.sceneGroup = r.sceneGroup;
                 }
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.scene.id == null ? "../scene/save" : "../scene/update";
+            vm.sceneGroup.sid = getQueryString('sceneId');
+            var url = vm.sceneGroup.id == null ? "../scenegroup/save" : "../scenegroup/update";
 
             Ajax.request({
                 type: "POST",
                 url: url,
                 contentType: "application/json",
-                params: JSON.stringify(vm.scene),
+                params: JSON.stringify(vm.sceneGroup),
                 successCallback: function () {
                     alert('操作成功', function (index) {
                         vm.reload();
@@ -103,17 +85,18 @@ var vm = new Vue({
             console.log('add goods');
         },
         del: function (event) {
-            var ids = TreeGrid.table.getSelectedRow();
+            var ids = getSelectedRows("#jqGrid");
             if (ids == null) {
                 return;
             }
 
             confirm('确定要删除选中的记录？', function () {
+
                 Ajax.request({
                     type: "POST",
-                    url: "../scene/delete/" + ids[0].id,
+                    url: "../sceneGroup/delete",
                     contentType: "application/json",
-                    params: null,
+                    params: JSON.stringify(ids),
                     successCallback: function () {
                         alert('操作成功', function (index) {
                             vm.reload();
@@ -133,7 +116,11 @@ var vm = new Vue({
         },
         reload: function (event) {
             vm.showList = true;
-            TreeGrid.table.refresh();
+            var page = $("#jqGrid").jqGrid('getGridParam', 'page');
+            $("#jqGrid").jqGrid('setGridParam', {
+                postData: null,
+                page: page
+            }).trigger("reloadGrid");
         },
         handleSuccess: function (res, file) {
             vm.ad.imageUrl = file.response.url;

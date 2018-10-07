@@ -1,6 +1,9 @@
 package com.platform.vo;
 
+import com.platform.entity.Tree;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 场景视图
@@ -12,6 +15,8 @@ public class SceneVO implements Serializable {
     private Long id;
 
     private String name;
+
+    private List<SuggestItemVO> suggestItems;
 
     public Long getId() {
         return id;
@@ -27,5 +32,13 @@ public class SceneVO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<SuggestItemVO> getSuggestItems() {
+        return suggestItems;
+    }
+
+    public void setSuggestItems(List<SuggestItemVO> suggestItems) {
+        this.suggestItems = suggestItems;
     }
 }

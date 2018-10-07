@@ -10,6 +10,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -45,6 +49,14 @@ public class SceneGroupDaoTest extends AbstractTransactionalJUnit4SpringContextT
         assertNotNull(groupEntity);
 
         assertTrue(1 == groupEntity.getType());
+
+        Map<String, Object> attrs = new HashMap<>();
+        attrs.put("sid", sceneId);
+        attrs.put("limit", 10);
+        attrs.put("offset", 0);
+        attrs.put("sidx", "location");
+        attrs.put("seq", "desc");
+        List<SceneGroupEntity> sceneGroups = sceneGroupDao.queryList(attrs);
 
         assertTrue(sceneGroupDao.delete(groupEntity.getId()) > 0);
     }

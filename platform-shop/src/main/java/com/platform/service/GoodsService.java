@@ -20,7 +20,7 @@ public interface GoodsService {
      * @param id 主键
      * @return 实体
      */
-    GoodsEntity queryObject(Integer id);
+    GoodsEntity queryObject(Long id);
 
     /**
      * 分页查询
@@ -60,7 +60,7 @@ public interface GoodsService {
      * @param id
      * @return 删除条数
      */
-    int delete(Integer id);
+    int delete(Long id);
 
     /**
      * 根据主键批量删除
@@ -68,7 +68,7 @@ public interface GoodsService {
      * @param ids
      * @return 删除条数
      */
-    int deleteBatch(Integer[] ids);
+    int deleteBatch(Long[] ids);
 
     /**
      * 商品从回收站恢复
@@ -76,7 +76,7 @@ public interface GoodsService {
      * @param ids
      * @return
      */
-    int back(Integer[] ids);
+    int back(Long[] ids);
 
     /**
      * 上架
@@ -84,7 +84,7 @@ public interface GoodsService {
      * @param id
      * @return
      */
-    int enSale(Integer id);
+    int enSale(Long id);
 
     /**
      * 下架
@@ -92,5 +92,5 @@ public interface GoodsService {
      * @param id
      * @return
      */
-    int unSale(Integer id);
+    int unSale(Long id);
 }

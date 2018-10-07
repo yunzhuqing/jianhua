@@ -10,6 +10,8 @@
         <result property="order" column="order"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="primaryPicUrl" column="primary_pic_url"/>
+        <result property="parentId" column="parent_id"/>
     </resultMap>
     
     <sql id="fields">
@@ -18,7 +20,9 @@
 		`user_id`,
 		`order`,
 		`create_time`,
-		`update_time`
+		`update_time`,
+		`primary_pic_url`,
+		`parent_id`
     </sql>
 
     <sql id="tableName">
@@ -29,6 +33,9 @@
         <where>
             <if test="user_id != null">
                 AND user_id = #{user_id}
+            </if>
+            <if test="parent_id != null">
+                AND parent_id = #{parent_id}
             </if>
         </where>
         order by `order` desc
@@ -51,6 +58,13 @@
         <include refid="query" />
     </select>
 
+    <select id="queryParent" resultMap="map">
+        select
+        <include refid="fields"></include>
+        from <include refid="tableName" />
+        where parent_id = 0;
+    </select>
+
     <select id="queryTotal" resultType="int">
         select count(id) from <include refid="tableName" />
         <include refid="query" />
@@ -62,12 +76,17 @@
 			`user_id`,
 			`order`,
 			`create_time`,
-			`update_time`)
+			`update_time`,
+            `primary_pic_url`,
+            `parent_id`
+        )
 		values(
 			#{name},
 			#{userId},
 			#{order},
-			now(),now())
+			now(),now(),
+            #{primaryPicUrl},
+            #{parentId})
 	</insert>
 
     <update id="update" parameterType="com.platform.entity.SceneEntity">
@@ -76,6 +95,8 @@
             <if test="name != null">`name` = #{name},</if>
             <if test="order != null">`order` = #{order},</if>
             <if test="userId != null">`user_id` = #{userId},</if>
+            <if test="primaryPicUrl != null">`primary_pic_url` = #{primary_pic_url},</if>
+            <if test="parentId != null">`parent_id` = #{parentId},</if>
             update_time=now()
         </set>
         where id = #{id}

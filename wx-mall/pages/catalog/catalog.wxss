@@ -161,3 +161,41 @@ page {
   height: 72rpx;
   width: 144rpx;
 }
+
+.subscene .title {
+  margin-top: 20rpx;
+}
+
+.subscene .cell {
+  width: 270rpx;
+  height: 300rpx;
+}
+
+.subscene .picture {
+  width: 100%;
+  height: 240rpx;
+}
+
+.subscene .itemSecond {
+  margin-left: 20rpx;
+}
+
+
+.tr {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.th, .td {
+  border-bottom: 1px solid #dadada;
+  border-right: 1px solid #dadada;
+  text-align: center;
+  margin-left: 10rpx;
+  width: 100%;
+  margin-top: 40rpx;
+}
+
+.td .active {
+  visibility:hidden;
+}

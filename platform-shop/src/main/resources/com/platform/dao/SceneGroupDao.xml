@@ -10,6 +10,7 @@
         <result property="rid" column="rid"/>
         <result property="userId" column="user_id"/>
         <result property="from" column="from"/>
+        <result property="location" column="location"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
@@ -21,6 +22,7 @@
     	`rid`,
 		`user_id`,
 		`from`,
+		`location`,
 		`create_time`,
 		`update_time`
     </sql>
@@ -35,12 +37,18 @@
                 AND user_id = #{user_id}
             </if>
 
-            <if test="offset != null and limit != null">
-                limit #{offset}, #{limit}
+            <if test="sid != null">
+                AND sid = #{sid}
             </if>
-
-            order by `id` desc
         </where>
+
+        <if test="sidx != null and seq != null">
+            order by ${sidx} ${seq}
+        </if>
+
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
     </sql>
 
     <select id="queryObject" resultMap="map">
@@ -69,6 +77,7 @@
             `rid`,
 			`user_id`,
 			`from`,
+            `location`,
 			`create_time`,
 			`update_time`)
 		values(
@@ -77,6 +86,7 @@
 			#{rid},
             #{userId},
             #{from},
+            #{location},
 			now(),now())
 	</insert>
 
