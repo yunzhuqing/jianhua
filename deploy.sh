@@ -1,6 +1,6 @@
 #!/bin/sh
 git pull
-mvn clean package
+mvn clean package -Dmaven.test.skip=true
 TOMCAT_PATH=/usr/local/share/apache-tomcat-8.0.53/webapps
 APP_NAME=platform-framework
 rm -rf ${APP_PATH}/${APP_NAME}.war
