@@ -7,6 +7,9 @@ var tabs = [{
     name: "我的订单"
   },
   {
+    name: "我的购物车"
+  },
+  {
     name: "我的收藏"
   },
   {
@@ -33,7 +36,10 @@ Page({
     navScrollLeft: 0,
     orderList: [],
     page: 1,
-    size: 10
+    size: 10,
+    loadmoreText: '正在加载更多数据',
+    nomoreText: '全部加载完成',
+    nomore: false
   },
   onLoad: function(options) {
     let that = this;

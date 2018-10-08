@@ -77,8 +77,7 @@ Page({
   },
   getSuggestItems: function () {
     let that = this;
-    util.request(api.SuggestItem, {scene:0}).then(function(res) {
-      console.log(res);
+    util.request(api.SuggestItem, {scene:1}).then(function(res) {
       if (res.code == 0) {
         that.setData({
           suggestItems: res.items
@@ -89,8 +88,6 @@ Page({
   getSuggestScene: function() {
     let that = this;
     util.request(api.SuggestScene).then(function (res) {
-      console.log("this is items>>");
-      console.log(res.items);
       if (res.code == 0) {
         that.setData({
           suggestScenes: res.items
@@ -100,7 +97,7 @@ Page({
   },
   getSuggestGift: function () {
     let that = this;
-    util.request(api.SuggestItem, {scene:1}).then(function (res) {
+    util.request(api.SuggestItem, {scene:2}).then(function (res) {
       if (res.code == 0) {
         that.setData({
           suggestGifts: res.items

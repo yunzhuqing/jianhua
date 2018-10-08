@@ -39,10 +39,16 @@
                 AND scene = #{scene}
             </if>
 
-            <if test="offset != null and limit != null">
-                limit #{offset}, #{limit}
-            </if>
         </where>
+
+        <if test="sidx != null and order != null">
+            order by `${sidx}` ${order}
+        </if>
+
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+
     </sql>
 
     <select id="queryObject" resultMap="map">
@@ -67,6 +73,7 @@
     <insert id="save" parameterType="com.platform.entity.SuggestEntity" useGeneratedKeys="true" keyProperty="id">
 		insert into <include refid="tableName" /> (
 			`rid`,
+            `type`,
 			`order`,
 			`user_id`,
 			`scene`,
@@ -74,6 +81,7 @@
 			`update_time`)
 		values(
 			#{rid},
+            #{type},
 			#{order},
 			#{userId},
 			#{scene},

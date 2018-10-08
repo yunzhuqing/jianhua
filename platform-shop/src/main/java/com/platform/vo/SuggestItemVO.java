@@ -40,6 +40,13 @@ public class SuggestItemVO implements Serializable {
      */
     private String itemSecond;
 
+    /**
+     * 场景类别
+     */
+    private Integer scene;
+
+    private Long ct;
+
     public Long getId() {
         return id;
     }
@@ -94,5 +101,21 @@ public class SuggestItemVO implements Serializable {
 
     public void setItemSecond(String itemSecond) {
         this.itemSecond = itemSecond;
+    }
+
+    public Integer getScene() {
+        return scene;
+    }
+
+    public void setScene(Integer scene) {
+        this.scene = scene;
+    }
+
+    public Long getCt() {
+        return ct;
+    }
+
+    public void setCt(Long ct) {
+        this.ct = ct;
     }
 }

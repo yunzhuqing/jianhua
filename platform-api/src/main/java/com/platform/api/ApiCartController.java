@@ -426,7 +426,7 @@ public class ApiCartController extends ApiBaseAction {
             BuyGoodsVo goodsVO = (BuyGoodsVo) J2CacheUtils.get(J2CacheUtils.SHOP_CACHE_NAME, "goods" + loginUser.getUserId() + "");
             ProductVo productInfo = productService.queryObject(goodsVO.getProductId());
             //计算订单的费用
-            //商品总价
+            //商品总价order
             goodsTotalPrice = productInfo.getRetail_price().multiply(new BigDecimal(goodsVO.getNumber()));
 
             CartVo cartVo = new CartVo();

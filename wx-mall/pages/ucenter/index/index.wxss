@@ -83,7 +83,7 @@ page{
     color: red;
 }
 .tab-box{
-    height: 800rpx;
+    height: 1400rpx;
 }
 .tab-content{
     overflow-y: scroll;
