@@ -6,7 +6,6 @@ App({
   onLaunch: function () {
     //获取用户的登录信息
     user.checkLogin().then(res => {
-      console.log('app login')
       this.globalData.userInfo = wx.getStorageSync('userInfo');
       this.globalData.token = wx.getStorageSync('token');
     }).catch(() => {
@@ -24,5 +23,6 @@ App({
     token: '',
     userCoupon: 'NO_USE_COUPON',//默认不适用优惠券
     courseCouponCode: {},//购买课程的时候优惠券信息
+    sceneId: 0
   }
 })

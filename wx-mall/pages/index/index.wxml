@@ -26,14 +26,10 @@
   </view>
 
   <view class='common-scene'> 
-    <view class='item-header'>
-      <label class='item-header-title'>送TA</label>/
-      <label class='more'>更多</label>
-    </view>
     <view class='scene'>
       <view class='scene-list'>
         <block wx:for="{{suggestScenes}}" wx:for-item="item" wx:for-index="idx">
-          <label class='scene-item'>{{item.name}}</label>
+          <label class='scene-item' bindtap='sceneClick' data-index="{{idx}}">{{item.name}}</label>
         </block>
       </view>
     </view>
@@ -70,15 +66,6 @@
         </view>
       </view>
     
-    </scroll-view>
-  </view>
-
-  <view class='other'>
-    <label class='item-header-title'>小趣</label>
-    <scroll-view scroll-x='true' class='choice'>
-      <button>每日精选</button>
-      <button>意见反馈</button>
-      <button>你的专属</button>
     </scroll-view>
   </view>
 

@@ -66,6 +66,7 @@
   height: 480rpx;
   width: 100%;
   margin-top: 20rpx;
+  margin-left: 20rpx;
   background: white;
 }
 
@@ -113,6 +114,7 @@
   height: 150rpx;
   background: white;
   margin-top: 20rpx;
+  margin-left: 20rpx;
 }
 
 .scene-item {
@@ -128,6 +130,7 @@
 .nearest-distince {
   height: 480rpx;
   margin-top: 20rpx;
+  margin-left: 20rpx;
   background: white;
 }
 
@@ -163,6 +166,7 @@
 .gift-goods {
   height: 800rpx;
   margin-top: 20rpx;
+  margin-left: 20rpx;
   background: white;
 }
 

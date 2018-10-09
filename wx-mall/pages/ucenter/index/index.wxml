@@ -16,29 +16,29 @@
     <swiper-item>
       <view class="orders">
         <navigator url="../orderDetail/orderDetail?id={{item.id}}" class="order" wx:for="{{orderList}}" wx:key="{{item.id}}">
-            <view class="h">
-                <view class="l">订单编号：{{item.order_sn}}</view>
-                <view class="r">{{item.order_status_text}}</view>
+          <view class="h">
+            <view class="l">订单编号：{{item.order_sn}}</view>
+            <view class="r">{{item.order_status_text}}</view>
+          </view>
+          <view class="goods" wx:for="{{item.goodsList}}" wx:key="{{gitem.id}}" wx:for-item="gitem">
+            <view class="img">
+              <image src="{{gitem.list_pic_url}}"></image>
             </view>
-            <view class="goods" wx:for="{{item.goodsList}}" wx:key="{{gitem.id}}" wx:for-item="gitem">
-                <view class="img">
-                    <image src="{{gitem.list_pic_url}}"></image>
-                </view>
-                <view class="info">
-                    <text class="name">{{gitem.goods_name}}</text>
-                    <text class="number">共{{gitem.number}}件商品</text>
-                </view>
-                <view class="status"></view>
+            <view class="info">
+              <text class="name">{{gitem.goods_name}}</text>
+              <text class="number">共{{gitem.number}}件商品</text>
             </view>
-            <view class="b">
-                <view class="l">实付：￥{{item.actual_price}}</view>
-                <view class="r">付款时间:{{item.add_time}}</view>
+            <view class="status"></view>
+          </view>
+          <view class="b">
+            <view class="l">实付：￥{{item.actual_price}}</view>
+            <view class="r">付款时间:{{item.add_time}}</view>
+          </view>
+          <view class="b">
+            <view class="r">
+              <button class="btn" data-order-index="{{index}}" catchtap="payOrder" wx:if="{{item.handleOption.pay}}">去付款</button>
             </view>
-            <view class="b">
-                <view class="r">
-                    <button class="btn" data-order-index="{{index}}" catchtap="payOrder" wx:if="{{item.handleOption.pay}}">去付款</button>
-                </view>
-            </view>
+          </view>
         </navigator>
       </view>
 
@@ -52,5 +52,131 @@
         </block>
       </view>
     </swiper-item>
+    <!-- 我的购物车-->
+    <swiper-item>
+      <view class="service-policy">
+        <view class="item">30天无忧退货</view>
+        <view class="item">48小时快速退款</view>
+        <view class="item">满88元免邮费</view>
+      </view>
+      <view class="no-cart" wx:if="{{cartGoods.length <= 0}}">
+        <view class="c">
+          <view class="title-box">
+            购物车空空如也～
+          </view>
+          <view class="to-index-btn" bindtap="toIndexPage">
+            去逛逛
+          </view>
+        </view>
+      </view>
+      <view class="cart-view" wx:if="{{cartGoods.length > 0}}">
+        <view class="list">
+          <view class="group-item">
+            <view class="goods">
+              <view class="item {{isEditCart ? 'edit' : ''}}" wx:for="{{cartGoods}}" wx:key="{{item.id}}">
+                <view class="checkbox {{item.checked ? 'checked' : ''}}" bindtap="checkedItem" data-item-index="{{index}}"></view>
+                <view class="cart-goods">
+                  <image class="img" src="{{item.list_pic_url}}"></image>
+                  <view class="info">
+                    <view class="t">
+                      <text class="name">{{item.goods_name}}</text>
+                      <text class="num">x{{item.number}}</text>
+                    </view>
+                    <view class="attr">{{ isEditCart ? '已选择:' : ''}}{{item.goods_specifition_name_value||''}}</view>
+                    <view class="b">
+                      <text class="price">￥{{item.retail_price}}</text>
+                      <view class="selnum">
+                        <view class="cut" bindtap="cutNumber" data-item-index="{{index}}">-</view>
+                        <input value="{{item.number}}" class="number" disabled="true" type="number" />
+                        <view class="add" bindtap="addNumber" data-item-index="{{index}}">+</view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="cart-bottom">
+          <view class="checkbox {{checkedAllStatus ? 'checked' : ''}}" bindtap="checkedAll">全选({{cartTotal.checkedGoodsCount}})</view>
+          <view class="total">{{!isEditCart ? '￥'+cartTotal.checkedGoodsAmount : ''}}</view>
+          <view class="delete" bindtap="editCart">{{!isEditCart ? '编辑' : '完成'}}</view>
+          <view class="checkout" bindtap="deleteCart" wx:if="{{isEditCart}}">删除所选</view>
+          <view class="checkout" bindtap="checkoutOrder" wx:if="{{!isEditCart}}">下单</view>
+        </view>
+      </view>
+    </swiper-item>
+    <!--我的收藏-->
+    <swiper-item>
+      <view class="collect-list">
+        <view class="collect-item" bindtap="openGoods" bindtouchstart="touchStart" bindtouchend="touchEnd" wx:for="{{collectList}}" wx:key="{{item.id}}" data-index="{{index}}">
+          <image class="collect-img" src="{{item.list_pic_url}}"></image>
+          <view class="collect-info">
+            <view class="collect-name">{{item.name}}</view>
+            <view class="collect-subtitle">{{item.goods_brief}}</view>
+            <view class="collect-price">￥{{item.retail_price}}</view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+    <!--我的收藏end-->
+
+    <!--我的地址-->
+    <swiper-item>
+      <view class="address-list" wx:if="{{ addressList.length > 0 }}">
+        <view class="address-item" wx:for="{{addressList}}" wx:key="{{item.id}}" bindtap="addressAddOrUpdate" data-address-id="{{item.id}}">
+          <view class="address-l">
+            <view class="address-name">{{item.userName}}</view>
+            <view class="address-default" wx:if="{{item.is_default}}">默认</view>
+          </view>
+          <view class="address-c">
+            <view class="address-mobile">{{item.telNumber}}</view>
+            <view class="address-address">{{item.full_region+item.detailInfo}}</view>
+          </view>
+          <view class="address-r">
+            <image catchtap="deleteAddress" data-address-id="{{item.id}}" class="address-del" src="/static/images/del-address.png"></image>
+          </view>
+        </view>
+      </view>
+      <view class="address-empty-view" wx:if="{{ addressList.length <= 0 }}">
+        <image class="address-icon" src="http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noAddress-26d570cefa.png"></image>
+        <text class="address-text">收货地址在哪里</text>
+      </view>
+      <view class="add-address" bindtap="addressAddOrUpdate" data-address-id="0">新建</view>
+    </swiper-item>
+
+    <!--我的信息 start-->
+    <swiper-item>
+
+    </swiper-item>
+    <!--我的信息 end-->
+
+    <!--意见反馈 start-->
+    <swiper-item>
+      <picker bindchange="bindPickerChange" value="{{fbindex}}" range="{{fbarray}}">
+         <view class="picker">
+            <view class="fb-type">
+              <view class="fb-type-label">{{fbarray[fbindex]}}</view>
+              <image class="fb-type-icon" src="http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/pickerArrow-a8b918f05f.png"></image>
+
+            </view>
+          </view>
+      </picker>
+
+      <view class="fb-body">
+        <textarea placeholder="对我们网站、商品、服务，你还有什么建议吗？你还希望在严选上买到什么？请告诉我们..." bindinput ="contentInput" maxlength="500" value="{{fbcontent}}"></textarea>
+        <view class="fb-text-count">{{fbcontentLength}}/500</view>
+      </view>
+
+      <view class="fb-mobile">
+        <view class="fb-label">手机号码</view>
+        <view class="fb-mobile-box">
+          <input class="fb-mobile" maxlength="11" type="number" placeholder="方便我们与你联系" bindinput ="mobileInput" value="{{fbmobile}}"/>
+        </view>
+      </view>
+      
+      <view class="fb-btn" bindtap="sbmitFeedback">提交</view>
+    </swiper-item>
+    <!--意见反馈 end-->
   </swiper>
 </view>

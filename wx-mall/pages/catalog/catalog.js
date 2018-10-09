@@ -1,5 +1,6 @@
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
+var app = getApp();
 
 Page({
   data: {
@@ -14,9 +15,10 @@ Page({
     scrollHeight: 0
   },
   onLoad: function (options) {
-    this.getCatalog();
+    this.getCatalog(app.sceneId);
+    
   },
-  getCatalog: function () {
+  getCatalog: function (index) {
     //CatalogList
     let that = this;
     wx.showLoading({
@@ -29,6 +31,9 @@ Page({
         });
         wx.hideLoading();
         that.getList(that.data.currentCategory.id);
+        that.setData({
+          scrollTop: index
+        });
     });
   },
   getCurrentCategory: function (id) {

@@ -10,6 +10,12 @@ page{
     width: 100%;
 }
 
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
 .userinfo {
 	display: flex;
 	flex-direction:row;
@@ -243,3 +249,655 @@ page{
 .icon-pull-down:before { content: "\e996"; }
 
 .icon-loading:before { content: "\e9ac"; }
+
+
+.service-policy{
+    width: 750rpx;
+    height: 73rpx;
+    background: #f4f4f4;
+    padding: 0 31.25rpx;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.service-policy .item{
+    background: url(http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/servicePolicyRed-518d32d74b.png) 0 center no-repeat;
+    background-size: 10rpx;
+    padding-left: 15rpx;
+    display: flex;
+    align-items: center;
+    font-size: 25rpx;
+    color: #666;
+}
+
+.no-cart{
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.no-cart .c{
+    width: 100%;
+    height: auto;
+    margin-top: 200rpx;
+}
+
+.no-cart .c image{
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    width: 258rpx;
+    height: 258rpx;
+}
+
+.no-cart .c text{
+    margin: 0 auto;
+    display: block;
+    width: 258rpx;
+    height: 29rpx;
+    line-height: 29rpx;
+    text-align: center;
+    font-size: 29rpx;
+    color: #999;
+}
+.title-box{
+    width: 100%;
+    padding-top: 330rpx;
+    text-align: center;
+    font-size:28rpx;
+    color:#999;
+    background: url(https://platform-wxmall.oss-cn-beijing.aliyuncs.com/upload/20180727/15015039793f4e.png) no-repeat center 205rpx;
+    background-size: 100rpx auto;
+    margin-bottom: 50rpx;
+}
+.to-index-btn{
+    color:#fff;
+    background:#e64340;
+    border-radius:6px;
+    width:300rpx;
+    height: auto;
+    line-height: 70rpx;
+    text-align: center;
+    font-size:28rpx;
+    margin: 0 auto;
+    display: block;
+}
+
+.cart-view{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    
+}
+
+.cart-view .list{
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 120rpx;
+}
+
+.cart-view .group-item{
+    height: auto;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 18rpx;
+}
+
+.cart-view .item{
+    height: 164rpx;
+    width: 100%;
+    overflow: hidden;
+}
+.cart-view .item .checkbox{
+    float: left;
+    height: 34rpx;
+    width: 34rpx;
+    margin: 65rpx 18rpx 65rpx 26rpx;
+    background: url(http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/checkbox-0e09baa37e.png) no-repeat;
+    background-size: 34rpx;
+}
+
+.cart-view .item .checkbox.checked{
+    background: url(http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/checkbox-checked-822e54472a.png) no-repeat;
+    background-size: 34rpx;
+}
+
+.cart-view .item .cart-goods{
+    float: left;
+    height: 164rpx;
+    width: 672rpx;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.cart-view .item .img{
+    float: left;
+    height:125rpx;
+    width: 125rpx;
+    background: #f4f4f4;
+    margin: 19.5rpx 18rpx 19.5rpx 0;
+}
+
+.cart-view .item .info{
+    float: left;
+    height:125rpx;
+    width: 503rpx;
+    margin: 19.5rpx 26rpx 19.5rpx 0;
+}
+
+.cart-view .item .t{
+    margin: 8rpx 0;
+    height: 28rpx;
+    font-size: 25rpx;
+    color: #333;
+    overflow: hidden;
+}
+
+
+.cart-view .item .name{
+    height: 28rpx;
+    max-width: 310rpx;
+    line-height: 28rpx;
+    font-size: 25rpx;
+    color: #333;
+    overflow: hidden;
+}
+
+.cart-view .item .num{
+    height: 28rpx;
+    line-height: 28rpx;
+    float: right;
+}
+
+.cart-view .item .attr{
+    margin-bottom: 17rpx;
+    height: 24rpx;
+    line-height: 24rpx;
+    font-size: 22rpx;
+    color: #666;
+    overflow: hidden;
+}
+
+.cart-view .item .b{
+    height: 28rpx;
+    line-height: 28rpx;
+    font-size: 25rpx;
+    color: #333;
+    overflow: hidden;
+}
+
+.cart-view .item .price{
+    float: left;
+}
+
+.cart-view .item .open{
+    height: 28rpx;
+    width: 150rpx;
+    display: block;
+    float: right;
+    background: url(http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/arrowDown-d48093db25.png) right center no-repeat;
+    background-size: 25rpx;
+    font-size: 25rpx;
+    color: #333;
+}
+
+.cart-view .item.edit .t{
+    display: none;
+}
+
+.cart-view .item.edit .attr{
+    text-align: right;
+    background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/arrow-right1-e9828c5b35.png) right center no-repeat;
+    padding-right: 25rpx;
+    background-size: 12rpx 20rpx;
+    margin-bottom: 24rpx;
+    height: 39rpx;
+    line-height: 39rpx;
+    font-size: 24rpx;
+    color: #999;
+    overflow: hidden;
+}
+
+
+.cart-view .item.edit .b{
+    display: flex;
+    height: 52rpx;
+    overflow: hidden;
+}
+
+.cart-view .item.edit .price{
+    line-height: 52rpx;
+    height: 52rpx;
+    flex: 1;
+}
+
+.cart-view .item .selnum{
+    display: none;
+}
+
+.cart-view .item.edit .selnum{
+    width: 235rpx;
+    height: 52rpx;
+    border: 1rpx solid #ccc;
+    display: flex;
+}
+
+.selnum .cut{
+    width: 70rpx;
+    height: 100%;
+    text-align: center;
+    line-height: 50rpx;
+}
+
+.selnum .number{
+    flex: 1;
+    height: 100%;
+    text-align: center;
+    line-height: 68.75rpx;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    float: left;
+}
+
+.selnum .add{
+    width: 80rpx;
+    height: 100%;
+    text-align: center;
+    line-height: 50rpx;
+}
+
+
+.cart-view .group-item .header{
+    width: 100%;
+    height: 94rpx;
+    line-height: 94rpx;
+    padding: 0 26rpx;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.cart-view .promotion .icon{
+    display: inline-block;
+    height: 24rpx;
+    width: 15rpx;
+}
+
+.cart-view .promotion{
+    margin-top: 25.5rpx;
+    float: left;
+    height: 43rpx;
+    width: 480rpx;
+    /*margin-right: 84rpx;*/
+    line-height: 43rpx;
+    font-size: 0;
+}
+
+.cart-view .promotion .tag{
+    border: 1px solid #f48f18;
+    height: 37rpx;
+    line-height: 31rpx;
+    padding: 0 9rpx;
+    margin-right: 10rpx;
+    color: #f48f18;
+    font-size: 24.5rpx;
+}
+
+.cart-view .promotion .txt{
+    height: 43rpx;
+    line-height: 43rpx;
+    padding-right: 10rpx;
+    color: #333;
+    font-size: 29rpx;
+    overflow: hidden;
+}
+
+.cart-view .get{
+    margin-top: 18rpx;
+    float: right;
+    height: 58rpx;
+    padding-left: 14rpx;
+    border-left: 1px solid #d9d9d9;
+    line-height: 58rpx;
+    font-size: 29rpx;
+    color: #333;
+}
+
+.cart-bottom{
+    position: fixed;
+    bottom:0;
+    left:0;
+    height: 100rpx;
+    width: 100%;
+    background: #fff;
+    display: flex;
+}
+
+.cart-bottom .checkbox{
+    height: 34rpx;
+
+    padding-left: 60rpx;
+    line-height: 34rpx;
+    margin: 33rpx 18rpx 33rpx 26rpx;
+    background: url(http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/checkbox-0e09baa37e.png) no-repeat;
+    background-size: 34rpx;
+    font-size: 29rpx;
+}
+
+.cart-bottom .checkbox.checked{
+    background: url(http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/checkbox-checked-822e54472a.png) no-repeat;
+    background-size: 34rpx;
+}
+
+.cart-bottom .total{
+    height: 34rpx;
+    flex: 1;
+    margin: 33rpx 10rpx;
+    font-size: 29rpx;
+}
+
+
+.cart-bottom .delete{
+    height: 34rpx;
+    width: auto;
+    margin: 33rpx 18rpx;
+    font-size: 29rpx;
+}
+
+.cart-bottom .checkout{
+    height: 100rpx;
+    width: 210rpx;
+    text-align: center;
+    line-height: 100rpx;
+    font-size: 29rpx;
+    background: #b4282d;
+    color: #fff;
+}
+
+
+.collect-list{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  padding-left: 30rpx;
+  border-top: 1px solid #e1e1e1;
+}
+
+.collect-item{
+  height: 212rpx;
+  width: 720rpx;
+  background: #fff;
+  padding: 30rpx 30rpx 30rpx 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.collect-item:last-child{
+  border-bottom: 1px solid #fff;
+}
+
+.collect-item .collect-img{
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.collect-item .collect-info{
+  float: right;
+  width: 540rpx;
+  height: 150rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 20rpx;
+}
+
+.collect-item .collect-info .collect-name{
+  font-size: 28rpx;
+  color: #333;
+  line-height: 40rpx;
+}
+
+
+.collect-item .collect-info .collect-subtitle{
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #888;
+  line-height: 40rpx;
+}
+
+.collect-item .collect-info .collect-price{
+  margin-top: 8rpx;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 40rpx;
+}
+
+
+.address-list{
+    padding-left: 31.25rpx;
+    background: #fff url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/address-bg-bd30f2bfeb.png) 0 0 repeat-x;
+    background-size: auto 10.5rpx;
+    margin-bottom: 90rpx;
+}
+
+.address-list .address-item{
+    height: 156.55rpx;
+    align-items: center;
+    display: flex;
+    border-bottom: 1rpx solid #DCD9D9;
+}
+
+.address-list .address-l{
+    width: 155rpx;
+    height: 80rpx;
+    overflow: hidden;
+}
+
+.address-list .address-name{
+    width: 155rpx;
+    height: 43rpx;
+    font-size: 29rpx;
+    color: #333;
+    margin-bottom: 5.2rpx;
+        text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.address-list .address-default{
+    width: 62.5rpx;
+    height: 33rpx;
+    line-height: 28rpx;
+    text-align: center;
+    font-size: 20rpx;
+    color: #b4282d;
+    border: 1rpx solid #b4282d;
+    visibility: visible;
+}
+
+
+.address-list .address-c{
+    flex: 1;
+    height: auto;
+    overflow: hidden;
+}
+
+.address-list .address-mobile{
+
+    height: 29rpx;
+    font-size: 29rpx;
+    line-height: 29rpx;
+    overflow: hidden;
+    color: #333;
+    margin-bottom: 6.25rpx;
+}
+
+.address-list .address{
+    height: 37rpx;
+    font-size: 25rpx;
+    line-height: 37rpx;
+    overflow: hidden;
+    color: #666;
+}
+
+.address-list .address-r{
+    width: 52rpx;
+    height: auto;
+    overflow: hidden;
+    margin-right: 16.5rpx;
+}
+
+.address-list .address-del{
+    display: block;
+    width: 52rpx;
+    height: 52rpx;
+}
+
+.add-address{
+    background: #b4282d;
+    text-align: center;
+    width: 100%;
+    height: 99rpx;
+    line-height: 99rpx;
+    position: fixed;
+    border-radius: 0;
+    border: none;
+    color: #fff;
+    font-size: 29rpx;
+    bottom: 0;
+    left:0;
+}
+
+.address-empty-view{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.address--view .address-icon{
+  height: 248rpx;
+  width: 258rpx;
+  margin-bottom: 10rpx;
+}
+
+.address-empty-view .address-text{
+  width: auto;
+  font-size: 28rpx;
+  line-height: 35rpx;
+  color: #999;
+}
+
+.fb-type{
+  height: 104rpx;
+  width: 100%;
+  background: #fff;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.fb-type .fb-type-label{
+  height: 36rpx;
+  flex: 1;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.fb-type .fb-type-icon{
+  height: 36rpx;
+  width: 36rpx;
+}
+
+.fb-body{
+  width: 100%;
+  background: #fff;
+  height: 374rpx;
+  padding: 18rpx 30rpx 64rpx 30rpx;
+}
+
+.fb-body .fb-content{
+  width: 100%;
+  height: 100%;
+  color: #333;
+  line-height: 40rpx;
+  font-size: 28rpx;
+}
+
+.fb-body .fb-text-count{
+  padding-top: 17rpx;
+  line-height: 30rpx;
+  float: right;
+  color: #666;
+  font-size: 24rpx;
+}
+
+.fb-mobile{
+  height: 162rpx;
+  width: 100%;
+}
+
+.fb-mobile .fb-label{
+  height: 58rpx;
+  width: 100%;
+  padding-top: 14rpx;
+  padding-bottom: 11rpx;
+  color: #7f7f7f;
+  font-size: 24rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  line-height: 33rpx;
+}
+
+.fb-mobile .fb-mobile-box{
+  height: 104rpx;
+  width: 100%;
+  color: #333;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  font-size: 24rpx;
+  background: #fff;
+  position: relative;
+}
+
+.fb-mobile .fb-mobile{
+  position: absolute;
+  top: 27rpx;
+  left: 30rpx;
+  height: 50rpx;
+  width: 100%;
+  color: #333;
+  line-height: 50rpx;
+  font-size: 24rpx;
+}
+
+.fb-clear-icon{
+  position: absolute;
+  top: 43rpx;
+  right: 30rpx;
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.fb-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 98rpx;
+  line-height: 98rpx;
+  background: #b4282d;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-radius: 0;
+  color: #fff;
+  font-size: 28rpx;
+}
+

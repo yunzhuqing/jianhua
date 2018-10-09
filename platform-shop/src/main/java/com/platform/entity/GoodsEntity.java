@@ -25,7 +25,7 @@ public class GoodsEntity implements Serializable {
     private String name;
     //品牌Id
     private Integer brandId;
-    //商品序列号
+    //商品序列号feedback
     private Integer goodsNumber;
     //关键字
     private String keywords;

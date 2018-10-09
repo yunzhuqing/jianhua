@@ -43,6 +43,7 @@ public class SceneController extends AbstractController {
         Map<String, Object> attrs = new HashMap<>();
         attrs.put(SceneService.FIELD_OFFSET, 0);
         attrs.put(SceneService.FIELD_LIMIT, 4);
+        attrs.put("parent_id", 0);
         List<SceneEntity> scenes = sceneService.queryList(attrs);
         List<SceneVO> items = new LinkedList<>();
 

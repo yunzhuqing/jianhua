@@ -1,5 +1,6 @@
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
+var app = getApp();
 
 // pages/indexv2/indexv2.js
 Page({
@@ -113,6 +114,13 @@ Page({
   itemClick: function(e) {
     wx.navigateTo({
       url: '../goods/goods?id=' + e.currentTarget.dataset.goodsid,
+    });
+  },
+  sceneClick: function(e) {
+    var index = e.currentTarget.dataset['index'];
+    app.sceneId = index;
+    wx.switchTab({
+      url: '../catalog/catalog'
     });
   }
 })
