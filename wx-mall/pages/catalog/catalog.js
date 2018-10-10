@@ -12,28 +12,34 @@ Page({
     scrollLeft: 0,
     scrollTop: 0,
     goodsCount: 0,
-    scrollHeight: 0
+    scrollHeight: 0,
+    toView: 0
   },
   onLoad: function (options) {
-    this.getCatalog(app.sceneId);
-    
   },
   getCatalog: function (index) {
     //CatalogList
     let that = this;
+    console.log("index: " + index)
     wx.showLoading({
       title: '加载中...',
     });
     util.request(api.SceneSubList + "/0").then(function (res) {
         that.setData({
-          navList: res.scenes,
-          currentCategory: res.current
+          navList: res.scenes
         });
         wx.hideLoading();
+        if(index != null) {
+          var category = { 'id': index };
+          that.setData({
+            currentCategory: category
+          });
+        } else {
+          that.setData({
+            currentCategory: res.current
+          });
+        }
         that.getList(that.data.currentCategory.id);
-        that.setData({
-          scrollTop: index
-        });
     });
   },
   getCurrentCategory: function (id) {
@@ -50,6 +56,7 @@ Page({
   },
   onShow: function () {
     // 页面显示
+    this.getCatalog(app.sceneId);
   },
   onHide: function () {
     // 页面隐藏

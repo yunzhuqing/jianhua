@@ -1,13 +1,13 @@
 <!--pages/indexv2/indexv2.wxml-->
 <view class='container'>
-  <view class='top'>
-    <image src='../../static/images/maps.png' style='' class='maps' bindtap='clickMap'></image>
-    <label class='city'>杭州</label>
-    <input class='search'></input>
-    <button class=''>搜索</button>
+  <view class="search">
+    <navigator url="/pages/search/search" class="input">
+      <image src='../../static/images/maps.png' style='' class='maps' bindtap='clickMap'></image>
+      <text class="txt">商品搜索</text>
+    </navigator>
   </view>
 
-  <view class='suggest'> 
+  <view class='suggest common-suggest'> 
     <view class='item-header'>
       <label class='item-header-title'>为你推荐</label>/
       <label class='more'>更多</label>
@@ -29,13 +29,13 @@
     <view class='scene'>
       <view class='scene-list'>
         <block wx:for="{{suggestScenes}}" wx:for-item="item" wx:for-index="idx">
-          <label class='scene-item' bindtap='sceneClick' data-index="{{idx}}">{{item.name}}</label>
+          <label class='scene-item scene-item-{{idx}}' bindtap='sceneClick' data-index="{{item.id}}">{{item.name}}</label>
         </block>
       </view>
     </view>
   </view>
 
-  <view class='nearest-distince'>
+  <view class='nearest-distince common-suggest'>
     <view class='item-header'>
       <label class='item-header-title'>距离最近</label>/
       <label class='more'>更多</label>
@@ -69,7 +69,7 @@
     </scroll-view>
   </view>
 
-  <view class='gift-goods'>
+  <view class='gift-goods common-suggest'>
     <view class='item-header'>
       <label class='item-header-title'>小物件</label>/
       <label class='more'>更多</label>
