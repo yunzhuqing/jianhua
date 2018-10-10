@@ -1,6 +1,7 @@
 package com.platform.api;
 
 import com.alibaba.fastjson.JSONObject;
+import com.platform.annotation.IgnoreAuth;
 import com.platform.annotation.LoginUser;
 import com.platform.cache.J2CacheUtils;
 import com.platform.dao.ApiCouponMapper;
@@ -367,6 +368,7 @@ public class ApiCartController extends ApiBaseAction {
     //  获取购物车商品的总件件数
     @ApiOperation(value = "获取购物车商品的总件件数")
     @GetMapping("goodscount")
+    @IgnoreAuth
     public Object goodscount(@LoginUser SysUserEntity loginUser) {
         if (null == loginUser || null == loginUser.getUserId()) {
             return toResponsFail("未登录");
