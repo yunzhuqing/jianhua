@@ -173,7 +173,7 @@
 }
 
 .comments .h{
-    height: 102.5rpx;
+    height: auto;
     line-height: 100.5rpx;
     width: 718.75rpx;
     padding-right: 16rpx;
@@ -210,7 +210,7 @@
 }
 
 .comments .info{
-    height: 127rpx;
+    height: auto;
     width: 100%;
     padding: 33rpx 0 27rpx 0;
 }
@@ -638,6 +638,15 @@
     line-height: 40rpx;
 }
 
+.attr-pop .bottom {
+  display: flex;
+  padding-left: 45%;
+}
+
+.attr-pop .bottom i-button {
+  width: 200rpx;
+}
+
 .spec-con{
     width: 100%;
     height: auto;
@@ -680,10 +689,12 @@
     color: #b4282d;
 }
 
+
 .number-item .selnum{
     width: 322rpx;
     height: 71rpx;
     border: 1px solid #ccc;
+    margin-left: 25%;
     display: flex;
 }
 

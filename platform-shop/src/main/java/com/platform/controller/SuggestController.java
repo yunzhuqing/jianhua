@@ -1,10 +1,8 @@
 package com.platform.controller;
 
+import com.platform.annotation.IgnoreAuth;
 import com.platform.constants.SuggestItemType;
-import com.platform.entity.GoodsEntity;
-import com.platform.entity.ShopEntity;
-import com.platform.entity.SuggestEntity;
-import com.platform.entity.SysUserEntity;
+import com.platform.entity.*;
 import com.platform.service.*;
 import com.platform.utils.R;
 import com.platform.vo.SuggestItemInnerVO;
@@ -32,6 +30,10 @@ public class SuggestController extends AbstractController {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private TopicService topicService;
+
+    @IgnoreAuth
     @GetMapping("list")
     public R list(@RequestParam(name="scene", defaultValue = "0", required = false) Integer scene) {
         Map<String, Object> attrs = new HashMap<>();
@@ -54,8 +56,15 @@ public class SuggestController extends AbstractController {
                     suggestItemVO.setUserName(user.getNickname());
                     suggestItemVO.setRid((long)goodsEntity.getId().intValue());
                 }
-                items.add(suggestItemVO);
+            } else if (SuggestItemType.ACTIVITY.ordinal() == item.getType()) {
+                TopicEntity topicEntity = topicService.queryObject(item.getRid());
+                if(null != topicEntity) {
+                    suggestItemVO.setItemFirst(topicEntity.getTitle());
+                    suggestItemVO.setUrl(topicEntity.getItemPicUrl());
+                    suggestItemVO.setRid(topicEntity.getId().longValue());
+                }
             }
+            items.add(suggestItemVO);
         });
 
         return  R.ok().put("items", items);
@@ -85,10 +94,17 @@ public class SuggestController extends AbstractController {
                     suggestItemInnerVO.setUrl(goodsEntity.getPrimaryPicUrl());
                     suggestItemInnerVO.setItemSecond(String.valueOf(goodsEntity.getMarketPrice()));
                     suggestItemInnerVO.setUserName(user.getNickname());
-                    suggestItemInnerVO.setRid((long)goodsEntity.getId().intValue());
+                    suggestItemInnerVO.setRid(goodsEntity.getId().longValue());
                 }
-                items.add(suggestItemInnerVO);
+            } else if (SuggestItemType.ACTIVITY.ordinal() == item.getType()){
+                TopicEntity topicEntity = topicService.queryObject(item.getRid());
+                if(null != topicEntity) {
+                    suggestItemInnerVO.setItemFirst(topicEntity.getTitle());
+                    suggestItemInnerVO.setUrl(topicEntity.getItemPicUrl());
+                    suggestItemInnerVO.setRid(topicEntity.getId().longValue());
+                }
             }
+            items.add(suggestItemInnerVO);
         });
 
         return  R.ok().put("list", items);

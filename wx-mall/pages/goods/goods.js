@@ -23,7 +23,15 @@ Page({
     openAttr: false,
     noCollectImage: "/static/images/icon_collect.png",
     hasCollectImage: "/static/images/icon_collect_checked.png",
-    collectBackImage: "/static/images/icon_collect.png"
+    collectBackImage: "/static/images/icon_collect.png",
+    // text:"这是一个页面"
+    actionSheetHidden: false,
+    actions2: [
+      {
+        name: '删除',
+        color: '#ed3f14'
+      }
+    ]
   },
   getGoodsInfo: function () {
     let that = this;
@@ -143,7 +151,7 @@ Page({
       return v.valueId;
     });
 
-    return checkedValue.join('_');
+    return checkedValue + '__';
   },
   changeSpecInfo: function () {
     let checkedNameValue = this.getCheckedSpecValue();
@@ -159,8 +167,10 @@ Page({
       return v.valueText;
     });
     if (checkedValue.length > 0) {
+      var checkedVal = '已选择: ';
+      checkedVal += checkedValue.join('　');
       this.setData({
-        'checkedSpecText': checkedValue.join('　')
+        'checkedSpecText': checkedVal
       });
     } else {
       this.setData({
@@ -342,67 +352,67 @@ Page({
    */
   addToCart: function () {
     var that = this;
-    if (this.data.openAttr == false) {
-      //打开规格选择窗口
-      this.setData({
-        openAttr: !this.data.openAttr,
-        collectBackImage: "/static/images/detail_back.png"
-      });
-    } else {
-
-      //提示选择完整规格
-      if (!this.isCheckedAllSpec()) {
-          wx.showToast({
-              title: '请选择完整规格'
-          });
-        return false;
-      }
-
-      //根据选中的规格，判断是否有对应的sku信息
-      let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey());
-      if (!checkedProduct || checkedProduct.length <= 0) {
-        //找不到对应的product信息，提示没有库存
-        return false;
-      }
-
-      //验证库存
-      if (checkedProduct.goods_number < this.data.number) {
-        //找不到对应的product信息，提示没有库存
-        return false;
-      }
-
-      //添加到购物车
-      util.request(api.CartAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id }, "POST")
-        .then(function (res) {
-          let _res = res;
-          if (_res.errno == 0) {
-            wx.showToast({
-              title: '添加成功'
-            });
-            that.setData({
-              openAttr: !that.data.openAttr,
-              cartGoodsCount: _res.data.cartTotal.goodsCount
-            });
-            if (that.data.userHasCollect == 1) {
-              that.setData({
-                'collectBackImage': that.data.hasCollectImage
-              });
-            } else {
-              that.setData({
-                'collectBackImage': that.data.noCollectImage
-              });
-            }
-          } else {
-            wx.showToast({
-              image: '/static/images/icon_error.png',
-              title: _res.errmsg,
-              mask: true
-            });
-          }
-
+    
+    //提示选择完整规格
+    if (!this.isCheckedAllSpec()) {
+        wx.showToast({
+            title: '请选择完整规格'
         });
+      return false;
     }
 
+    //根据选中的规格，判断是否有对应的sku信息
+    let checkedProduct = this.getCheckedProductItem(this.getCheckedSpecKey());
+    // console.log(this.getCheckedSpecKey());
+    // console.log(checkedProduct);
+
+    // if (!checkedProduct || checkedProduct.length <= 0) {
+    //   //找不到对应的product信息，提示没有库存
+    //   wx.showToast({
+    //     title: '找不到对应产品信息'
+    //   });
+    //   return false;
+    // }
+
+    // //验证库存
+    // if (checkedProduct.goods_number < this.data.number) {
+    //   //找不到对应的product信息，提示没有库存
+    //   wx.showToast({
+    //     title: '库存不足'
+    //   });
+    //   return false;
+    // }
+
+    //添加到购物车
+    util.request(api.CartAdd, { goodsId: this.data.goods.id, number: this.data.number, productId: checkedProduct[0].id }, "POST")
+      .then(function (res) {
+        let _res = res;
+        if (_res.errno == 0) {
+          wx.showToast({
+            title: '添加成功'
+          });
+          that.setData({
+            openAttr: !that.data.openAttr,
+            cartGoodsCount: _res.data.cartTotal.goodsCount
+          });
+          if (that.data.userHasCollect == 1) {
+            that.setData({
+              'collectBackImage': that.data.hasCollectImage
+            });
+          } else {
+            that.setData({
+              'collectBackImage': that.data.noCollectImage
+            });
+          }
+        } else {
+          wx.showToast({
+            image: '/static/images/icon_error.png',
+            title: _res.msg,
+            mask: true
+          });
+        }
+
+      });
   },
   cutNumber: function () {
     this.setData({
@@ -431,5 +441,21 @@ Page({
 
         });
 
-    }
+    },
+
+  actionSheetTap: function () {
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    })
+  },
+  attrCancel: function() {
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    })
+  },
+  attrConfirm: function() {
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    })
+  }
 })

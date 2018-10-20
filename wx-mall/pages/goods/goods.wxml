@@ -5,11 +5,11 @@
         <image src="{{item.img_url}}" background-size="cover"></image>
       </swiper-item>
     </swiper>
-    <view class="service-policy">
+    <!-- <view class="service-policy">
       <view class="item">30天无忧退货</view>
       <view class="item">48小时快速退款</view>
       <view class="item">满88元免邮费</view>
-    </view>
+    </view> -->
     <view class="goods-info">
       <view class="c">
         <text class="name">{{goods.name}}</text>
@@ -22,10 +22,47 @@
         </view>
       </view>
     </view>
-    <view class="section-nav section-attr" bindtap="switchAttrPop">
-      <view class="t">请选择规格数量</view>
+
+    <i-action-sheet visible="{{ actionSheetHidden }}" mask-closable="{{ false }}">
+        <view slot="header" style="padding: 16px" class='attr-pop'>
+            <view class="img-info">
+              <image class="img" src="{{goods.list_pic_url}}"></image>
+              <view class="info">
+                <view class="c">
+                  <view class="p">价格：￥{{goods.retail_price}}</view>
+                  <view class="a" wx:if="{{productList.length>0}}">{{checkedSpecText}}</view>
+                </view>
+              </view>
+            </view>
+            <view class="spec-con">
+              <view class="spec-item" wx:for="{{specificationList}}" wx:key="{{item.specification_id}}">
+                <view class="name">{{item.name}}</view>
+                <view class="values">
+                  <view class="value {{vitem.checked ? 'selected' : ''}}" bindtap="clickSkuValue" wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name-id="{{vitem.specification_id}}">{{vitem.value}}</view>
+                </view>
+              </view>
+              <view class="number-item">
+                <view class="name">数量</view>
+                <view class="selnum">
+                  <view class="cut" bindtap="cutNumber">-</view>
+                  <input value="{{number}}" class="number" disabled="true" type="number" />
+                  <view class="add" bindtap="addNumber">+</view>
+                </view>
+              </view>
+            </view>
+            <view class='bottom'>
+              <i-button type='info' bind:click='attrCancel'>取消</i-button>
+              <i-button type='error' bind:click='attrConfirm'>确认</i-button>
+            </view>
+        </view>
+    </i-action-sheet>
+
+    <view class="section-nav section-attr" bindtap="actionSheetTap">
+      <view class="t" wx:if="{{productList.length==0}}">请选择规格数量</view>
+      <view class="t" wx:elif='{{productList.length>0}}'>{{checkedSpecText}}</view>
       <image class="i" src="../../static/images/address_right.png" background-size="cover"></image>
     </view>
+   
     <!--<view class="section-nav section-act">
       <view class="t">
         <view class="label">1个促销:</view>
@@ -60,6 +97,11 @@
         </view>
       </view>
     </view>
+    <view class='comments' wx:else>
+      <view class="h">
+          <text class="t">评价({{comment.count > 999 ? '999+' : comment.count}})</text>
+      </view>
+    </view>
     <view class="goods-attr">
       <view class="t">商品参数</view>
       <view class="l">
@@ -73,25 +115,6 @@
     <view class="detail">
       <import src="../../lib/wxParse/wxParse.wxml" />
       <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
-    </view>
-
-
-    <view class="common-problem">
-      <view class="h">
-        <view class="line"></view>
-        <text class="title">常见问题</text>
-      </view>
-      <view class="b">
-        <view class="item" wx:for="{{issueList}}" wx:key="{{item.id}}">
-          <view class="question-box">
-            <text class="spot"></text>
-            <text class="question">{{item.question}}</text>
-          </view>
-          <view class="answer">
-            {{item.answer}}
-          </view>
-        </view>
-      </view>
     </view>
 
     <view class="related-goods" wx:if="{{relatedGoods.length > 0}}">
@@ -110,35 +133,6 @@
       </view>
     </view>
 
-  </view>
-
-  <view wx:if="{{openAttr}}" class="attr-pop">
-    <view class="img-info">
-      <image class="img" src="{{goods.list_pic_url}}"></image>
-      <view class="info">
-        <view class="c">
-          <view class="p">价格：￥{{goods.retail_price}}</view>
-          <view class="a" wx:if="{{productList.length>0}}">已选择：{{checkedSpecText}}</view>
-        </view>
-      </view>
-    </view>
-    <view class="spec-con">
-      <view class="spec-item" wx:for="{{specificationList}}" wx:key="{{item.specification_id}}">
-        <view class="name">{{item.name}}</view>
-        <view class="values">
-          <view class="value {{vitem.checked ? 'selected' : ''}}" bindtap="clickSkuValue" wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name-id="{{vitem.specification_id}}">{{vitem.value}}</view>
-        </view>
-      </view>
-
-      <view class="number-item">
-        <view class="name">数量</view>
-        <view class="selnum">
-          <view class="cut" bindtap="cutNumber">-</view>
-          <input value="{{number}}" class="number" disabled="true" type="number" />
-          <view class="add" bindtap="addNumber">+</view>
-        </view>
-      </view>
-    </view>
   </view>
 
 </scroll-view>

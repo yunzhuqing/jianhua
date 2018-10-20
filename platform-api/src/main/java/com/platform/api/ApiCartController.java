@@ -366,18 +366,18 @@ public class ApiCartController extends ApiBaseAction {
     }
 
     //  获取购物车商品的总件件数
+    @IgnoreAuth
     @ApiOperation(value = "获取购物车商品的总件件数")
     @GetMapping("goodscount")
-    @IgnoreAuth
     public Object goodscount(@LoginUser SysUserEntity loginUser) {
-        if (null == loginUser || null == loginUser.getUserId()) {
-            return toResponsFail("未登录");
-        }
         Map<String, Object> resultObj = new HashMap();
+        List<CartVo> cartList = new ArrayList<>();
         //查询列表数据
-        Map param = new HashMap();
-        param.put("user_id", loginUser.getUserId());
-        List<CartVo> cartList = cartService.queryList(param);
+        if(null != loginUser) {
+            Map param = new HashMap();
+            param.put("user_id", loginUser.getUserId());
+            cartList = cartService.queryList(param);
+        }
         //获取购物车统计信息
         Integer goodsCount = 0;
         for (CartVo cartItem : cartList) {

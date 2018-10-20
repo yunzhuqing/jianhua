@@ -30,7 +30,14 @@ let vm = new Vue({
     data: {
         showList: true,
         title: null,
-        product: {},
+        product: {
+            items:[
+                {
+                    attrId:0,
+                    specId:0
+                }
+            ]
+        },
         ruleValidate: {
             name: [
                 {required: true, message: '名称不能为空', trigger: 'blur'}
@@ -40,12 +47,15 @@ let vm = new Vue({
             goodsName: ''
         },
         goodss: [],
-        attribute: [],
-        color: [], guige: [], weight: [],
-        colors: [],
-        guiges: [],
-        weights: [],
-        type: ''
+        attribute: {
+            id:[]
+        },
+        attributes:{},
+        productSpecs:{},
+        type: '',
+        spec:{},
+        specs:[],
+        varList:{}
     },
     methods: {
         query: function () {
@@ -66,8 +76,7 @@ let vm = new Vue({
             vm.showList = false;
             vm.title = "修改";
             vm.type = 'update';
-
-            vm.getInfo(id)
+            vm.getInfo(id);
         },
         changeGoods: function (opt) {
             let goodsId = opt.value;
@@ -84,36 +93,73 @@ let vm = new Vue({
                         vm.product.marketPrice = r.goods.marketPrice;
                     }
                     Ajax.request({
-                        url: "../goodsspecification/queryAll?goodsId=" + goodsId + "&specificationId=1",
-                        async: true,
+                        url: "../specification/queryAll",
+                        async: false,
                         successCallback: function (r) {
-                            vm.colors = r.list;
-                        }
-                    });
-                    Ajax.request({
-                        url: "../goodsspecification/queryAll?goodsId=" + goodsId + "&specificationId=2",
-                        async: true,
-                        successCallback: function (r) {
-                            vm.guiges = r.list;
-                        }
-                    });
-                    Ajax.request({
-                        url: "../goodsspecification/queryAll?goodsId=" + goodsId + "&specificationId=4",
-                        async: true,
-                        successCallback: function (r) {
-                            vm.weights = r.list;
+                            vm.specs = r.list;
+                            vm.specs.map(function (n) {
+                                vm.attributes[n.id]=[];
+                            });
                         }
                     });
                 }
             });
         },
+        changeSpec:function(opt){
+            let goodsId=vm.product.goodsId;
+            if(null == goodsId) {
+                alert('请选择商品');
+                return;
+            }
+            let specId=opt
+            if(null == specId) {
+                alert("请指定规格");
+                return;
+            }
+
+            Ajax.request({
+                url: "../goodsspecification/queryAll?goodsId=" + goodsId + "&specificationId=" + specId,
+                async: false,
+                successCallback: function (r) {
+                    vm.varList[specId] = r.list;
+                }
+            });
+        },
+        changeAttribute: function(opt) {
+            let specId=vm.spec.id
+            if(null==specId) {
+                alert('特征为空');
+                return;
+            }
+
+            if(null==vm.productSpecs[specId]) {
+                vm.productSpecs[specId]=[opt];
+            } else {
+                var arr =[];
+                vm.productSpecs[specId].map(function (n) {
+                    if(n!=opt){
+                        arr.push(n);
+                    }
+                });
+                vm.productSpecs[specId]=arr;
+            }
+        },
         saveOrUpdate: function (event) {
             let url = vm.product.id == null ? "../product/save" : "../product/update";
 
-            if(vm.attribute.indexOf(1) == -1)vm.color = [];
-            if(vm.attribute.indexOf(2) == -1)vm.guige = [];
-            if(vm.attribute.indexOf(4) == -1)vm.weight = [];
-            vm.product.goodsSpecificationIds = vm.color + '_' + vm.guige + '_' + vm.weight;
+            let cnt="";
+            for(let key in vm.attributes) {
+                let arr=vm.attributes[key];
+                cnt += key;
+                cnt += "-";
+                ids = "";
+                arr.map(function (n) {
+                    ids = n + "_" + ids;
+                });
+                cnt = cnt + ids + ",";
+            }
+
+            vm.product.goodsSpecificationIds = cnt;
 
             Ajax.request({
                 type: "POST",
@@ -126,15 +172,12 @@ let vm = new Vue({
                     });
                 }
             });
-
-
         },
         del: function (event) {
             let ids = getSelectedRows("#jqGrid");
             if (ids == null) {
                 return;
             }
-
             confirm('确定要删除选中的记录？', function () {
                 Ajax.request({
                     type: "POST",
@@ -147,8 +190,6 @@ let vm = new Vue({
                         });
                     }
                 });
-
-
             });
         },
         getInfo: function (id) {
@@ -159,30 +200,23 @@ let vm = new Vue({
                 successCallback: function (r) {
                     vm.product = r.product;
                     let goodsSpecificationIds = vm.product.goodsSpecificationIds.split("_");
-                    goodsSpecificationIds.forEach((goodsSpecificationId, index) => {
-                        let specificationIds = goodsSpecificationId.split(",").filter(id => !!id).map(id => Number(id));
 
-                        if (index == 0) {
-                            vm.color = specificationIds;
-                            if (specificationIds.length > 0) {
-                                vm.attribute.push(1);
-                            }
-                        } else if (index == 1) {
-                            vm.guige = specificationIds;
-                            if (specificationIds.length > 0) {
-                                vm.attribute.push(2);
-                            }
-                        } else if (index == 2) {
-                            vm.weight = specificationIds;
-                            if (specificationIds.length > 0) {
-                                vm.attribute.push(4);
-                            }
+                    let varList = {}, attrArr=[];
+                    goodsSpecificationIds.forEach((goodsSpecification, index) => {
+                        let slices = goodsSpecification.split("-");
+                        let specId = slices[0];
+                        let attrs = slices[1];
+                        if(attrs != null && attrs != "") {
+                            attrArr = attrs.split("_");
                         }
+                        varList[specId]=attrArr;
                     });
+                    vm.varList=varList;
 
                     vm.getGoodss();
                 }
             });
+            vm.spec.id=0;
         },
         reload: function (event) {
             vm.showList = true;

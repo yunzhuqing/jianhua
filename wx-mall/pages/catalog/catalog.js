@@ -16,11 +16,11 @@ Page({
     toView: 0
   },
   onLoad: function (options) {
+    this.getCatalog(options.sceneId);
   },
   getCatalog: function (index) {
     //CatalogList
     let that = this;
-    console.log("index: " + index)
     wx.showLoading({
       title: '加载中...',
     });
@@ -55,8 +55,7 @@ Page({
     // 页面渲染完成
   },
   onShow: function () {
-    // 页面显示
-    this.getCatalog(app.sceneId);
+    
   },
   onHide: function () {
     // 页面隐藏

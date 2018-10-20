@@ -52,7 +52,7 @@ public class TopicController {
      */
     @RequestMapping("/info/{id}")
     @RequiresPermissions("topic:info")
-    public R info(@PathVariable("id") Integer id) {
+    public R info(@PathVariable("id") Long id) {
         TopicEntity topic = topicService.queryObject(id);
 
         return R.ok().put("topic", topic);
@@ -85,7 +85,7 @@ public class TopicController {
      */
     @RequestMapping("/delete")
     @RequiresPermissions("topic:delete")
-    public R delete(@RequestBody Integer[] ids) {
+    public R delete(@RequestBody Long[] ids) {
         topicService.deleteBatch(ids);
 
         return R.ok();

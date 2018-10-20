@@ -11,7 +11,8 @@ Page({
   data: {
     suggestItems:[],
     suggestScenes:[],
-    suggestGifts:[]
+    suggestGifts:[],
+    cols: 2
   },
 
   /**
@@ -112,15 +113,22 @@ Page({
     }});
   },
   itemClick: function(e) {
-    wx.navigateTo({
-      url: '../goods/goods?id=' + e.currentTarget.dataset.goodsid,
-    });
+    var itemType = e.currentTarget.dataset.type
+    if(0 == itemType) {
+      wx.navigateTo({
+        url: '../goods/goods?id=' + e.currentTarget.dataset.goodsid
+      });
+    } else if(1 == itemType) {
+      wx.navigateTo({
+        url: '../topicDetail/topicDetail?id=' + e.currentTarget.dataset.goodsid
+      });
+    }
+    
   },
   sceneClick: function(e) {
     var index = e.currentTarget.dataset['index'];
-    app.sceneId = index;
-    wx.switchTab({
-      url: '../catalog/catalog'
+    wx.navigateTo({
+      url: '../catalog/catalog?sceneId=' + index
     });
   }
 })

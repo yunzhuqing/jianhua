@@ -22,7 +22,7 @@ public class TopicServiceImpl implements TopicService {
     private TopicDao topicDao;
 
     @Override
-    public TopicEntity queryObject(Integer id) {
+    public TopicEntity queryObject(Long id) {
         return topicDao.queryObject(id);
     }
 
@@ -47,12 +47,12 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public int delete(Integer id) {
+    public int delete(Long id) {
         return topicDao.delete(id);
     }
 
     @Override
-    public int deleteBatch(Integer[] ids) {
+    public int deleteBatch(Long[] ids) {
         return topicDao.deleteBatch(ids);
     }
 }

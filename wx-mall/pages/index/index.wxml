@@ -14,7 +14,7 @@
     </view>
     <scroll-view scroll-x='true'>
       <block wx:for="{{suggestItems}}" wx:for-item="item" wx:for-index="idx">
-        <view class='suggest-item' bindtap='itemClick' data-goodsid='{{item.rid}}'>
+        <view class='suggest-item' bindtap='itemClick' data-goodsid='{{item.rid}}' data-type='{{item.type}}'>
           <image class='suggest-item-pic' src='{{item.url}}'></image>
           <view class='suggest-item-bottom'>
             <view class='suggest-item-bottom-item'>{{item.itemFirst}}</view>
@@ -37,7 +37,7 @@
 
   <view class='nearest-distince common-suggest'>
     <view class='item-header'>
-      <label class='item-header-title'>距离最近</label>/
+      <label class='item-header-title'>精选推荐</label>/
       <label class='more'>更多</label>
     </view>
 
@@ -57,15 +57,6 @@
           <view class='suggest-item-bottom-item'>300</view>
         </view>
       </view>
-
-      <view class='suggest-item'>
-        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
-        <view class='suggest-item-bottom'>
-          <view class='suggest-item-bottom-item'>玫瑰护理</view>
-          <view class='suggest-item-bottom-item'>作者: 杨佳奇</view>
-        </view>
-      </view>
-    
     </scroll-view>
   </view>
 
@@ -74,15 +65,20 @@
       <label class='item-header-title'>小物件</label>/
       <label class='more'>更多</label>
     </view>
-    <view>
-        <block wx:for="{{suggestGifts}}" wx:for-item="item" wx:for-index="idx" >
-          <view class='gift-goods-item'>
-            <image src='{{item.url}}' class='gift-goods-pic' mode='scaleToFill'/>
-            <view class='gift-goods-item-bottom'>
-              <text class='goods-bottom-font'>{{item.itemFirst}}</text>
+
+
+    <block wx:for="{{suggestGifts.length / cols}}" wx:for-item="giftItem" wx:for-index='giftId'>
+      <view class='tr'>
+        <block wx:for="{{cols}}" wx:if='{{(giftId + 1) * (index + 1) <= suggestGifts.length}}'> 
+          <view class="td">
+            <view class='gift-goods-item' bindtap='itemClick' data-goodsid='{{suggestGifts[giftId * cols + index].rid}}' data-type='0'>
+              <image src='{{suggestGifts[giftId * cols + index].url}}' class='gift-goods-pic'></image>
+              <label class='goods-bottom-font'>{{suggestGifts[giftId * cols + index].itemFirst}}</label>
+              <label class='goods-bottom-font'>{{suggestGifts[giftId * cols + index].itemSecond}}</label>
             </view>
           </view>
         </block>
-    </view>
+      </view>
+    </block>
   </view>
 </view>

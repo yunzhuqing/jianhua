@@ -33,33 +33,23 @@
     <Card v-show="!showList">
         <p slot="title">{{title}}</p>
         <i-form ref="formValidate" :model="product" :rules="ruleValidate" :label-width="80">
-            <Form-item label="商品" prop="goodsId">
+            <Form-item label="商品" prop="goodsId" ref="goodsId">
                 <i-select v-model="product.goodsId" filterable @on-change="changeGoods" label-in-value>
                     <i-option v-for="goods in goodss" :value="goods.id" :key="goods.id">{{goods.name}}</i-option>
                 </i-select>
             </Form-item>
-            <Form-item label="商品规格" prop="goodsSpecificationIds">
-                <Checkbox-group v-model="attribute">
-                    <Checkbox :label="1">颜色</Checkbox>
-                    <Checkbox :label="2">规格</Checkbox>
-                    <Checkbox :label="4">重量</Checkbox>
-                </Checkbox-group>
-            </Form-item>
-            <Form-item label="颜色" v-if="attribute.indexOf(1)>-1" prop="color">
-                <i-select v-model="color" filterable multiple>
-                    <i-option v-for="color in colors" :value="color.id" :key="color.id">{{color.value}}</i-option>
+            <Form-item label="商品规格" prop="specId">
+                <i-select v-model="spec.id" @on-change="changeSpec">
+                    <i-option v-for="spec in specs" :value="spec.id" :key="spec.id">{{spec.name}}</i-option>
                 </i-select>
             </Form-item>
-            <Form-item label="规格" v-if="attribute.indexOf(2)>-1" prop="guige">
-                <i-select v-model="guige" filterable multiple>
-                    <i-option v-for="guige in guiges" :value="guige.id" :key="guige.id">{{guige.value}}</i-option>
+
+            <Form-item v-for="ts in specs" :label="ts.name" v-if="ts.id==spec.id">
+                <i-select v-model="attributes[ts.id]" filterable multiple @on-change="changeAttribute">
+                    <i-option v-for="attribute in varList[spec.id]" :value="attribute.id" :key="attribute.id">{{attribute.value}}</i-option>
                 </i-select>
             </Form-item>
-            <Form-item label="重量" v-if="attribute.indexOf(4)>-1" prop="weight">
-                <i-select v-model="weight" filterable multiple>
-                    <i-option v-for="weight in weights" :value="weight.id" :key="weight.id">{{weight.value}}</i-option>
-                </i-select>
-            </Form-item>
+
             <Form-item label="商品序列号" prop="goodsSn">
                 <i-input v-model="product.goodsSn" placeholder="商品序列号"/>
             </Form-item>
