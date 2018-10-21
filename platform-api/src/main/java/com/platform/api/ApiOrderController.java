@@ -9,6 +9,7 @@ import com.platform.entity.UserVo;
 import com.platform.service.ApiKdniaoService;
 import com.platform.service.ApiOrderGoodsService;
 import com.platform.service.ApiOrderService;
+import com.platform.service.ApiProductService;
 import com.platform.util.ApiBaseAction;
 import com.platform.util.ApiPageUtils;
 import com.platform.util.wechat.WechatRefundApiResult;
@@ -41,6 +42,9 @@ public class ApiOrderController extends ApiBaseAction {
     private ApiOrderGoodsService orderGoodsService;
     @Autowired
     private ApiKdniaoService apiKdniaoService;
+
+    @Autowired
+    private ApiProductService apiProductService;
 
     /**
      */

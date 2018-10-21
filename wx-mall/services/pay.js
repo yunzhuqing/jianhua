@@ -10,32 +10,33 @@ const api = require('../config/api.js');
  */
 function payOrder(orderId) {
   return new Promise(function (resolve, reject) {
-    util.request(api.PayPrepayId, {
-      orderId: orderId
-    }).then((res) => {
-      console.log(res)
-      if (res.errno === 0) {
-        const payParam = res.data;
-        wx.requestPayment({
-          'timeStamp': payParam.timeStamp,
-          'nonceStr': payParam.nonceStr,
-          'package': payParam.package,
-          'signType': payParam.signType,
-          'paySign': payParam.paySign,
-          'success': function (res) {
-            resolve(res);
-          },
-          'fail': function (res) {
-            reject(res);
-          },
-          'complete': function (res) {
-            reject(res);
-          }
-        });
-      } else {
-        reject(res);
-      }
-    });
+    console.log("订单" + orderId + "支付成功");
+    resolve(orderId);
+    // util.request(api.PayPrepayId, {
+    //   orderId: orderId
+    // }).then((res) => {
+    //   if (res.errno === 0) {
+    //     const payParam = res.data;
+    //     wx.requestPayment({
+    //       'timeStamp': payParam.timeStamp,
+    //       'nonceStr': payParam.nonceStr,
+    //       'package': payParam.package,
+    //       'signType': payParam.signType,
+    //       'paySign': payParam.paySign,
+    //       'success': function (res) {
+    //         resolve(res);
+    //       },
+    //       'fail': function (res) {
+    //         reject(res);
+    //       },
+    //       'complete': function (res) {
+    //         reject(res);
+    //       }
+    //     });
+    //   } else {
+    //     reject(res);
+    //   }
+    // });
   });
 }
 

@@ -39,6 +39,8 @@ public class ProductEntity implements Serializable {
     private String goodsName;
     private String specificationValue;
 
+    private String showSpecVal;
+
     public String getSpecificationValue() {
         return specificationValue;
     }
@@ -145,5 +147,13 @@ public class ProductEntity implements Serializable {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public String getShowSpecVal() {
+        return showSpecVal;
+    }
+
+    public void setShowSpecVal(String showSpecVal) {
+        this.showSpecVal = showSpecVal;
     }
 }

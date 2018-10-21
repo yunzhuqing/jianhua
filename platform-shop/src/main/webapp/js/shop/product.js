@@ -12,11 +12,8 @@ $(function () {
             {
                 label: '商品规格',
                 name: 'specificationValue',
-                index: 'goods_specification_ids',
-                width: 100,
-                formatter: function (value, options, row) {
-                    return value.replace(row.goodsName + " ", '');
-                }
+                index: 'specificationValue',
+                width: 100
             },
             {label: '商品序列号', name: 'goodsSn', index: 'goods_sn', width: 80},
             {label: '商品库存', name: 'goodsNumber', index: 'goods_number', width: 80},
@@ -50,7 +47,8 @@ let vm = new Vue({
         attribute: {
             id:[]
         },
-        attributes:{},
+        attributes: {},
+        oldAttributes: null,
         productSpecs:{},
         type: '',
         spec:{},
@@ -66,6 +64,10 @@ let vm = new Vue({
             vm.title = "新增";
             vm.product = {};
             vm.getGoodss();
+            vm.specs=[];
+            vm.spec=[];
+            vm.oldAttributes=null;
+            vm.attributes={};
             vm.type = 'add';
         },
         update: function (event) {
@@ -98,7 +100,9 @@ let vm = new Vue({
                         successCallback: function (r) {
                             vm.specs = r.list;
                             vm.specs.map(function (n) {
-                                vm.attributes[n.id]=[];
+                                if(vm.oldAttributes == null) {
+                                    vm.attributes[n.id]=[];
+                                }
                             });
                         }
                     });
@@ -122,6 +126,9 @@ let vm = new Vue({
                 async: false,
                 successCallback: function (r) {
                     vm.varList[specId] = r.list;
+                    if(vm.oldAttributes != null) {
+                        vm.attributes=vm.oldAttributes;
+                    }
                 }
             });
         },
@@ -199,24 +206,42 @@ let vm = new Vue({
                 async: true,
                 successCallback: function (r) {
                     vm.product = r.product;
-                    let goodsSpecificationIds = vm.product.goodsSpecificationIds.split("_");
 
-                    let varList = {}, attrArr=[];
-                    goodsSpecificationIds.forEach((goodsSpecification, index) => {
-                        let slices = goodsSpecification.split("-");
-                        let specId = slices[0];
-                        let attrs = slices[1];
-                        if(attrs != null && attrs != "") {
-                            attrArr = attrs.split("_");
+
+                    Ajax.request({
+                        url: "../specification/queryAll",
+                        async: false,
+                        successCallback: function (r) {
+                            vm.specs = r.list;
+                            vm.spec={};
+
+                            let goodsSpecificationIds = vm.product.goodsSpecificationIds.split(",");
+                            let varList = {}, attrArr=[];
+                            vm.oldAttributes={};
+                            goodsSpecificationIds.forEach((goodsSpecification, index) => {
+                                let slices = goodsSpecification.split("-");
+                                let specId = slices[0];
+                                let attrs = slices[1];
+                                if(attrs != null && attrs != "") {
+                                    attrArr = attrs.split("_");
+                                    newAttr = [];
+                                    attrArr.map(function (value) {
+                                        if(value!="") {
+                                            newAttr.push(parseInt(value));
+                                        }
+                                    });
+                                    vm.oldAttributes[specId]=newAttr;
+                                } else {
+                                    if(specId!="") {
+                                        vm.oldAttributes[specId]=[];
+                                    }
+                                }
+                            });
                         }
-                        varList[specId]=attrArr;
                     });
-                    vm.varList=varList;
-
                     vm.getGoodss();
                 }
             });
-            vm.spec.id=0;
         },
         reload: function (event) {
             vm.showList = true;

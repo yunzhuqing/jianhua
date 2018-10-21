@@ -40,7 +40,6 @@ public class ApiOrderService {
     @Autowired
     private ApiProductService productService;
 
-
     public OrderVo queryObject(Integer id) {
         return orderDao.queryObject(id);
     }
@@ -201,7 +200,10 @@ public class ApiOrderService {
             orderGoodsVo.setGoods_specifition_ids(goodsItem.getGoods_specifition_ids());
             orderGoodsData.add(orderGoodsVo);
             apiOrderGoodsMapper.save(orderGoodsVo);
+            // 锁定库存
+            productService.decreaseGoodsNumber(goodsItem.getProduct_id().longValue(), goodsItem.getGoods_number(), goodsItem.getNumber());
         }
+
 
         //清空已购买的商品
         apiCartMapper.deleteByCart(loginUser.getUserId(), 1, 1);

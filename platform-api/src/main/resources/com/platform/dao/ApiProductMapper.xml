@@ -49,4 +49,8 @@
     <select id="queryTotal" resultType="int">
 		select count(*) from nideshop_product 
 	</select>
+
+    <update id="decreaseGoodsNumber">
+        update nideshop_product set goods_number=#{goodsNumber}-#{num} where id=#{id} and goods_number=#{goodsNumber}
+    </update>
 </mapper>

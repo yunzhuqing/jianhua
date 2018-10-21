@@ -33,6 +33,8 @@ public class CartVo implements Serializable {
     private BigDecimal retail_price;
     //product表中的零售价格
     private BigDecimal retail_product_price;
+    //商品库存
+    private Integer goods_number;
     //数量
     private Integer number;
     //规格属性组成的字符串，用来显示用
@@ -176,5 +178,13 @@ public class CartVo implements Serializable {
 
     public void setCrash_save_price(BigDecimal crash_save_price) {
         this.crash_save_price = crash_save_price;
+    }
+
+    public Integer getGoods_number() {
+        return goods_number;
+    }
+
+    public void setGoods_number(Integer goods_number) {
+        this.goods_number = goods_number;
     }
 }

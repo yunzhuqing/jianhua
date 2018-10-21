@@ -5,6 +5,7 @@ import com.platform.entity.ProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,22 @@ public class ApiProductService {
 
     public void deleteBatch(Integer[] ids) {
         productDao.deleteBatch(ids);
+    }
+
+
+    /**
+     * 将库存数量减一
+     * @param id product 唯一标识
+     * @param goodsNumber 原始库存数量
+     * @param num
+     * @return
+     */
+    public int decreaseGoodsNumber(Long id, Integer goodsNumber, Integer num) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("goodsNumber", goodsNumber);
+        params.put("num", num);
+        return productDao.decreaseGoodsNumber(params);
     }
 
 }

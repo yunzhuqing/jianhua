@@ -1,12 +1,20 @@
 package com.platform.controller;
 
+import com.platform.entity.GoodsAttributeEntity;
+import com.platform.entity.GoodsSpecificationEntity;
 import com.platform.entity.ProductEntity;
+import com.platform.entity.SpecificationEntity;
+import com.platform.service.GoodsAttributeService;
+import com.platform.service.GoodsSpecificationService;
 import com.platform.service.ProductService;
+import com.platform.service.SpecificationService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -26,6 +34,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private SpecificationService specificationService;
+
+    @Autowired
+    private GoodsSpecificationService goodsSpecificationService;
+
     /**
      * 查看列表
      */
@@ -36,6 +50,36 @@ public class ProductController {
         Query query = new Query(params);
 
         List<ProductEntity> productList = productService.queryList(query);
+        if(!CollectionUtils.isEmpty(productList)) {
+            productList.forEach(productEntity -> {
+                StringBuilder stringBuilder = new StringBuilder();
+                String goodsSpecIds = productEntity.getGoodsSpecificationIds();
+                if(StringUtils.isNotEmpty(goodsSpecIds)) {
+                    String [] specArr = goodsSpecIds.split(",");
+                    for(String spec : specArr) {
+                        String [] specAttrs = spec.split("-");
+                        if(specAttrs.length > 1) {
+                            String specId = specAttrs[0];
+                            String [] attrs = specAttrs[1].split("_");
+                            SpecificationEntity specificationEntity = specificationService.queryObject(Integer.parseInt(specId));
+                            stringBuilder.append(specificationEntity.getName() + ": ");
+                            for(String attr : attrs) {
+                                if(StringUtils.isNotEmpty(attr)) {
+                                    GoodsSpecificationEntity goodsSpecificationEntity = goodsSpecificationService.queryObject(Integer.parseInt(attr));
+                                    if(null == goodsSpecificationEntity)
+                                        continue;
+
+                                    stringBuilder.append(goodsSpecificationEntity.getValue() + " ");
+                                }
+                            }
+                            stringBuilder.append("\n");
+                        }
+                    }
+                }
+                productEntity.setSpecificationValue(stringBuilder.toString());
+            });
+        }
+
         int total = productService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(productList, total, query.getLimit(), query.getPage());
