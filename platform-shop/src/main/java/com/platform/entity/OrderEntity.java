@@ -91,6 +91,10 @@ public class OrderEntity implements Serializable {
     //
     private String userName;
 
+    private BigDecimal fullCutPrice;
+
+    private Long shopId;
+
     public String getOrderType() {
         return orderType;
     }
@@ -127,18 +131,12 @@ public class OrderEntity implements Serializable {
         return orderSn;
     }
 
-    /**
-     * 设置：会员Id
-     */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    /**
-     * 获取：会员Id
-     */
     public Integer getUserId() {
         return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     /**
@@ -555,11 +553,28 @@ public class OrderEntity implements Serializable {
         return callbackStatus;
     }
 
+
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public BigDecimal getFullCutPrice() {
+        return fullCutPrice;
+    }
+
+    public void setFullCutPrice(BigDecimal fullCutPrice) {
+        this.fullCutPrice = fullCutPrice;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 }

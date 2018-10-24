@@ -37,6 +37,7 @@
         <result property="is_limited" column="is_limited"/>
         <result property="is_hot" column="is_hot"/>
         <result property="product_id" column="product_id"/>
+        <result property="shop_id" column="shop_id"/>
     </resultMap>
 
     <select id="queryObject" resultMap="goodsMap">

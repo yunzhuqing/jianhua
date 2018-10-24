@@ -1,12 +1,21 @@
 package com.platform.controller;
 
+import com.platform.annotation.LoginUser;
 import com.platform.entity.OrderEntity;
+import com.platform.entity.ShopEntity;
+import com.platform.entity.SysUserEntity;
+import com.platform.entity.UserEntity;
+import com.platform.service.GoodsService;
 import com.platform.service.OrderService;
+import com.platform.service.ShopService;
+import com.platform.service.SysUserService;
+import com.platform.util.ApiBaseAction;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +29,15 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("order")
-public class OrderController {
+public class OrderController extends AbstractController {
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private ShopService shopService;
+
+    @Autowired
+    private SysUserService sysUserService;
 
     /**
      * 列表
@@ -30,10 +45,22 @@ public class OrderController {
     @RequestMapping("/list")
     @RequiresPermissions("order:list")
     public R list(@RequestParam Map<String, Object> params) {
+        List<ShopEntity> shops = shopService.getShops(getUserId(), 0, 100);
+        if(!CollectionUtils.isEmpty(shops)) {
+            params.put("shopIds", shops.stream().map(shop -> { return shop.getId();}).toArray(Integer[]::new));
+        } else {
+            params.put("shopIds", null);
+        }
+
         // 查询列表数据
         Query query = new Query(params);
-
         List<OrderEntity> orderList = orderService.queryList(query);
+        if(orderList != null) {
+            orderList.forEach(orderEntity -> {
+                SysUserEntity sysUserEntity = sysUserService.queryObject(orderEntity.getUserId().longValue());
+                orderEntity.setUserName(sysUserEntity.getNickname());
+            });
+        }
         int total = orderService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(orderList, total, query.getLimit(), query.getPage());

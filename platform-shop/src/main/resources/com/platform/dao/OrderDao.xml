@@ -38,16 +38,15 @@
         <result property="parentId" column="parent_id"/>
         <result property="couponPrice" column="coupon_price"/>
         <result property="callbackStatus" column="callback_status"/>
+        <result property="shippingNo" column="shipping_no"/>
+        <result property="fullCutPrice" column="full_cut_price"/>
         <result property="orderType" column="order_type"/>
-        <result property="userName" column="username"/>
+        <result property="shopId" column="shop_id"/>
     </resultMap>
 
     <select id="queryObject" resultType="com.platform.entity.OrderEntity">
-		select * from nideshop_order o
-        where o.id = #{value}
-        <if test="userId != null">
-            AND o.user_id = #{userId}
-        </if>
+		select * from nideshop_order
+        where id = #{value}
 	</select>
 
     <select id="queryList" resultType="com.platform.entity.OrderEntity">
@@ -70,6 +69,15 @@
         </if>
         <if test="userId != null">
             AND o.user_id = #{userId}
+        </if>
+        <if test="shopId != null">
+            AND o.shop_id=#{shopId}
+        </if>
+        <if test="shopIds != null and shopIds.length > 0">
+            AND o.shop_id in
+            <foreach collection="shopIds" index="index" item="item" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">

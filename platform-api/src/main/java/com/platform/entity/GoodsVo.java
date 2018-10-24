@@ -81,6 +81,8 @@ public class GoodsVo implements Serializable {
     // 产品Id
     private Integer product_id;
 
+    private Long shop_id;
+
     public Integer getId() {
         return id;
     }
@@ -343,5 +345,13 @@ public class GoodsVo implements Serializable {
 
     public void setMarket_price(BigDecimal market_price) {
         this.market_price = market_price;
+    }
+
+    public Long getShop_id() {
+        return shop_id;
+    }
+
+    public void setShop_id(Long shop_id) {
+        this.shop_id = shop_id;
     }
 }

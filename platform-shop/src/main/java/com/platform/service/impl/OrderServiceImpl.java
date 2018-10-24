@@ -1,5 +1,8 @@
 package com.platform.service.impl;
 
+import com.platform.constants.OrderPayStatusTypes;
+import com.platform.constants.OrderStatusTypes;
+import com.platform.constants.ShippingStatusTypes;
 import com.platform.dao.OrderDao;
 import com.platform.dao.ShippingDao;
 import com.platform.entity.OrderEntity;
@@ -60,24 +63,24 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity orderEntity = queryObject(id);
         Integer shippingStatus = orderEntity.getShippingStatus();//发货状态
         Integer payStatus = orderEntity.getPayStatus();//付款状态
-        if (2 != payStatus) {
+        if (OrderPayStatusTypes.PAIED != payStatus) {
             throw new RRException("此订单未付款，不能确认收货！");
         }
-        if (4 == shippingStatus) {
+        if (ShippingStatusTypes.REFUND == shippingStatus) {
             throw new RRException("此订单处于退货状态，不能确认收货！");
         }
-        if (0 == shippingStatus) {
+        if (ShippingStatusTypes.UN_DELIVERED == shippingStatus) {
             throw new RRException("此订单未发货，不能确认收货！");
         }
-        orderEntity.setShippingStatus(2);
-        orderEntity.setOrderStatus(301);
+        orderEntity.setShippingStatus(ShippingStatusTypes.DELIVERY_TAKEN);
+        orderEntity.setOrderStatus(OrderStatusTypes.DELIVERY_TAKEN);
         return orderDao.update(orderEntity);
     }
 
     @Override
     public int sendGoods(OrderEntity order) {
         Integer payStatus = order.getPayStatus();//付款状态
-        if (2 != payStatus) {
+        if (OrderPayStatusTypes.PAIED != payStatus) {
             throw new RRException("此订单未付款！");
         }
 
@@ -85,8 +88,8 @@ public class OrderServiceImpl implements OrderService {
         if (null != shippingEntity) {
             order.setShippingName(shippingEntity.getName());
         }
-        order.setOrderStatus(300);//订单已发货
-        order.setShippingStatus(1);//已发货
+        order.setOrderStatus(OrderStatusTypes.DELIVERY);//订单已发货
+        order.setShippingStatus(ShippingStatusTypes.DELIVERED);//已发货
         return orderDao.update(order);
     }
 }

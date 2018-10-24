@@ -2,6 +2,8 @@ package com.platform.api;
 
 import com.platform.annotation.IgnoreAuth;
 import com.platform.annotation.LoginUser;
+import com.platform.constants.OrderStatusTypes;
+import com.platform.constants.ShippingStatusTypes;
 import com.platform.entity.OrderGoodsVo;
 import com.platform.entity.OrderVo;
 import com.platform.entity.SysUserEntity;
@@ -219,8 +221,8 @@ public class ApiOrderController extends ApiBaseAction {
     public Object confirmOrder(Integer orderId) {
         try {
             OrderVo orderVo = orderService.queryObject(orderId);
-            orderVo.setOrder_status(301);
-            orderVo.setShipping_status(2);
+            orderVo.setOrder_status(OrderStatusTypes.DELIVERY_TAKEN);
+            orderVo.setShipping_status(ShippingStatusTypes.DELIVERY_TAKEN);
             orderVo.setConfirm_time(new Date());
             orderService.update(orderVo);
             return toResponsSuccess("确认收货成功");

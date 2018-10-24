@@ -120,6 +120,54 @@ public class HttpUtil {
      * @return 响应结果
      * @throws IOException IO异常
      */
+    public static String URLGet(String url, Map<String, String> params, String enc, Map<String, String> header) {
+
+        String response = EMPTY;
+
+        StringBuffer strtTotalURL = new StringBuffer(EMPTY);
+
+        if (strtTotalURL.indexOf("?") == -1) {
+            strtTotalURL.append(url).append("?").append(getUrl(params, enc));
+        } else {
+            strtTotalURL.append(url).append("&").append(getUrl(params, enc));
+        }
+        logger.debug("GET请求URL = \n" + strtTotalURL.toString());
+        final GetMethod getMethod = new GetMethod(strtTotalURL.toString());
+        try {
+            header.forEach((key, val) -> {
+                getMethod.setRequestHeader(key, val);
+            });
+            //执行getMethod
+            int statusCode = client.executeMethod(getMethod);
+            if (statusCode == HttpStatus.SC_OK) {
+                response = getMethod.getResponseBodyAsString();
+            } else {
+                logger.debug("响应状态码 = " + getMethod.getStatusCode());
+            }
+        } catch (HttpException e) {
+            logger.error("发生致命的异常，可能是协议不对或者返回的内容有问题", e);
+            e.printStackTrace();
+        } catch (IOException e) {
+            logger.error("发生网络异常", e);
+            e.printStackTrace();
+        } finally {
+            if (getMethod != null) {
+                getMethod.releaseConnection();
+            }
+        }
+
+        return response;
+    }
+
+    /**
+     * GET方式提交数据
+     *
+     * @param url    待请求的URL
+     * @param params 要提交的数据
+     * @param enc    编码
+     * @return 响应结果
+     * @throws IOException IO异常
+     */
     public static String URLGet(String url, Map<String, String> params, String enc) {
 
         String response = EMPTY;
