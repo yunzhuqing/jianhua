@@ -12,7 +12,7 @@ module.exports = {
   CatalogCurrent: NewApiRootUrl + 'catalog/current',  //分类目录当前分类数据接口
 
   AuthLoginByWeixin: NewApiRootUrl + 'auth/login_by_weixin', //微信登录
-
+  GoodsShop: NewApiRootUrl + 'goods/listGoods', 
   GoodsCount: NewApiRootUrl + 'goods/count',  //统计商品总数
   GoodsList: NewApiRootUrl + 'goods/list',  //获得商品列表
   GoodsCategory: NewApiRootUrl + 'goods/category',  //获得分类数据
@@ -20,6 +20,7 @@ module.exports = {
   GoodsNew: NewApiRootUrl + 'goods/new',  //新品
   GoodsHot: NewApiRootUrl + 'goods/hot',  //热门
   GoodsRelated: NewApiRootUrl + 'goods/related',  //商品详情页的关联商品（大家都在看）
+  ShopInfo: NewApiRootUrl + 'shops/info',
 
   BrandList: NewApiRootUrl + 'brand/list',  //品牌列表
   BrandDetail: NewApiRootUrl + 'brand/detail',  //品牌详情
@@ -81,5 +82,6 @@ module.exports = {
   SuggestItem: NewApiRootUrl + 'suggest/list',
   SuggestScene: NewApiRootUrl + 'scene/suggest',
   SceneList: NewApiRootUrl + 'scene/catalog',
-  SceneSubList: NewApiRootUrl + 'scene/subcatalog'
+  SceneSubList: NewApiRootUrl + 'scene/subcatalog',
+  Logistics: NewApiRootUrl + 'logistics/info'
 };

@@ -23,6 +23,13 @@ public interface GoodsService {
     GoodsEntity queryObject(Long id);
 
     /**
+     * 简单的查询接口
+     * @param map
+     * @return
+     */
+    List<GoodsEntity> query(Map<String, Object> map);
+
+    /**
      * 分页查询
      *
      * @param map 参数

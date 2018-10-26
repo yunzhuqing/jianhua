@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("logistics")
+@RequestMapping(value = {"/api/logistics", "/logistics"})
 public class LogisticsController extends AbstractController {
 
     private static  Map<Integer, String> logistics = new HashMap<>();
@@ -49,14 +49,18 @@ public class LogisticsController extends AbstractController {
 
     @IgnoreAuth
     @RequestMapping("/info/{oid}")
-    public JSONArray info(@PathVariable("oid") String oid) {
+    public JSONObject info(@PathVariable("oid") String oid) {
+        JSONObject res = new JSONObject();
         JSONArray arr = new JSONArray();
         if(NumberUtils.isNumber(oid)) {
             OrderEntity orderEntity = orderService.queryObject(Integer.parseInt(oid));
             String com = logistics.get(orderEntity.getShippingId());
-            return getLogistics(orderEntity.getShippingNo(), com);
+            res.put("errno", 0);
+            res.put("data", getLogistics(orderEntity.getShippingNo(), com));
+            return res;
         }
-        return arr;
+        res.put("errno", 500);
+        return res;
     }
 
 

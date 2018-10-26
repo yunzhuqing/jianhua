@@ -20,7 +20,7 @@ import java.util.Map;
  * @date 2017-09-04 21:42:24
  */
 @RestController
-@RequestMapping("shipping")
+@RequestMapping(value = {"/api/shipping", "/shipping"})
 public class ShippingController {
     @Autowired
     private ShippingService shippingService;

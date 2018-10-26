@@ -46,6 +46,26 @@
 		select * from nideshop_goods where id = #{value}
 	</select>
 
+    <select id="query" resultType="com.platform.entity.GoodsEntity">
+        select id,`name`,goods_desc,update_time from nideshop_goods
+        <where>
+            <if test="shop_id != null">
+                shop_id=#{shopId}
+            </if>
+        </where>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by nideshop_goods.id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
     <select id="queryList" resultType="com.platform.entity.GoodsEntity">
         select
         nideshop_goods.id,

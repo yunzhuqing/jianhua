@@ -1,5 +1,6 @@
 package com.platform.controller;
 
+import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.AttributeCategoryEntity;
 import com.platform.entity.GoodsEntity;
 import com.platform.entity.ShopEntity;
@@ -19,7 +20,7 @@ import java.util.Map;
  * @author yangjiaqi
  */
 @RestController
-@RequestMapping("shops")
+@RequestMapping(value = {"/api/shops", "/shops"})
 public class ShopController extends AbstractController {
 
     @Autowired
@@ -81,6 +82,7 @@ public class ShopController extends AbstractController {
     /**
      * 查看信息
      */
+    @IgnoreAuth
     @RequestMapping("/info/{id}")
     public R info(@PathVariable("id") Long id) {
         ShopEntity shopEntity = shopService.queryObject(id);

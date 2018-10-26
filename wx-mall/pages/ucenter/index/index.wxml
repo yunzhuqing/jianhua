@@ -37,6 +37,8 @@
           <view class="b">
             <view class="r">
               <button class="btn" data-order-index="{{index}}" catchtap="payOrder" wx:if="{{item.handleOption.pay}}">去付款</button>
+
+              <button class="btn" data-order-index="{{index}}" catchtap='delivery' wx:if="{{item.handleOption.confirm}}">查看物流</button>
             </view>
           </view>
         </navigator>

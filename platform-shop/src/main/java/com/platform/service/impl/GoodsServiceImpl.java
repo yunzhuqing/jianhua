@@ -51,6 +51,11 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<GoodsEntity> query(Map<String, Object> map) {
+        return goodsDao.query(map);
+    }
+
+    @Override
     @DataFilter(userAlias = "nideshop_goods.create_user_id", deptAlias = "nideshop_goods.create_user_dept_id")
     public List<GoodsEntity> queryList(Map<String, Object> map) {
         return goodsDao.queryList(map);

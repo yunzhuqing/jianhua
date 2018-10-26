@@ -1,11 +1,11 @@
 var tabs = [
   {
     name: "热销商品"
-  },
-  {
-    name: "全部商品"
   }
 ];
+
+var util = require('../../utils/util.js');
+var api = require('../../config/api.js');
 
 // pages/shop/shop.js
 Page({
@@ -18,7 +18,9 @@ Page({
     slideOffset: 0,//指示器每次移动的距离
     activeIndex: 0,//当前展示的Tab项索引
     sliderWidth: 96,//指示器的宽度,计算得到
-    contentHeight: 0//页面除去头部Tabbar后，内容区的总高度，计算得到
+    contentHeight: 0,//页面除去头部Tabbar后，内容区的总高度，计算得到，
+    goodsArr:[],
+    shopInfo:{}
   },
 
   /**
@@ -33,6 +35,22 @@ Page({
           sliderWidth: res.windowWidth / that.data.tabs.length,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex,
           contentHeight: res.windowHeight
+        });
+      }
+    });
+    let shopId = options.shopId;
+    util.request(api.GoodsShop, { "shopId": shopId, "page": 1, "limit": 10, "sidx":"id", "order":"desc"}).then(function (res) {
+      if (res.code === 0) {
+        that.setData({
+          goodsArr: res.page.list
+        });
+      }
+    });
+
+    util.request(api.ShopInfo + '/' + shopId).then(function (res) {
+      if (res.code === 0) {
+        that.setData({
+          shopInfo: res.shop
         });
       }
     });

@@ -226,6 +226,14 @@ Page({
       url: '/pages/pay/pay?orderId=' + order.id + '&actualPrice=' + order.actual_price,
     })
   },
+  delivery(event) {
+    let that = this;
+    let orderIndex = event.currentTarget.dataset.orderIndex;
+    let order = that.data.orderList[orderIndex];
+    wx.navigateTo({
+      url: '/pages/ucenter/delivery/delivery?orderId=' + order.id
+    })
+  },
 
   // 购物车开始
   getCartList: function () {

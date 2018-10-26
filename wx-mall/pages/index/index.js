@@ -74,7 +74,7 @@ Page({
   },
   shopClick: function() {
     wx.navigateTo({
-      url: '../shop/shop',
+      url: '../shop/shop?shopId=' + 19
     })
   },
   getSuggestItems: function () {

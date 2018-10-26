@@ -11,6 +11,7 @@ import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,19 @@ public class GoodsController extends ApiBaseAction {
 
     @Autowired
     private RelatedGoodsService relatedGoodsService;
+
+    @IgnoreAuth
+    @RequestMapping("/listGoods")
+    public R listGoods(@RequestParam Map<String, Object> params) {
+        //查询列表数据
+        Query query = new Query(params);
+        query.put("isDelete", 0);
+        List<GoodsEntity> goodsList = goodsService.query(params);
+        int total = goodsService.queryTotal(query);
+        PageUtils pageUtil = new PageUtils(goodsList, total, query.getLimit(), query.getPage());
+
+        return R.ok().put("page", pageUtil);
+    }
 
     /**
      * 查看列表

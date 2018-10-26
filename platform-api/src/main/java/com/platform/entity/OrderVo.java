@@ -1,7 +1,9 @@
 package com.platform.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.platform.constants.OrderStatusTypes;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.core.annotation.Order;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -459,7 +461,7 @@ public class OrderVo implements Serializable {
         //4xx 表示订单退换货相关的状态　401 没有发货，退款　402 已收货，退款退货
 
         //如果订单已经取消或是已完成，则可删除和再次购买
-        if (order_status == 101) {
+        if (order_status == OrderStatusTypes.CANCELD) {
 //            handleOption.put("delete", true);
             handleOption.put("buy", true);
         }
@@ -471,21 +473,22 @@ public class OrderVo implements Serializable {
         }
 
         //如果订单已付款，没有发货，则可退款操作
-        if (order_status == 201) {
+        if (order_status == OrderStatusTypes.PAIED) {
             handleOption.put("cancel", true);
         }
 
         //如果订单已经发货，没有收货，则可收货操作和退款、退货操作
-        if (order_status == 300) {
+        if (order_status == OrderStatusTypes.DELIVERY) {
 //            handleOption.put("cancel", true);
             handleOption.put("confirm", true);
 //            handleOption.put("return", true);
         }
 
         //如果订单已经支付，且已经收货，则可完成交易、评论和再次购买
-        if (order_status == 301) {
+        if (order_status == OrderStatusTypes.DELIVERY_TAKEN) {
             handleOption.put("comment", true);
             handleOption.put("buy", true);
+            handleOption.put("confirm", true);
         }
         return handleOption;
     }
