@@ -1,9 +1,10 @@
 package com.platform.shiro;
 
-import com.platform.cache.J2CacheUtils;
+import com.platform.cache.Cache;
 import com.platform.utils.Constant;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 
@@ -14,6 +15,9 @@ import java.io.Serializable;
  * @date 2018年07月31日 上午14:50
  */
 public class CluterShiroSessionDao extends EnterpriseCacheSessionDAO {
+
+    @Autowired
+    private Cache cache;
 
     @Override
     protected Serializable doCreate(Session session) {
@@ -45,15 +49,14 @@ public class CluterShiroSessionDao extends EnterpriseCacheSessionDAO {
     protected void doDelete(Session session) {
         super.doDelete(session);
         final String key = Constant.SESSION_KEY + session.getId().toString();
-
-        J2CacheUtils.remove(key);
+        cache.del(key);
     }
 
     private Session getShiroSession(String key) {
-        return (Session) J2CacheUtils.get(key);
+        return (Session) cache.get(key);
     }
 
     private void setShiroSession(String key, Session session) {
-        J2CacheUtils.put(key, session);
+        cache.set(key, session);
     }
 }

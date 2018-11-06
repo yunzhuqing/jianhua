@@ -1,7 +1,7 @@
 package com.platform.api;
 
 import com.platform.annotation.LoginUser;
-import com.platform.cache.J2CacheUtils;
+import com.platform.cache.Cache;
 import com.platform.entity.OrderGoodsVo;
 import com.platform.entity.OrderVo;
 import com.platform.entity.SysUserEntity;
@@ -35,6 +35,9 @@ import java.util.*;
 @RequestMapping("/api/pay")
 public class ApiPayController extends ApiBaseAction {
     private Logger logger = Logger.getLogger(getClass());
+    @Autowired
+    private Cache cache;
+
     @Autowired
     private ApiOrderService orderService;
     @Autowired
@@ -205,12 +208,12 @@ public class ApiPayController extends ApiBaseAction {
             return toResponsMsgSuccess("支付成功");
         } else if ("USERPAYING".equals(trade_state)) {
             // 重新查询 正在支付中
-            Integer num = (Integer) J2CacheUtils.get(J2CacheUtils.SHOP_CACHE_NAME, "queryRepeatNum" + orderId + "");
+            Integer num = (Integer) cache.get("queryRepeatNum" + orderId + "");
             if (num == null) {
-                J2CacheUtils.put(J2CacheUtils.SHOP_CACHE_NAME, "queryRepeatNum" + orderId + "", 1);
+                cache.set("queryRepeatNum" + orderId + "", 1);
                 this.orderQuery(loginUser, orderId);
             } else if (num <= 3) {
-                J2CacheUtils.remove(J2CacheUtils.SHOP_CACHE_NAME, "queryRepeatNum" + orderId);
+                cache.del("queryRepeatNum" + orderId);
                 this.orderQuery(loginUser, orderId);
             } else {
                 return toResponsFail("查询失败,error=" + trade_state);

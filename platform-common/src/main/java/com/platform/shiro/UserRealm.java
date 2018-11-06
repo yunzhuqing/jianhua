@@ -1,6 +1,6 @@
 package com.platform.shiro;
 
-import com.platform.cache.J2CacheUtils;
+import com.platform.cache.Cache;
 import com.platform.dao.SysMenuDao;
 import com.platform.dao.SysUserDao;
 import com.platform.entity.SysMenuEntity;
@@ -16,8 +16,10 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 认证
@@ -27,7 +29,11 @@ import java.util.*;
  */
 public class UserRealm extends AuthorizingRealm {
     @Autowired
+    private Cache cache;
+
+    @Autowired
     private SysUserDao sysUserDao;
+
     @Autowired
     private SysMenuDao sysMenuDao;
 
@@ -39,19 +45,22 @@ public class UserRealm extends AuthorizingRealm {
         SysUserEntity user = (SysUserEntity) principals.getPrimaryPrincipal();
         Long userId = user.getUserId();
 
-        List<String> permsList = (List<String>) J2CacheUtils.get(Constant.PERMS_LIST + userId);
-
+        List<Object> list = cache.lGet(Constant.PERMS_LIST + userId, 0, -1);
         //用户权限列表
         Set<String> permsSet = new HashSet<String>();
-        if (permsList != null && permsList.size() != 0) {
-            for (String perms : permsList) {
-                if (StringUtils.isBlank(perms)) {
-                    continue;
-                }
-                permsSet.addAll(Arrays.asList(perms.trim().split(",")));
-            }
-        }
 
+        if(!CollectionUtils.isEmpty(list)) {
+            List<String> permsList = (List<String>) (List)list.get(0);
+            if (permsList != null && permsList.size() != 0) {
+                for (String perms : permsList) {
+                    if (StringUtils.isBlank(perms)) {
+                        continue;
+                    }
+                    permsSet.addAll(Arrays.asList(perms.trim().split(",")));
+                }
+            }
+
+        }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setStringPermissions(permsSet);
         return info;
@@ -101,7 +110,7 @@ public class UserRealm extends AuthorizingRealm {
         } else {
             permsList = sysUserDao.queryAllPerms(user.getUserId());
         }
-        J2CacheUtils.put(Constant.PERMS_LIST + user.getUserId(), permsList);
+        cache.lSet(Constant.PERMS_LIST + user.getUserId(), permsList);
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
         return info;

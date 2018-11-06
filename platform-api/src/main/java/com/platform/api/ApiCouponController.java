@@ -2,7 +2,7 @@ package com.platform.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.LoginUser;
-import com.platform.cache.J2CacheUtils;
+import com.platform.cache.Cache;
 import com.platform.entity.*;
 import com.platform.service.*;
 import com.platform.util.ApiBaseAction;
@@ -27,6 +27,9 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/coupon")
 public class ApiCouponController extends ApiBaseAction {
+    @Autowired
+    private Cache cache;
+
     @Autowired
     private ApiUserService apiUserService;
     @Autowired
@@ -68,7 +71,7 @@ public class ApiCouponController extends ApiBaseAction {
                 }
             }
         } else { // 是直接购买的
-            BuyGoodsVo goodsVo = (BuyGoodsVo) J2CacheUtils.get(J2CacheUtils.SHOP_CACHE_NAME, "goods" + loginUser.getUserId() + "");
+            BuyGoodsVo goodsVo = (BuyGoodsVo) cache.get("goods" + loginUser.getUserId() + "");
             ProductVo productInfo = apiProductService.queryObject(goodsVo.getProductId());
             //商品总价
             goodsTotalPrice = productInfo.getRetail_price().multiply(new BigDecimal(goodsVo.getNumber()));

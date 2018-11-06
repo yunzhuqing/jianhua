@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.platform.cache.Cache;
 import com.platform.entity.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
-import com.platform.cache.J2CacheUtils;
 import com.platform.dao.ApiAddressMapper;
 import com.platform.dao.ApiCartMapper;
 import com.platform.dao.ApiCouponMapper;
@@ -25,6 +25,9 @@ import com.platform.util.CommonUtil;
 
 @Service
 public class ApiOrderService {
+    @Autowired
+    private Cache cache;
+
     @Autowired
     private ApiOrderMapper orderDao;
     @Autowired
@@ -108,7 +111,7 @@ public class ApiOrderService {
                 goodsTotalPrice = goodsTotalPrice.add(cartItem.getRetail_price().multiply(new BigDecimal(cartItem.getNumber())));
             }
         } else {
-            BuyGoodsVo goodsVo = (BuyGoodsVo) J2CacheUtils.get(J2CacheUtils.SHOP_CACHE_NAME, "goods" + loginUser.getUserId());
+            BuyGoodsVo goodsVo = (BuyGoodsVo) cache.get("goods" + loginUser.getUserId());
             ProductVo productInfo = productService.queryObject(goodsVo.getProductId());
             //计算订单的费用
             //商品总价

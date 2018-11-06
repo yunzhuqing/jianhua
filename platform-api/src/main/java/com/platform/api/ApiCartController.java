@@ -3,7 +3,7 @@ package com.platform.api;
 import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.IgnoreAuth;
 import com.platform.annotation.LoginUser;
-import com.platform.cache.J2CacheUtils;
+import com.platform.cache.Cache;
 import com.platform.dao.ApiCouponMapper;
 import com.platform.entity.*;
 import com.platform.service.*;
@@ -29,6 +29,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/cart")
 public class ApiCartController extends ApiBaseAction {
+    @Autowired
+    private Cache cache;
     @Autowired
     private ApiCartService cartService;
     @Autowired
@@ -425,7 +427,7 @@ public class ApiCartController extends ApiBaseAction {
             }
             goodsTotalPrice = (BigDecimal) ((HashMap) cartData.get("cartTotal")).get("checkedGoodsAmount");
         } else { // 是直接购买的
-            BuyGoodsVo goodsVO = (BuyGoodsVo) J2CacheUtils.get(J2CacheUtils.SHOP_CACHE_NAME, "goods" + loginUser.getUserId() + "");
+            BuyGoodsVo goodsVO = (BuyGoodsVo) cache.get("goods" + loginUser.getUserId() + "");
             ProductVo productInfo = productService.queryObject(goodsVO.getProductId());
             //计算订单的费用
             //商品总价order

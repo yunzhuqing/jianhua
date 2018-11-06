@@ -13,62 +13,24 @@
 		http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
-    <context:property-placeholder location="classpath*:platform.properties"/>
+    <!--<context:property-placeholder location="classpath*:platform.properties"/>-->
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
           init-method="init" destroy-method="close">
         <property name="url">
-            <value>${jdbc.url}</value>
+            <value>${spring.datasource.url}</value>
         </property>
         <property name="username">
-            <value>${jdbc.username}</value>
+            <value>${spring.datasource.username}</value>
         </property>
         <property name="password">
-            <value>${jdbc.password}</value>
+            <value>${spring.datasource.password}</value>
         </property>
         <property name="initialSize">
-            <value>${jdbc.initialSize}</value>
-        </property>
-        <property name="maxActive">
-            <value>${jdbc.maxActive}</value>
-        </property>
-        <property name="proxyFilters">
-            <list>
-                <ref bean="stat-filter"/>
-                <!--过滤永真条件 防止注入-->
-                <ref bean="wall-filter"/>
-            </list>
+            <value>${spring.datasource.initial-size}</value>
         </property>
         <property name="connectionInitSqls" value="set names utf8mb4;"/>
     </bean>
-
-    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
-        <property name="slowSqlMillis" value="1000"/>
-        <property name="logSlowSql" value="true"/>
-        <property name="mergeSql" value="true"/>
-    </bean>
-
-    <bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
-        <property name="dbType" value="mysql"/>
-        <property name="config" ref="wall-filter-config"/>
-    </bean>
-
-    <bean id="wall-filter-config" class="com.alibaba.druid.wall.WallConfig">
-        <property name="multiStatementAllow" value="true"/>
-    </bean>
-
-    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"></bean>
-    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
-        <property name="patterns">
-            <list>
-                <value>com.platform.controller.*</value>
-                <value>com.platform.service.*</value>
-            </list>
-        </property>
-    </bean>
-    <aop:config>
-        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
-    </aop:config>
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager"

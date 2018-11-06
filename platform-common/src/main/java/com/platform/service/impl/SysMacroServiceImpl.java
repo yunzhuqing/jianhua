@@ -1,6 +1,6 @@
 package com.platform.service.impl;
 
-import com.platform.cache.J2CacheUtils;
+import com.platform.cache.Cache;
 import com.platform.dao.SysMacroDao;
 import com.platform.entity.SysMacroEntity;
 import com.platform.service.SysMacroService;
@@ -21,6 +21,9 @@ import java.util.Map;
  */
 @Service("sysMacroService")
 public class SysMacroServiceImpl implements SysMacroService {
+    @Autowired
+    private Cache cache;
+
     @Autowired
     private SysMacroDao sysMacroDao;
 
@@ -43,7 +46,7 @@ public class SysMacroServiceImpl implements SysMacroService {
     public int save(SysMacroEntity sysMacro) {
         sysMacro.setGmtCreate(new Date());
         sysMacroDao.save(sysMacro);
-        J2CacheUtils.put("macroList", queryList(new HashMap<>()));
+        cache.lSet("macroList", queryList(new HashMap<>()));
         return 1;
     }
 
@@ -51,21 +54,21 @@ public class SysMacroServiceImpl implements SysMacroService {
     public int update(SysMacroEntity sysMacro) {
         sysMacro.setGmtModified(new Date());
         sysMacroDao.update(sysMacro);
-        J2CacheUtils.put("macroList", queryList(new HashMap<>()));
+        cache.lSet("macroList", queryList(new HashMap<>()));
         return 1;
     }
 
     @Override
     public int delete(Long macroId) {
         sysMacroDao.delete(macroId);
-        J2CacheUtils.put("macroList", queryList(new HashMap<>()));
+        cache.lSet("macroList", queryList(new HashMap<>()));
         return 1;
     }
 
     @Override
     public int deleteBatch(Long[] macroIds) {
         sysMacroDao.deleteBatch(macroIds);
-        J2CacheUtils.put("macroList", queryList(new HashMap<>()));
+        cache.lSet("macroList", queryList(new HashMap<>()));
         return 1;
     }
 
