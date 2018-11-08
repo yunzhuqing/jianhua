@@ -60,25 +60,21 @@
     </scroll-view>
   </view>
 
-  <view class='gift-goods common-suggest'>
-    <view class='item-header'>
-      <label class='item-header-title'>小物件</label>/
-      <label class='more'>更多</label>
-    </view>
-
-
-    <block wx:for="{{suggestGifts.length / cols}}" wx:for-item="giftItem" wx:for-index='giftId'>
-      <view class='tr'>
-        <block wx:for="{{cols}}" wx:if='{{(giftId + 1) * (index + 1) <= suggestGifts.length}}'> 
-          <view class="td">
-            <view class='gift-goods-item' bindtap='itemClick' data-goodsid='{{suggestGifts[giftId * cols + index].rid}}' data-type='0'>
-              <image src='{{suggestGifts[giftId * cols + index].url}}' class='gift-goods-pic'></image>
-              <label class='goods-bottom-font'>{{suggestGifts[giftId * cols + index].itemFirst}}</label>
-              <label class='goods-bottom-font'>{{suggestGifts[giftId * cols + index].itemSecond}}</label>
-            </view>
-          </view>
-        </block>
+  <swiper class='gift-goods common-suggest' style='height: {{giftLen}}px'>
+    <swiper-item>
+      <view class='item-header'>
+          <label class='item-header-title'>小物件</label>/
+          <label class='more'>更多</label>
       </view>
-    </block>
-  </view>
+      <scroll-view scroll-x="true" class='gift-goods-view' style='height: {{giftLen}}px'>  
+        <block wx:for="{{suggestGifts}}" wx:for-item="giftItem">
+           <view class='gift-goods-item' bindtap='itemClick' data-goodsid='{{giftItem.rid}}' data-type='0'>
+              <image src='{{giftItem.url}}' class='gift-goods-pic'></image>
+              <label class='goods-bottom-font'>{{giftItem.itemFirst}}</label>
+              <label class='goods-bottom-font'>{{giftItem.itemSecond}}</label>
+            </view>
+        </block>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
 </view>

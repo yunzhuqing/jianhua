@@ -12,7 +12,8 @@ Page({
     suggestItems:[],
     suggestScenes:[],
     suggestGifts:[],
-    cols: 2
+    cols: 2,
+    giftLen: 300
   },
 
   /**
@@ -101,8 +102,13 @@ Page({
     let that = this;
     util.request(api.SuggestItem, {scene:2}).then(function (res) {
       if (res.code == 0) {
+        let len = that.data.giftLen;
+        if(res.items.length > 2) {
+          len = res.items.length * 300 * 0.4;
+        }
         that.setData({
-          suggestGifts: res.items
+          suggestGifts: res.items,
+          giftLen: len
         });
       }
     });
