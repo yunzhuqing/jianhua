@@ -42,6 +42,13 @@
   color: transparent;
 }
 
+.item-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 30rpx;
+}
+
 .item-header-title {
   font-size: 45rpx;
   font-family:'Courier New', Courier, monospace;
@@ -49,6 +56,13 @@
 
 .item-header .more {
   font-size: 30rpx;
+  color: #999999;
+  padding-top: 5rpx;
+}
+
+.item-bottom {
+  display: flex;
+  justify-content: space-between;
 }
 
 .top {
@@ -90,14 +104,13 @@
 .common-suggest {
   padding-left: 3%;
   padding-top: 20rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  background: white;
 }
 
 .suggest {
   height: auto;
-  width: 100%;
-  margin-top: 20rpx;
-  margin-left: 20rpx;
-  background: white;
 }
 
 .suggest scroll-view {
@@ -125,6 +138,10 @@
 
 .suggest-item-bottom {
   width: 95%;
+  display: flex;
+  justify-content:space-between;
+  padding-top: 10rpx;
+  padding-right: 20rpx;
 }
 
 .suggest-item-bottom-item {
@@ -177,8 +194,6 @@
 
 .nearest-distince {
   height: auto;
-  margin-top: 10rpx;
-  margin-left: 20rpx;
   background: white;
 }
 
@@ -197,10 +212,10 @@
 }
 
 .gift-goods-item {
-  width: 300rpx;
+  width: 320rpx;
   height: 300rpx;
   margin-top: 20rpx;
-  margin-left: 20rpx;
+  margin-left: 25rpx;
   box-shadow:1px 1px 1px #aaaaaa;
   display: inline-table; 
 }

@@ -136,5 +136,11 @@ Page({
     wx.navigateTo({
       url: '../catalog/catalog?sceneId=' + index
     });
+  },
+  showMore: function(e) {
+    let sceneId = e.currentTarget.dataset['scene'];
+    wx.navigateTo({
+      url: '../more/more?sceneId=' + sceneId,
+    });
   }
 })

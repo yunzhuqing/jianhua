@@ -35,7 +35,8 @@
     "pages/auth/mobile/mobile",
     "pages/shopping/selCoupon/selCoupon",
     "pages/shop/shop",
-    "pages/ucenter/delivery/delivery"
+    "pages/ucenter/delivery/delivery",
+    "pages/more/more"
   ],
   "window": {
     "backgroundTextStyle": "dark",

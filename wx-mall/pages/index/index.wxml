@@ -9,8 +9,8 @@
 
   <view class='suggest common-suggest'> 
     <view class='item-header'>
-      <label class='item-header-title'>为你推荐</label>/
-      <label class='more'>更多</label>
+      <label class='item-header-title'>为你推荐</label>
+      <label class='more' bindtap='showMore' data-scene='1'>更多</label>
     </view>
     <scroll-view scroll-x='true'>
       <block wx:for="{{suggestItems}}" wx:for-item="item" wx:for-index="idx">
@@ -37,8 +37,8 @@
 
   <view class='nearest-distince common-suggest'>
     <view class='item-header'>
-      <label class='item-header-title'>精选推荐</label>/
-      <label class='more'>更多</label>
+      <label class='item-header-title'>精选推荐</label>
+      <label class='more' bindtap='showMore' data-scene='2'>更多</label>
     </view>
 
     <scroll-view scroll-x='true'>
@@ -63,15 +63,17 @@
   <swiper class='gift-goods common-suggest' style='height: {{giftLen}}px'>
     <swiper-item>
       <view class='item-header'>
-          <label class='item-header-title'>小物件</label>/
-          <label class='more'>更多</label>
+          <label class='item-header-title'>小物件</label>
+          <label class='more' bindtap='showMore' data-scene='2'>更多</label>
       </view>
       <scroll-view scroll-x="true" class='gift-goods-view' style='height: {{giftLen}}px'>  
         <block wx:for="{{suggestGifts}}" wx:for-item="giftItem">
            <view class='gift-goods-item' bindtap='itemClick' data-goodsid='{{giftItem.rid}}' data-type='0'>
               <image src='{{giftItem.url}}' class='gift-goods-pic'></image>
-              <label class='goods-bottom-font'>{{giftItem.itemFirst}}</label>
-              <label class='goods-bottom-font'>{{giftItem.itemSecond}}</label>
+              <div class='suggest-item-bottom'>
+                <label class='goods-bottom-font'>{{giftItem.itemFirst}}</label>
+                <label class='goods-bottom-font'>{{giftItem.itemSecond}}</label>
+              </div>
             </view>
         </block>
       </scroll-view>
