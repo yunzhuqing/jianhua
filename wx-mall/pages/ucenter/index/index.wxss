@@ -88,22 +88,26 @@ page{
 .nav-item.active{
     color: red;
 }
+
 .tab-box{
-    height: 1400rpx;
+    height: auto;
 }
+
 .tab-content{
     overflow-y: scroll;
 }
 
+.swiper-orders {
+  width: auto;
+}
+
 .orders{
-    height: auto;
     width: 100%;
-    overflow: hidden;
 }
 
 .order{
     margin-top: 20rpx;
-    background: #fff;
+    background:white;
 }
 
 .order .h{

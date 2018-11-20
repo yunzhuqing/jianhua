@@ -11,10 +11,10 @@
     </block>
   </scroll-view>
   <!-- 页面内容 -->
-  <swiper class="tab-box" current="{{currentTab}}" bindchange="switchTab">
+  <swiper class="tab-box" current="{{currentTab}}" bindchange="switchTab" class='swiper-orders' style='height:{{itemHeight}}rpx;'>
     <!--我的订单-->
     <swiper-item>
-      <view class="orders">
+      <scroll-view class='orders'>
         <navigator url="../orderDetail/orderDetail?id={{item.id}}" class="order" wx:for="{{orderList}}" wx:key="{{item.id}}">
           <view class="h">
             <view class="l">订单编号：{{item.order_sn}}</view>
@@ -42,9 +42,9 @@
             </view>
           </view>
         </navigator>
-      </view>
+      </scroll-view>
 
-      <view wx:if="{{orderList.length>6}}" class="loadmore">
+      <!-- <view wx:if="{{orderList.length>6}}" class="loadmore">
         <block wx:if="{{nomore}}">
           <text>{{nomoreText}}</text>
         </block>
@@ -52,7 +52,7 @@
           <text class="iconfont icon-loading loading" space="nbsp"></text>
           <text> {{loadmoreText}}</text>
         </block>
-      </view>
+      </view> -->
     </swiper-item>
     <!-- 我的购物车-->
     <swiper-item>

@@ -28,6 +28,7 @@ var tabs = [{
 
 Page({
   data: {
+    windowHeight:0,
     userInfo: {},
     hasMobile: '',
     tabs: tabs, //展示的数据
@@ -36,7 +37,7 @@ Page({
     navScrollLeft: 0,
     orderList: [],
     page: 1,
-    size: 10,
+    size: 5,
     loadmoreText: '正在加载更多数据',
     nomoreText: '全部加载完成',
     nomore: false,
@@ -57,7 +58,12 @@ Page({
     fbindex: 0,
     fbcontent: '',
     fbcontentLength: 0,
-    fbmobile: ''
+    fbmobile: '',
+    itemHeight: 1000,
+    heights: {
+      0: 0
+    },
+    pages: [0]    
   },
   onLoad: function(options) {
     let that = this;
@@ -72,7 +78,7 @@ Page({
     });
 
     if (that.data.currentTab == 0) {
-      that.getOrderList();
+      that.getOrderList(1);
     }
   },
   onReady: function() {
@@ -100,6 +106,14 @@ Page({
   },
   onUnload: function() {
     // 页面关闭
+  },
+  onReachBottom:function() {
+    if(this.data.currentTab == 0) {
+      this.setData({
+        page: this.data.page + 1
+      });
+      this.getOrderList(this.data.page);
+    }
   },
   bindGetUserInfo(e) {
     let userInfo = wx.getStorageSync('userInfo');
@@ -169,7 +183,7 @@ Page({
     //tab选项居中                            
     this.setData({
       navScrollLeft: (cur - 2) * singleNavWidth
-    })
+    });
     if (this.data.currentTab == cur) {
       return false;
     } else {
@@ -187,7 +201,7 @@ Page({
     });
 
     if (cur == 0) {
-      this.getOrderList();
+      this.getOrderList(0);
     } else if(cur == 1) {
       this.getCartList();
     } else if (cur == 2) {
@@ -195,23 +209,35 @@ Page({
     } else if (cur == 3) {
       this.getAddressList();
     }
+
+    // for(var i=0; i < 4; i++) {
+    //   if(i != cur) {
+    //     this.data.heights[i] = 0;
+    //   }
+    // }
   },
 
-  getOrderList() {
+  getOrderList(page) {
+    /**
+     * 获取订单列表
+     */
     let that = this;
+    let iHeight = 310;
 
-    if (that.data.totalPages <= that.data.page - 1) {
+    if (that.data.totalPages <= page - 1) {
       that.setData({
         nomore: true
       })
       return;
     }
 
-    util.request(api.OrderList, { userId: that.data.userId, page: that.data.page, size: that.data.size }).then(function (res) {
+    util.request(api.OrderList, { userId: that.data.userId, page: page, size: that.data.size }).then(function (res) {
       if (res.errno === 0) {
+        let itemHeight = (that.data.page - 1) * that.data.size * iHeight + res.data.data.length * iHeight;
+        itemHeight = that.data.heights[that.data.currentTab] + itemHeight;
         that.setData({
+          itemHeight: itemHeight,
           orderList: that.data.orderList.concat(res.data.data),
-          page: res.data.currentPage + 1,
           totalPages: res.data.totalPages
         });
         wx.hideLoading();
@@ -238,10 +264,11 @@ Page({
   // 购物车开始
   getCartList: function () {
     let that = this;
+    let windowHeight = 800;
     util.request(api.CartList).then(function (res) {
       if (res.errno === 0) {
-        console.log(res.data);
         that.setData({
+          itemHeight : windowHeight,
           cartGoods: res.data.cartList,
           cartTotal: res.data.cartTotal
         });
