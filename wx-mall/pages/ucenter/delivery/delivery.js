@@ -1,3 +1,6 @@
+var util = require('../../../utils/util.js');
+var api = require('../../../config/api.js');
+
 // pages/ucenter/delivery/delivery.js
 Page({
 
@@ -5,14 +8,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    current: 2,
+    verticalCurrent: 0,
+    infos:[{"time":1, "desc":"dddd"}]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let orderId = options.orderId
+    let that = this
+    util.request(api.Logistics + '/' + orderId, null).then(function (res) {
+      if (res.errno === 0) {
+        that.setData({
+          infos: res.data
+        });
+      }
+    });
   },
 
   /**
@@ -62,5 +75,12 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  handleClick() {
+    const addCurrent = this.data.current + 1;
+    const current = addCurrent > 2 ? 0 : addCurrent;
+    this.setData({
+      'current': current
+    })
   }
 })

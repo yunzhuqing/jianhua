@@ -1,2 +1,10 @@
-<!--pages/ucenter/delivery/delivery.wxml-->
-<text>pages/ucenter/delivery/delivery.wxml</text>
+<i-steps current="{{verticalCurrent}}" direction="vertical">
+    <i-step wx:for="{{infos}}">
+        <view slot="title">
+              {{item.time}}
+        </view>
+        <view slot="content">
+            {{item.desc}}
+        </view>
+    </i-step>
+</i-steps>

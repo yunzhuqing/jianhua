@@ -1,1 +1,6 @@
-{}
+{
+  "usingComponents": {
+    "i-steps": "../../../component/dist/steps/index",
+    "i-step": "../../../component/dist/step/index"
+  }
+}

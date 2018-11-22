@@ -29,6 +29,8 @@
         <property name="initialSize">
             <value>${spring.datasource.initial-size}</value>
         </property>
+        <property name="maxActive" value="${spring.datasource.maxActive}" />
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
         <property name="connectionInitSqls" value="set names utf8mb4;"/>
     </bean>
 
