@@ -27,9 +27,15 @@ public class PropertiesReload extends PropertyPlaceholderConfigurer {
 
     private Log log = LogFactory.getLog(PropertiesReload.class);
 
+    private String env;
+
+    private String appName;
+
     @Override
     protected void processProperties(ConfigurableListableBeanFactory beanFactory,
                                      Properties props) throws BeansException {
+        env = System.getProperty("app.env");
+        appName = System.getProperty("app.name");
         Properties prop = this.loadProp();
         super.processProperties(beanFactory, prop);
     }
@@ -99,9 +105,15 @@ public class PropertiesReload extends PropertyPlaceholderConfigurer {
         for(String node : nodes) {
             String subPath = "";
             if(path.equals("/")) {
+                if(!node.equals(appName)) {
+                    continue;
+                }
                 subPath = path + node;
             } else {
                 subPath = path + "/" + node;
+                if(!subPath.contains(env)) {
+                    continue;
+                }
             }
             loadZkInfo(subPath, map, zk);
             String pathData = new String(zk.getData(subPath, false, null));
