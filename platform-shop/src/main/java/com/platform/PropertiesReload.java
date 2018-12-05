@@ -29,11 +29,14 @@ public class PropertiesReload extends PropertyPlaceholderConfigurer {
 
     private String appName;
 
+    private String zkHost;
+
     @Override
     protected void processProperties(ConfigurableListableBeanFactory beanFactory,
                                      Properties props) throws BeansException {
         env = System.getProperty("app.env");
         appName = System.getProperty("app.name");
+        zkHost = System.getProperty("app.conf");
         Properties prop = this.loadProp();
         super.processProperties(beanFactory, prop);
     }
@@ -71,7 +74,7 @@ public class PropertiesReload extends PropertyPlaceholderConfigurer {
      */
     public Map<String,Object> loadZk(){
         Map<String,Object> map = new  HashMap<>();
-        String connectString = "test.huashili.io:2181";
+        String connectString = zkHost + ":2181";
         int sessionTimeout = 50000;
         Watcher watcher = new Watcher() {
             //监控所有被触发的事件

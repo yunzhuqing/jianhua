@@ -7,7 +7,7 @@ import java.nio.channels.FileChannel;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.http.entity.ContentType;
+import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.platform.utils.RRException;
@@ -55,8 +55,6 @@ public class QcloudCloudStorageService extends CloudStorageService {
 		String fileName = file.getOriginalFilename();
 		
 		String prefix = fileName.substring(fileName.lastIndexOf(".") + 1);
-		System.out.println(fileName);
-		System.out.println(prefix);
 		return upload(file.getInputStream(), getPath(config.getQcloudPrefix()) + "." + prefix);
 	}
 
@@ -74,7 +72,7 @@ public class QcloudCloudStorageService extends CloudStorageService {
 		
 		ObjectMetadata meta = new ObjectMetadata();
 
-		meta.setContentType(ContentType.APPLICATION_OCTET_STREAM.getMimeType());
+		meta.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
 		
 		try {
 			// 这里有个风险，因为available返回的是int类型，有长度限制，如果文件大，这个不适用。

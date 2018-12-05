@@ -1,6 +1,6 @@
 package com.platform.utils;
 
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -154,10 +154,10 @@ public class RequestUtil {
         }
         body = stringBuilder.toString();
         // 转换成json对象
-        JSONObject json = new JSONObject(body);
+        JSONObject json = JSONObject.parseObject(body);
         // 转化成map合适
         Map<String, Object> paramers = new HashMap<String, Object>();
-        Iterator<String> keys = json.keys();
+        Iterator<String> keys = json.keySet().iterator();
         String key;
         while (keys.hasNext()) {
             key = keys.next();

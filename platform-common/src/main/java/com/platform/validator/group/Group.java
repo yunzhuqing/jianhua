@@ -9,7 +9,6 @@ import javax.validation.GroupSequence;
  * @email 939961241@qq.com
  * @date 2017-03-15 23:15
  */
-@GroupSequence({AddGroup.class, UpdateGroup.class})
 public interface Group {
 
 }
