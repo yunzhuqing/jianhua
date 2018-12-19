@@ -15,24 +15,24 @@
 
     <!--<context:property-placeholder location="classpath*:platform.properties"/>-->
 
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-          init-method="init" destroy-method="close">
-        <property name="url">
-            <value>${spring.datasource.url}</value>
-        </property>
-        <property name="username">
-            <value>${spring.datasource.username}</value>
-        </property>
-        <property name="password">
-            <value>${spring.datasource.password}</value>
-        </property>
-        <property name="initialSize">
-            <value>${spring.datasource.initial-size}</value>
-        </property>
-        <property name="maxActive" value="${spring.datasource.maxActive}" />
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-        <property name="connectionInitSqls" value="set names utf8mb4;"/>
-    </bean>
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"-->
+          <!--init-method="init" destroy-method="close">-->
+        <!--<property name="url">-->
+            <!--<value>${spring.datasource.url}</value>-->
+        <!--</property>-->
+        <!--<property name="username">-->
+            <!--<value>${spring.datasource.username}</value>-->
+        <!--</property>-->
+        <!--<property name="password">-->
+            <!--<value>${spring.datasource.password}</value>-->
+        <!--</property>-->
+        <!--<property name="initialSize">-->
+            <!--<value>${spring.datasource.initial-size}</value>-->
+        <!--</property>-->
+        <!--<property name="maxActive" value="${spring.datasource.maxActive}" />-->
+        <!--<property name="timeBetweenEvictionRunsMillis" value="60000" />-->
+        <!--<property name="connectionInitSqls" value="set names utf8mb4;"/>-->
+    <!--</bean>-->
 
     <!-- 配置事务管理器 -->
     <bean id="transactionManager"

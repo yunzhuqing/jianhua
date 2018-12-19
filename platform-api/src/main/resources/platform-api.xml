@@ -7,22 +7,22 @@
 		http://www.springframework.org/schema/mvc
      	http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
 
-    <mvc:annotation-driven>
-        <mvc:argument-resolvers>
-            <bean class="com.platform.resolver.LoginUserHandlerMethodArgumentResolver">
-            </bean>
-        </mvc:argument-resolvers>
+    <!--<mvc:annotation-driven>-->
+        <!--<mvc:argument-resolvers>-->
+            <!--<bean class="com.platform.resolver.LoginUserHandlerMethodArgumentResolver">-->
+            <!--</bean>-->
+        <!--</mvc:argument-resolvers>-->
 
-    </mvc:annotation-driven>
+    <!--</mvc:annotation-driven>-->
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/api/**"/>
-            <ref bean="authorizationInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/api/**"/>-->
+            <!--<ref bean="authorizationInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
     <bean id="apiUserService" class="com.platform.service.ApiUserService"/>
 
-    <bean id="authorizationInterceptor" class="com.platform.interceptor.AuthorizationInterceptor"/>
+    <!--<bean id="authorizationInterceptor" class="com.platform.interceptor.AuthorizationInterceptor"/>-->
 </beans>

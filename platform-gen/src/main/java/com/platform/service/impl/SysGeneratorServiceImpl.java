@@ -5,7 +5,6 @@ import com.platform.dao.SysOracleGeneratorDao;
 import com.platform.entity.ResultMap;
 import com.platform.service.SysGeneratorService;
 import com.platform.utils.Constant;
-import com.platform.utils.GenUtils;
 import com.platform.utils.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +115,7 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
             //查询列信息
             List<Map<String, String>> columns = queryColumns(tableName);
             //生成代码
-            GenUtils.generatorCode(table, columns, zip);
+//            GenUtils.generatorCode(table, columns, zip);
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();

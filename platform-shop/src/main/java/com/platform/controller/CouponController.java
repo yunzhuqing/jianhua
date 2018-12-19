@@ -37,8 +37,7 @@ public class CouponController {
         Query query = new Query(params);
         PageHelper.startPage(query.getPage(), query.getLimit());
         List<CouponEntity> couponList = couponService.queryList(query);
-        PageUtils pageUtil = new PageUtils(new PageInfo(couponList));
-
+        PageUtils pageUtil = new PageUtils(couponList, couponList.size(), 0 ,100);
         return R.ok().put("page", pageUtil);
     }
 

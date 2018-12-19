@@ -7,20 +7,11 @@ import com.platform.entity.OrderEntity;
 import com.platform.service.OrderService;
 import com.platform.utils.HttpUtil;
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.shiro.crypto.hash.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -30,6 +21,8 @@ import java.util.UUID;
 public class LogisticsController extends AbstractController {
 
     private static  Map<Integer, String> logistics = new HashMap<>();
+
+    private RestTemplate restTemplate;
 
     static {
         logistics.put(15, "ems");
@@ -67,10 +60,8 @@ public class LogisticsController extends AbstractController {
     public JSONArray getLogistics(String nu, String com) {
         try {
             String url = "https://sp0.baidu.com/9_Q4sjW91Qh3otqbppnN2DJv/pae/channel/data/asyncqury?appid=4001&com=" + com + "&nu=" + nu;
-            Map<String, String> header = new HashMap<>();
             String uuid = UUID.randomUUID().toString();
-            header.put("Cookie", "BAIDUID=" + uuid +":FG=1");
-            String resp = HttpUtil.URLGet(url, null, null, header);
+            String resp = HttpUtil.get(url, String.class, null, "Cookie", "BAIDUID=" + uuid +":FG=1");
             JSONObject json = JSONObject.parseObject(resp, JSONObject.class);
             if("0".equals(json.getString("status"))) {
                 JSONObject datas  = json.getJSONObject("data");

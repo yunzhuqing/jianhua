@@ -1,7 +1,5 @@
 package com.platform.util.wechat;
 
-import com.alibaba.druid.support.logging.Log;
-import com.alibaba.druid.support.logging.LogFactory;
 import com.platform.utils.CharUtil;
 import com.platform.utils.MapUtils;
 import com.platform.utils.ResourceUtil;
@@ -22,6 +20,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -43,7 +43,7 @@ import java.util.Set;
  * @date 2017年6月6日  下午5:05:03
  */
 public class WechatUtil {
-    private static Log logger = LogFactory.getLog(WechatUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(WechatUtil.class);
     /**
      * 充值客户端类型--微信公众号
      */
