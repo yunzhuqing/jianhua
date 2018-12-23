@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>角色管理</title>
-    #parse("sys/header.html")
+    <link rel="import" href="../sys/header.html">
 </head>
 <body>
 <div id="rrapp" v-cloak>
@@ -67,6 +67,6 @@
     <ul id="deptTree" class="ztree"></ul>
 </div>
 
-<script src="${rc.contextPath}/js/sys/role.js?_${date.systemTime}"></script>
+<script src="${rc.contextPath}/js/sys/role.js"></script>
 </body>
 </html>

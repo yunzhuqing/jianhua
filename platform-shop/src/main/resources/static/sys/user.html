@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>管理员列表</title>
-    #parse("sys/header.html")
+    <link rel="import" href="../sys/header.html">
 </head>
 <body>
 <div id="rrapp" v-cloak>
@@ -75,6 +75,6 @@
 <div id="deptLayer" style="display: none;padding:10px;">
     <ul id="deptTree" class="ztree"></ul>
 </div>
-<script src="${rc.contextPath}/js/sys/user.js?_${date.systemTime}"></script>
+<script src="${rc.contextPath}/js/sys/user.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>定时任务</title>
-    #parse("sys/header.html")
+    <link rel="import" href="../sys/header.html">
 </head>
 <body>
 <div id="rrapp" v-cloak>
@@ -96,6 +96,6 @@
     </Row>
 </div>
 
-<script src="${rc.contextPath}/js/sys/schedule.js?_${date.systemTime}"></script>
+<script src="${rc.contextPath}/js/sys/schedule.js"></script>
 </body>
 </html>

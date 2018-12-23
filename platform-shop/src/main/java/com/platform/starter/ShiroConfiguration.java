@@ -36,13 +36,15 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String,String> map = new HashMap<String, String>();
 //        //登出
-//        map.put("/logout","logout");
-//        //对所有用户认证
-//        map.put("/**","authc");
+        map.put("/logout","logout");
+        map.put("/captcha.jpg","anon");
+        //对所有用户认证
+        map.put("/sys/login","anon");
+        map.put("/**","authc");
 //        //登录
-//        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/login.html");
 //        //首页
-//        shiroFilterFactoryBean.setSuccessUrl("/index");
+        shiroFilterFactoryBean.setSuccessUrl("/index.html");
 //        //错误页面，认证不通过跳转
 //        shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
