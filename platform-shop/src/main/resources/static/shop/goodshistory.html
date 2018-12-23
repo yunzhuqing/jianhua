@@ -15,9 +15,7 @@
                 <i-button @click="query">查询</i-button>
             </div>
             <div class="buttons-group">
-                #if($shiro.hasPermission("goods:back"))
                 <i-button type="warning" @click="back"><i class="fa fa-pencil-square-o"></i>&nbsp;恢复</i-button>
-                #end
             </div>
         </Row>
         <table id="jqGrid"></table>
@@ -26,6 +24,6 @@
 
 </div>
 
-<script src="${rc.contextPath}/js/shop/goodshistory.js"></script>
+<script src="../js/shop/goodshistory.js"></script>
 </body>
 </html>

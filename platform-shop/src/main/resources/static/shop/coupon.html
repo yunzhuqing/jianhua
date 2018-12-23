@@ -15,22 +15,14 @@
                 <i-button @click="query">查询</i-button>
             </div>
             <div class="buttons-group">
-                #if($shiro.hasPermission("coupon:save"))
                 <i-button type="info" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</i-button>
-                #end
-                #if($shiro.hasPermission("coupon:update"))
                 <i-button type="warning" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</i-button>
-                #end
-                #if($shiro.hasPermission("coupon:delete"))
                 <i-button type="error" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</i-button>
-                #end
             </div>
-            <!--#if($shiro.hasPermission("coupon:publish"))-->
             <!--<i-button type="primary" @click="publish">-->
             <!--<Icon type="android-send"></Icon>-->
             <!--</i>&nbsp;发放-->
             <!--</i-button>-->
-            <!--#end-->
         </Row>
         <table id="jqGrid"></table>
         <div id="jqGridPager"></div>
@@ -123,6 +115,6 @@
     </Card>
 </div>
 
-<script src="${rc.contextPath}/js/shop/coupon.js"></script>
+<script src="../js/shop/coupon.js"></script>
 </body>
 </html>

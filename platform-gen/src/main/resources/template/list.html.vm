@@ -55,6 +55,6 @@
 	</Card>
 </div>
 
-<script src="${rc.contextPath}/js/shop/${pathName}.js"></script>
+<script src="../js/shop/${pathName}.js"></script>
 </body>
 </html>
