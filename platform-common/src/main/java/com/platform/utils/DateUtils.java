@@ -1,6 +1,7 @@
 package com.platform.utils;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 public class DateUtils {
     // 日志
-    private static final Logger logger = Logger.getLogger(DateUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(DateUtils.class);
 
     /**
      * 时间格式(yyyy-MM-dd)

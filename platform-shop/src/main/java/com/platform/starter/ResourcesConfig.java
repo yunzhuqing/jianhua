@@ -63,7 +63,7 @@ public class ResourcesConfig {
     public DataSourceProperties dataSourceProperties() {
         DataSourceProperties properties = new DataSourceProperties();
         properties.setUrl(dbUrl);
-        properties.setDataUsername(dbUserName);
+        properties.setUsername(dbUserName);
         properties.setPassword(dbPassword);
         properties.setDriverClassName("com.mysql.jdbc.Driver");
         return properties;

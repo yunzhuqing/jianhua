@@ -8,9 +8,9 @@ import com.platform.dao.ApiCouponMapper;
 import com.platform.entity.*;
 import com.platform.service.*;
 import com.platform.util.ApiBaseAction;
-import com.qiniu.util.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -105,7 +105,7 @@ public class ApiCartController extends ApiBaseAction {
                     couponInfoList.add(cpVo);
                 }
             }
-            if (!StringUtils.isNullOrEmpty(fullCutVo.getMsg())) {
+            if (!StringUtils.isEmpty(fullCutVo.getMsg())) {
                 couponInfoList.add(fullCutVo);
             }
         }
@@ -341,7 +341,7 @@ public class ApiCartController extends ApiBaseAction {
         JSONObject jsonParam = getJsonRequest();
         String productIds = jsonParam.getString("productIds");
         Integer isChecked = jsonParam.getInteger("isChecked");
-        if (StringUtils.isNullOrEmpty(productIds)) {
+        if (StringUtils.isEmpty(productIds)) {
             return this.toResponsFail("删除出错");
         }
         String[] productIdArray = productIds.split(",");
@@ -358,7 +358,7 @@ public class ApiCartController extends ApiBaseAction {
         JSONObject jsonObject = getJsonRequest();
         String productIds = jsonObject.getString("productIds");
 
-        if (StringUtils.isNullOrEmpty(productIds)) {
+        if (StringUtils.isEmpty(productIds)) {
             return toResponsFail("删除出错");
         }
         String[] productIdsArray = productIds.split(",");

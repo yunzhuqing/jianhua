@@ -7,7 +7,7 @@ import com.platform.page.Page;
 import com.platform.page.PageHelper;
 import com.platform.service.SysDeptService;
 import com.platform.utils.Constant;
-import com.qiniu.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

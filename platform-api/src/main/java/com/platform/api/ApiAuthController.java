@@ -15,12 +15,13 @@ import com.platform.util.ApiUserUtils;
 import com.platform.util.CommonUtil;
 import com.platform.utils.CharUtil;
 import com.platform.utils.R;
+import com.platform.utils.StringUtils;
 import com.platform.validator.Assert;
-import com.qiniu.util.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.MapUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 public class ApiAuthController extends ApiBaseAction {
-    private Logger logger = Logger.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private SysUserService sysUserService;

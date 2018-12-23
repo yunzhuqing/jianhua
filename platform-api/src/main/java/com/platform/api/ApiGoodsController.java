@@ -12,7 +12,6 @@ import com.platform.utils.Base64;
 import com.platform.utils.CharUtil;
 import com.platform.utils.DateUtils;
 import com.platform.utils.Query;
-import com.qiniu.util.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

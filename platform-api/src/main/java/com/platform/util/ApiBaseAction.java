@@ -4,8 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.platform.entity.TokenEntity;
 import com.platform.interceptor.AuthorizationInterceptor;
 import com.platform.service.TokenService;
-import org.apache.log4j.Logger;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -32,7 +33,7 @@ import java.util.Map;
  * @date 2016年9月2日
  */
 public class ApiBaseAction {
-    protected Logger logger = Logger.getLogger(getClass());
+    protected Logger logger = LoggerFactory.getLogger(getClass());
     /**
      * 得到request对象
      */

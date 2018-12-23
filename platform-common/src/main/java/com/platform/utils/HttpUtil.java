@@ -1,6 +1,7 @@
     package com.platform.utils;
 
-    import org.apache.log4j.Logger;
+    import org.slf4j.Logger;
+    import org.slf4j.LoggerFactory;
     import org.springframework.http.HttpEntity;
     import org.springframework.http.HttpHeaders;
     import org.springframework.http.HttpMethod;
@@ -18,7 +19,7 @@
     public class HttpUtil {
 
         // 日志
-        private static final Logger logger = Logger.getLogger(HttpUtil.class);
+        private static final Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
         public static  <T> T get(String url, Class<T> responseClass, Map<String, ?> params, String...headers) {
             RestTemplate restTemplate = new RestTemplate();
