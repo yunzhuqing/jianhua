@@ -15,6 +15,7 @@ import com.platform.util.ApiUserUtils;
 import com.platform.util.CommonUtil;
 import com.platform.utils.CharUtil;
 import com.platform.utils.R;
+import com.platform.utils.ResourceUtil;
 import com.platform.utils.StringUtils;
 import com.platform.validator.Assert;
 import io.swagger.annotations.Api;
@@ -23,6 +24,7 @@ import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +54,15 @@ public class ApiAuthController extends ApiBaseAction {
     private TokenService tokenService;
     @Autowired
     private RestTemplate restTemplate;
+
+    @Value("${auth.token}")
+    private String authToken;
+
+    @Value("${auth.appid}")
+    private String authAppId;
+
+    @Value("${auth.secret}")
+    private String authSecret;
 
     /**
      * 登录
@@ -94,7 +105,7 @@ public class ApiAuthController extends ApiBaseAction {
         UserInfo userInfo = fullUserInfo.getUserInfo();
 
         //获取openid
-        String requestUrl = ApiUserUtils.getWebAccess(code);//通过自定义工具类组合出小程序需要的登录凭证 code
+        String requestUrl = getWebAccess(code);//通过自定义工具类组合出小程序需要的登录凭证 code
         logger.info("》》》组合token为：" + requestUrl);
         String res = restTemplate.getForObject(requestUrl, String.class);
         JSONObject sessionData = JSON.parseObject(res);
@@ -142,5 +153,13 @@ public class ApiAuthController extends ApiBaseAction {
         resultObj.put("userInfo", userInfo);
         resultObj.put("userId", userVo.getUserId());
         return toResponsSuccess(resultObj);
+    }
+
+    //替换字符串
+    public String getWebAccess(String CODE) {
+        return String.format(authToken,
+                authAppId,
+                authSecret,
+                CODE);
     }
 }
