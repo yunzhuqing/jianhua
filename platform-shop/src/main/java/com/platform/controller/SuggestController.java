@@ -33,7 +33,6 @@ public class SuggestController extends AbstractController {
     @Autowired
     private TopicService topicService;
 
-    @IgnoreAuth
     @GetMapping("list")
     public R list(@RequestParam(name="scene", defaultValue = "0", required = false) Integer scene) {
         Map<String, Object> attrs = new HashMap<>();
