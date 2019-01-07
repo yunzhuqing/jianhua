@@ -40,6 +40,9 @@ public class ShiroConfiguration {
         map.put("/captcha.jpg","anon");
         //对所有用户认证
         map.put("/sys/login","anon");
+        map.put("/statics/**", "anon");
+        map.put("/js/sys/**", "anon");
+        map.put("/js/**", "anon");
         map.put("/api/**", "anon");
         map.put("/**","authc");
 //        //登录
