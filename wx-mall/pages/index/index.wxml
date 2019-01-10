@@ -37,26 +37,27 @@
 
   <view class='nearest-distince common-suggest'>
     <view class='item-header'>
-      <label class='item-header-title'>精选推荐</label>
+      <label class='item-header-title'>精选店铺</label>
       <label class='more' bindtap='showMore' data-scene='2'>更多</label>
     </view>
 
     <scroll-view scroll-x='true'>
-      <view class='suggest-item' bindtap='shopClick'>
+      <block wx:for="{{suggestShops}}" wx:for-item="item" wx:for-index="idx">
+        <view class='suggest-item' bindtap='itemClick' data-goodsid='{{item.rid}}' data-type='{{item.type}}'>
+          <image class='suggest-item-pic' src='{{item.url}}'></image>
+          <view class='suggest-item-bottom'>
+            <view class='suggest-item-bottom-item'>{{item.itemFirst}}</view>
+            <view class='suggest-item-bottom-item'>{{item.itemSecond}}</view>
+          </view>
+        </view>
+      </block>
+      <!-- <view class='suggest-item' bindtap='shopClick'>
         <image class='suggest-item-pic' src='../../static/images/shop.svg'></image>
         <view class='suggest-item-bottom'>
           <view class='suggest-item-bottom-item'>xxx花艺</view>
           <view class='suggest-item-bottom-item'>精致生活</view>
         </view>
-      </view>
-
-      <view class='suggest-item'>
-        <image class='suggest-item-pic' src='../../static/images/flower-p.svg'></image>
-        <view class='suggest-item-bottom'>
-          <view class='suggest-item-bottom-item'>经典玫瑰</view>
-          <view class='suggest-item-bottom-item'>300</view>
-        </view>
-      </view>
+      </view> -->
     </scroll-view>
   </view>
 

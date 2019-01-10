@@ -12,6 +12,7 @@ Page({
     suggestItems:[],
     suggestScenes:[],
     suggestGifts:[],
+    suggestShops:[],
     cols: 2,
     giftLen: 300
   },
@@ -23,6 +24,7 @@ Page({
     this.getSuggestItems();
     this.getSuggestScene();
     this.getSuggestGift();
+    this.getSuggestShops();
   },
 
   /**
@@ -80,10 +82,10 @@ Page({
   },
   getSuggestItems: function () {
     let that = this;
-    util.request(api.SuggestItem, {scene:1}).then(function(res) {
+    util.request(api.SuggestItem, {scene:3}).then(function(res) {
       if (res.code == 0) {
         that.setData({
-          suggestItems: res.items
+          suggestShops: res.items
         });
       }
     });
@@ -94,6 +96,16 @@ Page({
       if (res.code == 0) {
         that.setData({
           suggestScenes: res.items
+        });
+      }
+    });
+  },
+  getSuggestShops: function () {
+    let that = this;
+    util.request(api.SuggestItem, { scene: 1 }).then(function (res) {
+      if (res.code == 0) {
+        that.setData({
+          suggestItems: res.items
         });
       }
     });

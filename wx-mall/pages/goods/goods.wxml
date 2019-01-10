@@ -62,47 +62,8 @@
       <view class="t" wx:elif='{{productList.length>0}}'>{{checkedSpecText}}</view>
       <image class="i" src="../../static/images/address_right.png" background-size="cover"></image>
     </view>
-   
-    <!--<view class="section-nav section-act">
-      <view class="t">
-        <view class="label">1个促销:</view>
-        <view class="tag">万圣趴</view>
-        <view class="text">全场满499，额外送糖果</view>
-      </view>
-      <image class="i" src="../../static/images/address_right.png" background-size="cover"></image>
-    </view>-->
-    <view class="comments" wx:if="{{comment.count > 0}}">
-      <view class="h">
-        <navigator url="../comment/comment?valueId={{goods.id}}&typeId=0">
-          <text class="t">评价({{comment.count > 999 ? '999+' : comment.count}})</text>
-          <text class="i">查看全部</text>
-        </navigator>
-      </view>
-      <view class="b">
-        <view class="item">
-          <view class="info">
-            <view class="user">
-              <image src="{{comment.data.avatar}}"></image>
-              <text>{{comment.data.nickname}}</text>
-            </view>
-            <view class="time">{{comment.data.add_time}}</view>
-          </view>
-          <view class="content">
-            {{comment.data.content}}
-          </view>
-          <view class="imgs" wx:if="{{comment.data.pic_list.length > 0}}">
-            <image class="img" wx:for="{{comment.data.pic_list}}" wx:key="{{item.id}}" src="{{item.pic_url}}"></image>
-          </view>
-          <!-- <view class="spec">白色 2件</view> -->
-        </view>
-      </view>
-    </view>
-    <view class='comments' wx:else>
-      <view class="h">
-          <text class="t">评价({{comment.count > 999 ? '999+' : comment.count}})</text>
-      </view>
-    </view>
-    <view class="goods-attr">
+    
+    <!-- <view class="goods-attr">
       <view class="t">商品参数</view>
       <view class="l">
         <view class="item" wx:for="{{attribute}}" wx:key="{{item.name}}">
@@ -110,7 +71,7 @@
           <text class="right">{{item.value}}</text>
         </view>
       </view>
-    </view>
+    </view> -->
 
     <view class="detail">
       <import src="../../lib/wxParse/wxParse.wxml" />

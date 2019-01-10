@@ -2,6 +2,12 @@
     /* margin-bottom: 100rpx; */
 }
 
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
 
 .goodsimgs{
   width: 750rpx;
@@ -165,7 +171,7 @@
 }
 
 .comments{
-    width: 100%;
+    width: 99%;
     height: auto;
     padding-left:30rpx;
     background: #fff;
@@ -177,7 +183,7 @@
     line-height: 100.5rpx;
     width: 718.75rpx;
     padding-right: 16rpx;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid #fff;
 }
 
 .comments .h .t{
@@ -246,7 +252,6 @@
     width: auto;
     height: 67rpx;
     line-height: 67rpx;
-    color: #7f7f7f;
     font-size: 25rpx;
     margin-right: 30rpx;
 }
@@ -277,7 +282,6 @@
     padding-right: 30rpx;
     line-height: 30rpx;
     font-size: 24rpx;
-    color: #999;
     margin-bottom: 30rpx;
 }
 
@@ -294,7 +298,7 @@
     width: 687.5rpx;
     height: 104rpx;
     line-height: 104rpx;
-    font-size: 38.5rpx;
+    font-size: 30rpx;
 }
 
 .goods-attr .item{
@@ -328,7 +332,7 @@
 }
 
 .detail{
-    width: 750rpx;
+    width: 100%;
     height: auto;
     overflow: hidden;
 }
