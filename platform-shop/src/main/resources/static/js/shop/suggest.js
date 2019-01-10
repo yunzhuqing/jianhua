@@ -40,12 +40,18 @@ TreeGrid.initColumn = function () {
                     return "首页轮播";
                 } else if(2 == value.scene) {
                     return "小物件";
+                } else if(3 == value.scene) {
+                    return "推荐商铺";
                 }
                 return "未知";
             }},
         {title: '类型', field: 'type', align: 'center', valign: 'middle', width: '50px', formatter: function (value) {
                 if(0 == value.type) {
                     return "商品";
+                } else if(1 == value.type) {
+                    return "活动";
+                } else if(2 == value.type) {
+                    return "商铺";
                 }
                 return "未知";
             }},

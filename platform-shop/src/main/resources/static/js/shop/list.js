@@ -2,7 +2,7 @@ $(function () {
     $("#jqGrid").Grid({
         url: '../shops/list',
         colModel: [
-            {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
+            {label: 'id', name: 'id', index: 'id', key: true},
             {label: '店铺名称', name: 'shopName', index: 'shopName', width: 80},
             {label: '店铺地址', name: 'shopAddress', index: 'shopAddress', width: 160},
             {label: '创建人', name: 'userId', index: 'userId', width: 120},

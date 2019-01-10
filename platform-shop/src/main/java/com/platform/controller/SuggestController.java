@@ -28,6 +28,9 @@ public class SuggestController extends AbstractController {
     private GoodsService goodsService;
 
     @Autowired
+    private ShopService shopService;
+
+    @Autowired
     private SysUserService sysUserService;
 
     @Autowired
@@ -61,6 +64,13 @@ public class SuggestController extends AbstractController {
                     suggestItemVO.setItemFirst(topicEntity.getTitle());
                     suggestItemVO.setUrl(topicEntity.getItemPicUrl());
                     suggestItemVO.setRid(topicEntity.getId().longValue());
+                }
+            } else if(SuggestItemType.SHOP.ordinal() == item.getType()) {
+                ShopEntity shopEntity = shopService.queryObject(item.getRid());
+                if(null != shopEntity) {
+                    suggestItemVO.setItemFirst(shopEntity.getShopName());
+                    suggestItemVO.setUrl(shopEntity.getShopPic());
+                    suggestItemVO.setRid(shopEntity.getId().longValue());
                 }
             }
             items.add(suggestItemVO);
@@ -101,6 +111,13 @@ public class SuggestController extends AbstractController {
                     suggestItemInnerVO.setItemFirst(topicEntity.getTitle());
                     suggestItemInnerVO.setUrl(topicEntity.getItemPicUrl());
                     suggestItemInnerVO.setRid(topicEntity.getId().longValue());
+                }
+            } else if(SuggestItemType.SHOP.ordinal() == item.getType()) {
+                ShopEntity shopEntity = shopService.queryObject(item.getRid());
+                if(null != shopEntity) {
+                    suggestItemInnerVO.setItemFirst(shopEntity.getShopName());
+                    suggestItemInnerVO.setUrl(shopEntity.getShopPic());
+                    suggestItemInnerVO.setRid(shopEntity.getId().longValue());
                 }
             }
             items.add(suggestItemInnerVO);

@@ -103,11 +103,6 @@
         <foreach item="menuId" collection="array" open="(" separator="," close=")">
             #{menuId}
         </foreach>
-        ;
-        delete from sys_role_menu where menu_id in
-        <foreach item="menuId" collection="array" open="(" separator="," close=")">
-            #{menuId}
-        </foreach>
     </delete>
 
 </mapper>

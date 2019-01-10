@@ -11,5 +11,9 @@ public enum SuggestItemType {
     /**
      * 活动
      */
-    ACTIVITY
+    ACTIVITY,
+    /**
+     * 店铺
+     */
+    SHOP
 }
