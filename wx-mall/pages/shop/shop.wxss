@@ -9,6 +9,7 @@
 .top {
   height: 180rpx;
   width: 100%;
+  background-color: white;
 }
 
 .shops {
@@ -42,6 +43,8 @@
 .head_shop_name {
   padding-left: 20rpx;
   padding-top: 20rpx;
+  font-size: 50rpx;
+  font-family: Georgia, SimSun, “宋体”;
 }
 
 .head_shop_desc {
@@ -130,4 +133,10 @@ swiper-item{
   height: 10%;
   margin-left: 20%;
   font-size: 25rpx;
+}
+
+.empty-goods {
+  height: 940rpx;
+  text-align: center;
+  padding-top: 40%;
 }

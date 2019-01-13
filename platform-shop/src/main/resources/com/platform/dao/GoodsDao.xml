@@ -49,7 +49,7 @@
     <select id="query" resultType="com.platform.entity.GoodsEntity">
         select id,`name`,goods_desc,update_time from nideshop_goods
         <where>
-            <if test="shop_id != null">
+            <if test="shopId != null">
                 shop_id=#{shopId}
             </if>
         </where>
