@@ -16,6 +16,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.sql.DataSource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * zookeeper, redis, db 配置
@@ -72,8 +73,9 @@ public class ResourcesConfig {
     @Bean
     @ConfigurationProperties
     public DataSource dataSource(DataSourceProperties properties) {
-        DataSource dataSource = properties.initializeDataSourceBuilder().type(HikariDataSource.class)
+        HikariDataSource dataSource = properties.initializeDataSourceBuilder().type(HikariDataSource.class)
                 .build();
+        dataSource.setIdleTimeout(TimeUnit.MINUTES.toMillis(1));
         return dataSource;
     }
 }

@@ -38,7 +38,7 @@ Page({
         });
       }
     });
-    let shopId = options.shopId;
+    let shopId = options.id;
     util.request(api.GoodsShop, { "shopId": shopId, "page": 1, "limit": 10, "sidx":"id", "order":"desc"}).then(function (res) {
       if (res.code === 0) {
         that.setData({

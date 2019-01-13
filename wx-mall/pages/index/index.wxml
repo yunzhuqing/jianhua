@@ -46,8 +46,7 @@
         <view class='suggest-item' bindtap='itemClick' data-goodsid='{{item.rid}}' data-type='{{item.type}}'>
           <image class='suggest-item-pic' src='{{item.url}}'></image>
           <view class='suggest-item-bottom'>
-            <view class='suggest-item-bottom-item'>{{item.itemFirst}}</view>
-            <view class='suggest-item-bottom-item'>{{item.itemSecond}}</view>
+            <view class='suggest-item-bottom-item'>花圃: {{item.itemFirst}}</view>
           </view>
         </view>
       </block>

@@ -132,6 +132,7 @@ Page({
   },
   itemClick: function(e) {
     var itemType = e.currentTarget.dataset.type
+    console.log(itemType)
     if(0 == itemType) {
       wx.navigateTo({
         url: '../goods/goods?id=' + e.currentTarget.dataset.goodsid
@@ -139,6 +140,10 @@ Page({
     } else if(1 == itemType) {
       wx.navigateTo({
         url: '../topicDetail/topicDetail?id=' + e.currentTarget.dataset.goodsid
+      });
+    } else if(2 == itemType) {
+      wx.navigateTo({
+        url: '../shop/shop?id=' + e.currentTarget.dataset.goodsid
       });
     }
     
