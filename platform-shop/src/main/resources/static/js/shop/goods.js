@@ -1,6 +1,14 @@
+var user;
+
+$.ajaxSettings.async = false;
+$.getJSON("/sys/user/info?_" + $.now(), function (r) {
+    user = r.user;
+});
+
+
 $(function () {
     $("#jqGrid").Grid({
-        url: '../goods/list',
+        url: '../goods/list?userId=' + user.userId,
         colModel: [
             {label: 'id', name: 'id', index: 'id', key: true, hidden: true},
             {label: '商品类型', name: 'categoryName', index: 'category_id', width: 80},

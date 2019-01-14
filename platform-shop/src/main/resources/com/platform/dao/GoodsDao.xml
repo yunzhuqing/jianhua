@@ -52,6 +52,9 @@
             <if test="shopId != null">
                 shop_id=#{shopId}
             </if>
+            <if test="userId != null">
+                AND user_id=#{userId}
+            </if>
         </where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -115,6 +118,9 @@
         WHERE 1=1
         <!--  数据过滤  -->
         ${filterSql}
+        <if test="userId != null">
+            AND create_user_id=#{userId}
+        </if>
         <if test="name != null and name != ''">
             AND nideshop_goods.name LIKE concat('%',#{name},'%')
         </if>
@@ -136,6 +142,9 @@
         select count(*) from nideshop_goods WHERE 1=1
         <!--  数据过滤  -->
         ${filterSql}
+        <if test="userId != null">
+            AND create_user_id=#{userId}
+        </if>
         <if test="name != null and name != ''">
             AND name LIKE concat('%',#{name},'%')
         </if>
