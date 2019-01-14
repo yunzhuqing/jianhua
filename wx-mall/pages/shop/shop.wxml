@@ -1,7 +1,8 @@
 <!--pages/shop/shop.wxml-->
 <view class='container'>
   <view class='top'>
-    <view class='head_wd'></view>
+    <view class='head_wd'>
+    </view>
     <view class='head_shop'>
        <view class='shop_title'>
          <view class='head_shop_name'><strong>{{shopInfo.shopName}}</strong></view>

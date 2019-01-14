@@ -1,13 +1,11 @@
 /* pages/shop/shop.wxss */
 
 .container {
-  background: #f8f8f9;
-  border: #dddee1;
-  height: auto;
+  background: white;
 }
 
 .top {
-  height: 180rpx;
+  height: 500rpx;
   width: 100%;
   background-color: white;
 }
@@ -19,7 +17,10 @@
 }
 
 .head_wd {
-  height: 5%;
+  height: 60%;
+  width: 100%;
+  opacity:0.6;
+  background-color: gray;
 }
 
 .head_shop {
