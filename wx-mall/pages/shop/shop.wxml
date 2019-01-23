@@ -23,15 +23,14 @@
       <swiper current="{{activeIndex}}" duration="300" bindchange="bindChange">
         <swiper-item>
           <view class='goods'>
-            <view class='goods-item' bindtap='itemClick' wx:if="{{goodsArr.length}}>0" wx:for="{{goodsArr}}" wx:for-item="goodsItem">
-              商品
-              <image class='goods-item-pic' src='../../static/images/flower-p.svg'></image>
+            <view class='goods-item' bindtap='itemClick' wx:if="{{goodsArr.length > 0}}" wx:for="{{goodsArr}}" wx:for-item="goodsItem" data-goodsid="{{goodsItem.id}}">
+              <image class='goods-item-pic' src='{{goodsItem.primaryPicUrl}}'></image>
               <view class='goods-item-bottom'>
                 <view class='goods-item-bottom-item'>{{goodsItem.name}}</view>
-                <view class='goods-item-bottom-item'>99</view>
+                <view class='goods-item-bottom-item'>{{goodsItem.retailPrice}}</view>
               </view>
             </view>
-            <view wx:if="{{goodsArr.length}}==0" class='empty-goods'>
+            <view wx:if="{{goodsArr.length==0}}" class='empty-goods'>
               商家未设置任何商品
             </view>
           </view>

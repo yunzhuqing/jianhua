@@ -1,12 +1,11 @@
 <!--pages/indexv2/indexv2.wxml-->
 <view class='container'>
-  <view class="search">
+  <!-- <view class="search">
     <navigator url="/pages/search/search" class="input">
       <image src='../../static/images/maps.png' style='' class='maps' bindtap='clickMap'></image>
       <text class="txt">商品搜索</text>
     </navigator>
-  </view>
-
+  </view> -->
   <view class='suggest common-suggest'> 
     <view class='item-header'>
       <label class='item-header-title'>为你推荐</label>

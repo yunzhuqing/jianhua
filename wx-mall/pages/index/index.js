@@ -132,7 +132,6 @@ Page({
   },
   itemClick: function(e) {
     var itemType = e.currentTarget.dataset.type
-    console.log(itemType)
     if(0 == itemType) {
       wx.navigateTo({
         url: '../goods/goods?id=' + e.currentTarget.dataset.goodsid

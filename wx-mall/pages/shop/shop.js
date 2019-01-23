@@ -121,8 +121,9 @@ Page({
   },
 
   itemClick: function(e) {
+    var goodsId = e.currentTarget.dataset.goodsid;
     wx.navigateTo({
-      url: '../goods/goods?id=1181000',
+      url: '../goods/goods?id=' + goodsId,
     })
   }
 })

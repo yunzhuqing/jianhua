@@ -20,10 +20,13 @@ import javax.servlet.http.HttpServletResponse;
  * @email 939961241@qq.com
  * @date 2017-03-23 15:38
  */
-@Component
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
-    @Autowired
+
     private TokenService tokenService;
+
+    public AuthorizationInterceptor(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
 
     public static final String LOGIN_USER_KEY = "LOGIN_USER_KEY";
     public static final String LOGIN_TOKEN_KEY = "X-Nideshop-Token";

@@ -2,6 +2,7 @@ package com.platform.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.platform.annotation.LoginUser;
+import com.platform.dto.CollectDTO;
 import com.platform.entity.CollectVo;
 import com.platform.entity.SysUserEntity;
 import com.platform.entity.UserVo;
@@ -10,10 +11,7 @@ import com.platform.util.ApiBaseAction;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,13 +52,17 @@ public class ApiCollectController extends ApiBaseAction {
      */
     @ApiOperation(value = "添加取消收藏")
     @PostMapping("addordelete")
-    public Object addordelete(@LoginUser SysUserEntity loginUser) {
-        JSONObject jsonParam = getJsonRequest();
-        Integer typeId = jsonParam.getInteger("typeId");
-        Integer valueId = jsonParam.getInteger("valueId");
+    public Object addordelete(@RequestBody CollectDTO collectDTO) {
+        Long userId = getUserId();
+        if(null == userId) {
+            return toResponsFail("请登录");
+        }
+
+        int typeId = collectDTO.getTypeId();
+        int valueId = collectDTO.getValueId();
 
         Map param = new HashMap();
-        param.put("user_id", loginUser.getUserId());
+        param.put("user_id", userId);
         param.put("type_id", typeId);
         param.put("value_id", valueId);
         List<CollectVo> collectEntities = collectService.queryList(param);
@@ -73,7 +75,7 @@ public class ApiCollectController extends ApiBaseAction {
             collectEntity.setType_id(typeId);
             collectEntity.setValue_id(valueId);
             collectEntity.setIs_attention(0);
-            collectEntity.setUser_id(loginUser.getUserId());
+            collectEntity.setUser_id(userId);
             //添加收藏
             collectRes = collectService.save(collectEntity);
         } else {
