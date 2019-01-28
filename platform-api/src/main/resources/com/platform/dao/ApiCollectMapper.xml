@@ -22,7 +22,7 @@
 	</select>
 
     <select id="queryList" resultMap="collectMap">
-        select c.*,g.name, g.list_pic_url as list_pic_url, g.goods_brief as goods_brief, g.retail_price as retail_price
+        select c.*,g.name, g.primary_pic_url as list_pic_url, g.goods_brief as goods_brief, g.retail_price as retail_price
         from nideshop_collect c
         left join nideshop_goods g on c.value_id = g.id
         where 1 = 1
