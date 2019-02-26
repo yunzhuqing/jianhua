@@ -1,7 +1,9 @@
 package com.platform.controller;
 
 import com.platform.entity.AttributeEntity;
+import com.platform.entity.AttributeValEntity;
 import com.platform.service.AttributeService;
+import com.platform.service.AttributeValService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
@@ -9,6 +11,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +27,8 @@ import java.util.Map;
 public class AttributeController {
     @Autowired
     private AttributeService attributeService;
+    @Autowired
+    private AttributeValService attributeValService;
 
     /**
      * 查看列表
@@ -96,5 +101,35 @@ public class AttributeController {
         List<AttributeEntity> list = attributeService.queryList(params);
 
         return R.ok().put("list", list);
+    }
+
+
+    /**
+     *
+     * @param attributeValEntity
+     * @return
+     */
+    @RequestMapping("/val/save")
+    public R saveVal(@RequestBody AttributeValEntity attributeValEntity) {
+        if(null == attributeValEntity.getId()) {
+            attributeValEntity.setCreateTime(new Date());
+            attributeValEntity.setUpdateTime(new Date());
+        } else {
+            attributeValEntity.setUpdateTime(new Date());
+        }
+        attributeValService.save(attributeValEntity);
+        return R.ok();
+    }
+
+    @RequestMapping("/val/list")
+    public R listVal(@RequestParam Map<String, Object> params) {
+        List<AttributeValEntity> list = attributeValService.queryList(params);
+        return R.ok().put("list", list);
+    }
+
+    @RequestMapping("/val/delete")
+    public R deleteVal(@RequestBody Integer[] ids) {
+        attributeValService.deleteBatch(ids);
+        return R.ok();
     }
 }

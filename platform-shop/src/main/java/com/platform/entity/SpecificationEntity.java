@@ -18,6 +18,8 @@ public class SpecificationEntity implements Serializable {
 	private Integer id;
 	//规范名称
 	private String name;
+	// 可选值
+	private String value;
 	//排序
 	private Integer sortOrder;
 
@@ -45,6 +47,15 @@ public class SpecificationEntity implements Serializable {
 	public String getName() {
 		return name;
 	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	/**
 	 * 设置：排序
 	 */

@@ -7,6 +7,7 @@
     <resultMap type="com.platform.entity.SpecificationEntity" id="specificationMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
+		<result property="value" column="value"/>
         <result property="sortOrder" column="sort_order"/>
     </resultMap>
 
@@ -16,6 +17,14 @@
 
 	<select id="queryList" resultType="com.platform.entity.SpecificationEntity">
 		select * from nideshop_specification
+		<where>
+			<if test="sortOrder != null">
+				AND sort_order=#{sortOrder}
+			</if>
+			<if test="value != null">
+				AND value=#{value}
+			</if>
+		</where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -30,18 +39,28 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from nideshop_specification 
+		select count(*) from nideshop_specification
+		<where>
+			<if test="sortOrder != null">
+				AND sort_order=#{sortOrder}
+			</if>
+			<if test="value != null">
+				AND value=#{value}
+			</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.platform.entity.SpecificationEntity" useGeneratedKeys="true" keyProperty="id">
 		insert into nideshop_specification
 		(
-			`name`, 
+			`name`,
+			`value`,
 			`sort_order`
 		)
 		values
 		(
-			#{name}, 
+			#{name},
+			#{value},
 			#{sortOrder}
 		)
 	</insert>
@@ -50,6 +69,7 @@
 		update nideshop_specification 
 		<set>
 			<if test="name != null">`name` = #{name}, </if>
+			<if test="value != null">`value` = #{value}, </if>
 			<if test="sortOrder != null">`sort_order` = #{sortOrder}</if>
 		</set>
 		where id = #{id}

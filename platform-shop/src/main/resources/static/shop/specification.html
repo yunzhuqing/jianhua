@@ -30,6 +30,10 @@
             <Form-item label="规格名称" prop="name">
                 <i-input v-model="specification.name" placeholder="规范名称"/>
             </Form-item>
+            <Form-item label="可选值" prop="value">
+                <i-input v-model="specification.value" placeholder="可选属性值"/>
+
+            </Form-item>
             <Form-item label="排序" prop="sortOrder">
                 <Input-number :min="0" :step="1" v-model="specification.sortOrder" placeholder="排序"
                               style="width: 188px;"/>

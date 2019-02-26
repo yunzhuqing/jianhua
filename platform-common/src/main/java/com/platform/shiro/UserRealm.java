@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 认证
+ * 后端认证
  *
  * @author lipengjun
  * @date 2017年11月19日 上午9:49:19

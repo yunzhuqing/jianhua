@@ -34,6 +34,15 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String requestUrl = request.getRequestURL().toString();
+        if(!requestUrl.contains("api")) {
+            return true;
+        }
+
+        if(requestUrl.contains("captcha.jpg")) {
+            return true;
+        }
+
         IgnoreAuth annotation;
         if (handler instanceof HandlerMethod) {
             annotation = ((HandlerMethod) handler).getMethodAnnotation(IgnoreAuth.class);

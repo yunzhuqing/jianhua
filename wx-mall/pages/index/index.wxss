@@ -1,6 +1,6 @@
 /* pages/indexv2/indexv2.wxss */
 .container {
-  padding-top: 0rpx;
+  padding-top: 5rpx;
 }
 
 

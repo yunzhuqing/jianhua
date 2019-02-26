@@ -33,7 +33,7 @@
         a.value,
         a.sort_order,
         ac.name category_name
-        from nideshop_attribute a LEFT JOIN nideshop_attribute_category ac
+        from nideshop_attribute a LEFT JOIN nideshop_category ac
         ON a.attribute_category_id = ac.id
         WHERE 1=1
         <if test="name != null and name.trim() != ''">

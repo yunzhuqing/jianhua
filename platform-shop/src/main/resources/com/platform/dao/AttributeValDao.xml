@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.platform.dao.AttributeValDao">
+
+    <resultMap type="com.platform.entity.AttributeValEntity" id="attributeValMap">
+        <result property="id" column="id"/>
+        <result property="attributeId" column="attribute_id"/>
+        <result property="value" column="value"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="FIELDS">
+        id, attribute_id, `value`, create_time, update_time
+    </sql>
+
+    <select id="queryObject" resultType="com.platform.entity.AttributeValEntity">
+		select
+		<include refid="FIELDS"/>
+		from nideshop_attribute_val
+		where id = #{id}
+	</select>
+
+    <select id="queryList" resultType="com.platform.entity.AttributeEntity">
+        select
+        <include refid="FIELDS"/>
+        from nideshop_attribute_val
+        WHERE 1=1
+        <if test="attributeId != null">
+            AND attribute_id = #{attributeId}
+        </if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by update_time desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+		select count(*) from nideshop_attribute
+		WHERE 1=1
+	</select>
+
+    <insert id="save" parameterType="com.platform.entity.AttributeValEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into nideshop_attribute_val (
+			`attribute_id`,
+			`value`,
+			`create_time`,
+			`update_time` )
+		values(
+			#{attributeId},
+			#{value},
+			#{createTime},
+			#{updateTime})
+	</insert>
+
+    <update id="update" parameterType="com.platform.entity.AttributeValEntity">
+        update nideshop_attribute
+        <set>
+            <if test="attributeId != null">`attribute_id` = #{attributeId},</if>
+            <if test="val != null">`value` = #{val},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="updateTime != null">`update_time` = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+		delete from nideshop_attribute_val where id = #{value}
+	</delete>
+
+    <delete id="deleteBatch">
+        delete from nideshop_attribute_val where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

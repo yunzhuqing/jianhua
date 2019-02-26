@@ -62,18 +62,6 @@ Page({
 
         WxParse.wxParse('goodsDetail', 'html', res.data.info.goods_desc, that);
 
-        that.getGoodsRelated();
-      }
-    });
-
-  },
-  getGoodsRelated: function () {
-    let that = this;
-    util.request(api.GoodsRelated, { id: that.data.id }).then(function (res) {
-      if (res.errno === 0) {
-        that.setData({
-          relatedGoods: res.data.goodsList,
-        });
       }
     });
 

@@ -118,7 +118,7 @@
         WHERE 1=1
         <!--  数据过滤  -->
         ${filterSql}
-        <if test="userId != null">
+        <if test="userId != null and userId != 1">
             AND create_user_id=#{userId}
         </if>
         <if test="name != null and name != ''">

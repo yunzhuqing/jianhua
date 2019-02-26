@@ -201,7 +201,7 @@ Page({
     });
 
     if (cur == 0) {
-      this.getOrderList(0);
+      this.getOrderList(1);
     } else if(cur == 1) {
       this.getCartList();
     } else if (cur == 2) {

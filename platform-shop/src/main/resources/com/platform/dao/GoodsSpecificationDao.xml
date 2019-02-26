@@ -18,7 +18,7 @@
 			`specification_id`,
 			`value`,
 			`pic_url`
-		from nideshop_goods_specification
+		from nideshop_goods_specification as `spec`
 		where id = #{id}
 	</select>
 
@@ -43,6 +43,9 @@
         </if>
         <if test="specificationId != null">
             AND nideshop_goods_specification.specification_id = #{specificationId}
+        </if>
+        <if test="userId != null">
+            AND nideshop_goods.create_user_id=#{userId}
         </if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">

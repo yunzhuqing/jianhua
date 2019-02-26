@@ -33,14 +33,27 @@
                 </i-select>
             </Form-item>
             <Form-item label="规格" prop="specificationId" style="width: 368px;">
-                <i-select v-model="goodsSpecification.specificationId" filterable label-in-value>
-                    <i-option v-for="specification in specifications" :value="specification.id"
-                              :key="specification.id">{{specification.name}}
-                    </i-option>
-                </i-select>
+                <CheckboxGroup v-model="goodsSpecification.specificationId">
+                    <Checkbox v-for="specification in specifications" :key="specification.id" :value="specification.id">{{specification.name}}</Checkbox>
+                </CheckboxGroup>
+            </Form-item>
+            <Form-item label="SKU选项" prop="skuOption" style="width: 368px;">
+                <div>
+                    <Tag color="blue" type="dot" closable>1</Tag> x
+                    <Tag color="blue" type="dot" closable>1</Tag> x
+                    <Tag color="blue" type="dot" closable>1</Tag> x
+                    <Tag color="blue" type="dot" closable>零售价</Tag> x
+                    <Tag color="blue" type="dot" closable>市场价</Tag> x
+                    <Tag color="blue" type="dot" closable>采购价</Tag> x
+                    <Tag color="blue" type="dot" closable>总库存</Tag> x
+                    <Tag color="blue" type="dot" closable>剩余库存</Tag> x
+                </div>
             </Form-item>
             <Form-item label="规格说明" prop="value">
                 <i-input type="textarea" v-model="goodsSpecification.value" placeholder="规格说明"/>
+            </Form-item>
+            <Form-item label="剩余库存" prop="leftInventory">
+                <i-input type="text" v-model="goodsSpecification.leftInventory" placeholder="剩余库存数"/>
             </Form-item>
             <Row>
                 <i-col span="16">

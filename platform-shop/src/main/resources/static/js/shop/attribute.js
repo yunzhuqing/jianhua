@@ -16,6 +16,8 @@ var vm = new Vue({
     data: {
         showList: true,
         title: null,
+        modal1: false,
+        attrVal: "",
         attribute: {},
         ruleValidate: {
             name: [
@@ -26,7 +28,15 @@ var vm = new Vue({
             name: '',
             categoryName: ''
         },
-        categories: []
+        categories: [],
+        vals: [
+            {text:"第一组"},
+            {text:"第二组"},
+            {text:"第三组"}
+        ],
+        attrVal: {
+
+        }
     },
     methods: {
         query: function () {
@@ -52,7 +62,8 @@ var vm = new Vue({
         },
         saveOrUpdate: function (event) {
             var url = vm.attribute.id == null ? "../attribute/save" : "../attribute/update";
-
+            vm.attribute.inputType = 0;
+            vm.attribute.value = 0;
             Ajax.request({
                 type: "POST",
                 url: url,
@@ -91,6 +102,7 @@ var vm = new Vue({
                 async: true,
                 successCallback: function (r) {
                     vm.attribute = r.attribute;
+                    vm.reloadVal(id);
                 }
             });
         },
@@ -105,10 +117,10 @@ var vm = new Vue({
         },
         getCategories: function () {
             Ajax.request({
-                url: "../attributecategory/queryAll",
+                url: "../category/list?level=L1&page=1&limit=100&sidx=id&order=desc",
                 async: true,
                 successCallback: function (r) {
-                    vm.categories = r.list;
+                    vm.categories = r.page.list;
                 }
             });
         },
@@ -119,6 +131,54 @@ var vm = new Vue({
         },
         handleReset: function (name) {
             handleResetForm(this, name);
+        },
+        ok () {
+            var id = getSelectedRow("#jqGrid");
+            if(id == null) {
+                this.$Message.info('请先保存属性信息');
+            } else {
+                vm.attrVal.attributeId = id;
+                vm.saveAttributeVal();
+            }
+        },
+        cancel () {
+            this.$Message.info('Clicked cancel');
+        },
+        reloadVal (attributeId) {
+            Ajax.request({
+                url: "../attribute/val/list?page=1&limit=100&sidx=id&order=desc&attributeId=" + attributeId,
+                async: true,
+                successCallback: function (r) {
+                    vm.vals = r.list;
+                }
+            });
+        },
+        saveAttributeVal() {
+            Ajax.request({
+                type: "POST",
+                url: "../attribute/val/save",
+                contentType: "application/json",
+                params: JSON.stringify(vm.attrVal),
+                successCallback: function () {
+                    alert('操作成功', function (index) {
+                        vm.reloadVal(vm.attrVal.attributeId);
+                    });
+                }
+            });
+        },
+        tagClose(event, name) {
+            Ajax.request({
+                type: "POST",
+                url: "../attribute/val/delete",
+                contentType: "application/json",
+                params: JSON.stringify([name]),
+                successCallback: function () {
+                    var id = getSelectedRow("#jqGrid");
+                    alert('操作成功', function (index) {
+                        vm.reloadVal(id);
+                    });
+                }
+            });
         }
     }
 });

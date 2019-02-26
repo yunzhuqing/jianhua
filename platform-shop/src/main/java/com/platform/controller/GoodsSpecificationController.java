@@ -3,6 +3,8 @@ package com.platform.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.platform.annotation.LoginUser;
+import com.platform.entity.SysUserEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +28,7 @@ import com.platform.utils.R;
  */
 @RestController
 @RequestMapping("goodsspecification")
-public class GoodsSpecificationController {
+public class GoodsSpecificationController extends AbstractController {
     @Autowired
     private GoodsSpecificationService goodsSpecificationService;
 
@@ -38,6 +40,7 @@ public class GoodsSpecificationController {
     public R list(@RequestParam Map<String, Object> params) {
         //查询列表数据
         Query query = new Query(params);
+        query.put("userId", getUserId());
 
         List<GoodsSpecificationEntity> goodsSpecificationList = goodsSpecificationService.queryList(query);
         int total = goodsSpecificationService.queryTotal(query);
