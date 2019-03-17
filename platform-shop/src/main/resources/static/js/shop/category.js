@@ -67,7 +67,8 @@ var vm = new Vue({
         q: {
             name: ''
         },
-        categoryList: []
+        categoryList: [],
+        attributes: []
     },
     methods: {
         query: function () {
@@ -143,6 +144,13 @@ var vm = new Vue({
                 async: true,
                 successCallback: function (r) {
                     vm.category = r.category;
+                    Ajax.request({
+                        url: "../attribute/list?page=1&limit=100",
+                        async: true,
+                        successCallback: function (r) {
+                            vm.attributes = r.page.list;
+                        }
+                    });
                 }
             });
         },

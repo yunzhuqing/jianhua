@@ -42,7 +42,7 @@
         <if test="categoryName != null and categoryName.trim() != ''">
             AND ac.name LIKE concat('%', #{categoryName},'%')
         </if>
-        <if test="attributeCategoryId != null and attributeCategoryId.trim() != ''">
+        <if test="attributeCategoryId != null">
             AND a.attribute_category_id = #{attributeCategoryId}
         </if>
         <choose>
@@ -50,7 +50,7 @@
                 order by ${sidx} ${order}
             </when>
             <otherwise>
-                order by a.attribute_category_id desc
+                order by a.id desc
             </otherwise>
         </choose>
         <if test="offset != null and limit != null">

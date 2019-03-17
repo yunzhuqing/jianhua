@@ -4,12 +4,14 @@ import com.platform.annotation.IgnoreAuth;
 import com.platform.entity.GoodsEntity;
 import com.platform.entity.GoodsVo;
 import com.platform.entity.RelatedGoodsVo;
+import com.platform.entity.SysUserEntity;
 import com.platform.service.GoodsService;
 import com.platform.service.RelatedGoodsService;
 import com.platform.util.ApiBaseAction;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
+import com.platform.utils.ShiroUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -119,6 +121,8 @@ public class GoodsController extends ApiBaseAction {
     public R queryAll(@RequestParam Map<String, Object> params) {
 
         params.put("isDelete", 0);
+        SysUserEntity user = ShiroUtils.getUserEntity();
+        params.put("userId", user.getUserId());
         List<GoodsEntity> list = goodsService.queryList(params);
 
         return R.ok().put("list", list);

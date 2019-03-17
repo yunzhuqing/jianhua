@@ -1,6 +1,7 @@
 package com.platform.service;
 
 import com.platform.entity.CategoryEntity;
+import com.platform.vo.CategoryVO;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public interface CategoryService {
      * @param id 主键
      * @return 实体
      */
-    CategoryEntity queryObject(Integer id);
+    CategoryVO queryObject(Integer id);
 
     /**
      * 分页查询
@@ -28,7 +29,7 @@ public interface CategoryService {
      * @param map 参数
      * @return list
      */
-    List<CategoryEntity> queryList(Map<String, Object> map);
+    List<CategoryVO> queryList(Map<String, Object> map);
 
     /**
      * 分页统计总数
@@ -44,7 +45,7 @@ public interface CategoryService {
      * @param category 实体
      * @return 保存条数
      */
-    int save(CategoryEntity category);
+    int save(CategoryVO category);
 
     /**
      * 根据主键更新实体
@@ -52,7 +53,7 @@ public interface CategoryService {
      * @param category 实体
      * @return 更新条数
      */
-    int update(CategoryEntity category);
+    int update(CategoryVO category);
 
     /**
      * 根据主键删除

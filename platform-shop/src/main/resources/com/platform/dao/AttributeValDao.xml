@@ -22,7 +22,7 @@
 		where id = #{id}
 	</select>
 
-    <select id="queryList" resultType="com.platform.entity.AttributeEntity">
+    <select id="queryList" resultType="com.platform.entity.AttributeValEntity">
         select
         <include refid="FIELDS"/>
         from nideshop_attribute_val

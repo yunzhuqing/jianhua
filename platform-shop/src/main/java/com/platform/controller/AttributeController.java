@@ -2,18 +2,26 @@ package com.platform.controller;
 
 import com.platform.entity.AttributeEntity;
 import com.platform.entity.AttributeValEntity;
+import com.platform.entity.GoodsEntity;
 import com.platform.service.AttributeService;
 import com.platform.service.AttributeValService;
+import com.platform.service.CategoryService;
+import com.platform.service.GoodsService;
 import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
+import com.platform.vo.CategoryVO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Controller
@@ -23,12 +31,16 @@ import java.util.Map;
  * @date 2017-08-17 16:48:17
  */
 @RestController
-@RequestMapping("attribute")
+@RequestMapping("/attribute")
 public class AttributeController {
     @Autowired
     private AttributeService attributeService;
     @Autowired
     private AttributeValService attributeValService;
+    @Autowired
+    private GoodsService goodsService;
+    @Autowired
+    private CategoryService categoryService;
 
     /**
      * 查看列表
@@ -127,9 +139,52 @@ public class AttributeController {
         return R.ok().put("list", list);
     }
 
+    @RequestMapping("/val/info/{id}")
+    public R info(@PathVariable("id") Long id) {
+        AttributeValEntity attributeValEntity = attributeValService.queryObject(id);
+        if(null != attributeValEntity) {
+            return R.ok().put("data", attributeValEntity);
+        }
+        return R.error("未找到对应的属性值");
+    }
+
+
     @RequestMapping("/val/delete")
     public R deleteVal(@RequestBody Integer[] ids) {
         attributeValService.deleteBatch(ids);
         return R.ok();
+    }
+
+
+    @RequestMapping("/val/listAttrs")
+    public R listAttrs(@RequestParam("productId") Long productId) {
+        R resp = R.ok();
+        GoodsEntity goodsEntity = goodsService.queryObject(productId);
+        Map<Integer, List<Long>> data = new HashMap<>();
+        if(goodsEntity.getCategoryId() != null) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("attributeCategoryId", goodsEntity.getCategoryId());
+
+            CategoryVO categoryVO = categoryService.queryObject(goodsEntity.getCategoryId());
+            List<Integer> attrOptions = categoryVO.getAttrOptions();
+            if(CollectionUtils.isEmpty(attrOptions)) {
+                if(0 != categoryVO.getParentId()) {
+                    CategoryVO parent = categoryService.queryObject(categoryVO.getParentId());
+                    attrOptions = parent.getAttrOptions();
+                }
+            }
+
+            if(!CollectionUtils.isEmpty(attrOptions)) {
+                attrOptions.forEach(attr -> {
+                    Map<String, Object> attrValParams = new HashMap<>();
+                    attrValParams.put("attributeId", attr);
+                    List<AttributeValEntity> attrVals = attributeValService.queryList(attrValParams);
+                    data.put(attr, attrVals.stream().map(AttributeValEntity::getId).collect(Collectors.toList()));
+                });
+            }
+
+        }
+        resp.put("data", data);
+        return resp;
     }
 }

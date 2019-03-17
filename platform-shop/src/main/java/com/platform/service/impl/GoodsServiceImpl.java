@@ -76,27 +76,20 @@ public class GoodsServiceImpl implements GoodsService {
         if (null != list && list.size() != 0) {
             throw new RRException("商品名称已存在！");
         }
-        Integer id = goodsDao.queryMaxId() + 1;
-        goods.setId(id);
-
-        //保存产品信息
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setGoodsId(id);
-        productEntity.setGoodsSn(goods.getGoodsSn());
-        productEntity.setGoodsNumber(goods.getGoodsNumber());
-        productEntity.setRetailPrice(goods.getRetailPrice());
-        productEntity.setMarketPrice(goods.getMarketPrice());
-        productEntity.setGoodsSpecificationIds("");
-        productDao.save(productEntity);
 
         goods.setAddTime(new Date());
-        goods.setPrimaryProductId(productEntity.getId());
+        goods.setIsDelete(0);
+        goods.setCreateUserDeptId(user.getDeptId());
+        goods.setCreateUserId(user.getUserId());
+        goods.setUpdateUserId(user.getUserId());
+        goods.setUpdateTime(new Date());
+        goodsDao.save(goods);
 
         //保存商品详情页面显示的属性
         List<GoodsAttributeEntity> attributeEntityList = goods.getAttributeEntityList();
         if (null != attributeEntityList && attributeEntityList.size() > 0) {
             for (GoodsAttributeEntity item : attributeEntityList) {
-                item.setGoodsId(id);
+                item.setGoodsId(goods.getId());
                 goodsAttributeDao.save(item);
             }
         }
@@ -105,36 +98,18 @@ public class GoodsServiceImpl implements GoodsService {
         List<GoodsGalleryEntity> galleryEntityList = goods.getGoodsImgList();
         if (null != galleryEntityList && galleryEntityList.size() > 0) {
             for (GoodsGalleryEntity galleryEntity : galleryEntityList) {
-                galleryEntity.setGoodsId(id);
+                galleryEntity.setGoodsId(goods.getId());
                 goodsGalleryDao.save(galleryEntity);
             }
         }
 
-        goods.setIsDelete(0);
-        goods.setCreateUserDeptId(user.getDeptId());
-        goods.setCreateUserId(user.getUserId());
-        goods.setUpdateUserId(user.getUserId());
-        goods.setUpdateTime(new Date());
-        return goodsDao.save(goods);
+        return 1;
     }
 
     @Override
     @Transactional
     public int update(GoodsEntity goods) {
         SysUserEntity user = ShiroUtils.getUserEntity();
-
-
-        ProductEntity productEntity = productService.queryByGoodsId((long)goods.getId());
-
-        if(null != productEntity) {
-            productEntity.setGoodsSn(goods.getGoodsSn());
-            productEntity.setGoodsNumber(goods.getGoodsNumber());
-            productEntity.setRetailPrice(goods.getRetailPrice());
-            productEntity.setMarketPrice(goods.getMarketPrice());
-            productEntity.setGoodsSpecificationIds("");
-            productService.update(productEntity);
-        }
-
         List<GoodsAttributeEntity> attributeEntityList = goods.getAttributeEntityList();
         if (null != attributeEntityList && attributeEntityList.size() > 0) {
             for (GoodsAttributeEntity goodsAttributeEntity : attributeEntityList) {

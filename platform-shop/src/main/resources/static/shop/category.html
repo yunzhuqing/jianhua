@@ -51,23 +51,23 @@
                     </i-option>
                 </i-select>
             </Form-item>
-            <Form-item label="排序" prop="sortOrder">
-                <Input-number :min="0" :step="1" v-model="category.sortOrder" placeholder="排序" style="width: 188px;"/>
-            </Form-item>
-            <Form-item label="首页展示排序" prop="showIndex">
-                <Input-number :min="0" :step="1" v-model="category.showIndex" placeholder="首页展示排序"
-                              style="width: 188px;"/>
-            </Form-item>
-            <Form-item label="显示" prop="isShow">
-                <Radio-group v-model="category.isShow">
-                    <Radio label="1">
-                        <span>是</span>
-                    </Radio>
-                    <Radio label="0">
-                        <span>否</span>
-                    </Radio>
-                </Radio-group>
-            </Form-item>
+            <!--<Form-item label="排序" prop="sortOrder">-->
+                <!--<Input-number :min="0" :step="1" v-model="category.sortOrder" placeholder="排序" style="width: 188px;"/>-->
+            <!--</Form-item>-->
+            <!--<Form-item label="首页展示排序" prop="showIndex">-->
+                <!--<Input-number :min="0" :step="1" v-model="category.showIndex" placeholder="首页展示排序"-->
+                              <!--style="width: 188px;"/>-->
+            <!--</Form-item>-->
+            <!--<Form-item label="显示" prop="isShow">-->
+                <!--<Radio-group v-model="category.isShow">-->
+                    <!--<Radio label="1">-->
+                        <!--<span>是</span>-->
+                    <!--</Radio>-->
+                    <!--<Radio label="0">-->
+                        <!--<span>否</span>-->
+                    <!--</Radio>-->
+                <!--</Radio-group>-->
+            <!--</Form-item>-->
             <Row>
                 <i-col span="16">
                     <Form-item label="banner图片" prop="bannerUrl">
@@ -160,18 +160,13 @@
                     </Form-item>
                 </i-col>
             </Row>
-            <!--<Form-item label="类型" prop="type">-->
-            <!--<Radio-group v-model="category.type">-->
-            <!--<Radio label="0">-->
-            <!--<span>0</span>-->
-            <!--</Radio>-->
-            <!--<Radio label="1">-->
-            <!--<span>1</span>-->
-            <!--</Radio>-->
-            <!--</Radio-group>-->
-            <!--</Form-item>-->
             <Form-item label="frontName" prop="frontName">
                 <i-input type="textarea" v-model="category.frontName" placeholder="frontName"/>
+            </Form-item>
+            <Form-item label="类目属性配置">
+                <checkbox-group v-model="category.attrOptions">
+                    <checkbox v-for="attribute in attributes" :label="attribute.id">{{attribute.name}}</checkbox>
+                </checkbox-group>
             </Form-item>
             <Form-item>
                 <i-button type="primary" @click="handleSubmit('formValidate')">提交</i-button>

@@ -6,6 +6,7 @@ import com.platform.utils.PageUtils;
 import com.platform.utils.Query;
 import com.platform.utils.R;
 import com.platform.utils.TreeUtils;
+import com.platform.vo.CategoryVO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class CategoryController {
         //查询列表数据
         Query query = new Query(params);
 
-        List<CategoryEntity> categoryList = categoryService.queryList(query);
+        List<CategoryVO> categoryList = categoryService.queryList(query);
         int total = categoryService.queryTotal(query);
 
         PageUtils pageUtil = new PageUtils(categoryList, total, query.getLimit(), query.getPage());
@@ -50,8 +51,7 @@ public class CategoryController {
     @RequestMapping("/info/{id}")
     @RequiresPermissions("category:info")
     public R info(@PathVariable("id") Integer id) {
-        CategoryEntity category = categoryService.queryObject(id);
-
+        CategoryVO category = categoryService.queryObject(id);
         return R.ok().put("category", category);
     }
 
@@ -60,9 +60,8 @@ public class CategoryController {
      */
     @RequestMapping("/save")
     @RequiresPermissions("category:save")
-    public R save(@RequestBody CategoryEntity category) {
+    public R save(@RequestBody CategoryVO category) {
         categoryService.save(category);
-
         return R.ok();
     }
 
@@ -71,9 +70,8 @@ public class CategoryController {
      */
     @RequestMapping("/update")
     @RequiresPermissions("category:update")
-    public R update(@RequestBody CategoryEntity category) {
+    public R update(@RequestBody CategoryVO category) {
         categoryService.update(category);
-
         return R.ok();
     }
 
@@ -84,7 +82,6 @@ public class CategoryController {
     @RequiresPermissions("category:delete")
     public R delete(@RequestBody Integer[] ids) {
         categoryService.deleteBatch(ids);
-
         return R.ok();
     }
 
@@ -93,10 +90,9 @@ public class CategoryController {
      */
     @RequestMapping("/queryAll")
     public R queryAll(@RequestParam Map<String, Object> params) {
-
-        List<CategoryEntity> list = categoryService.queryList(params);
+        List<CategoryVO> list = categoryService.queryList(params);
         //添加顶级菜单
-        CategoryEntity root = new CategoryEntity();
+        CategoryVO root = new CategoryVO();
         root.setId(0);
         root.setName("一级分类");
         root.setParentId(-1);
@@ -110,8 +106,8 @@ public class CategoryController {
      */
     @RequestMapping("/getAreaTree")
     public R getAreaTree() {
-        List<CategoryEntity> list = categoryService.queryList(new HashMap<String, Object>());
-        for (CategoryEntity sysRegionEntity : list) {
+        List<CategoryVO> list = categoryService.queryList(new HashMap<String, Object>());
+        for (CategoryVO sysRegionEntity : list) {
             sysRegionEntity.setValue(sysRegionEntity.getId() + "");
             sysRegionEntity.setLabel(sysRegionEntity.getName());
         }
@@ -129,7 +125,7 @@ public class CategoryController {
     public R getCategorySelect() {
         Map<String, Object> map = new HashMap<>();
         map.put("parentId", "0");
-        List<CategoryEntity> list = categoryService.queryList(map);
+        List<CategoryVO> list = categoryService.queryList(map);
         return R.ok().put("list", list);
     }
 }

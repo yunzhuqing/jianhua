@@ -19,6 +19,7 @@
         <result property="level" column="level"/>
         <result property="type" column="type"/>
         <result property="frontName" column="front_name"/>
+		<result property="attrOptions" column="attr_options"/>
     </resultMap>
 
 	<select id="queryObject" resultType="com.platform.entity.CategoryEntity">
@@ -38,7 +39,8 @@
 			`level`,
 			`type`,
 			`front_name`,
-			`is_show` as `show`
+			`is_show` as `show`,
+			`attr_options`
 		from nideshop_category
 		where id = #{id}
 	</select>
@@ -60,7 +62,8 @@
     		`level`,
     		`type`,
     		`front_name`,
-			`is_show` as `show`
+			`is_show` as `show`,
+			`attr_options`
 		from nideshop_category
 		WHERE 1=1
 		<if test="name != null and name.trim() != ''">
@@ -109,7 +112,8 @@
 			`wap_banner_url`,
 			`level`,
 			`type`,
-			`front_name`)
+			`front_name`,
+			`attr_options`)
 		values(
 			#{id},
 			#{name},
@@ -125,7 +129,8 @@
 			#{wapBannerUrl},
 			#{level},
 			#{type},
-			#{frontName})
+			#{frontName},
+			#{attrOptions})
 	</insert>
 	 
 	<update id="update" parameterType="com.platform.entity.CategoryEntity">
@@ -145,6 +150,7 @@
 			<if test="level != null">`level` = #{level}, </if>
 			<if test="type != null">`type` = #{type}, </if>
 			<if test="frontName != null">`front_name` = #{frontName}</if>
+			<if test="attrOptions != null">`attr_options` = #{attrOptions}</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -1,6 +1,6 @@
 $(function () {
     let goodsId = getQueryString("goodsId");
-    let url = '../goodsspecification/list';
+    let url = '../';
     if (goodsId) {
         url += '?goodsId=' + goodsId;
     }
@@ -25,7 +25,7 @@ var vm = new Vue({
     data: {
         showList: true,
         title: null,
-        goodsSpecification: {},
+        goodsSpecification: {attributeIds:{}},
         ruleValidate: {
             name: [
                 {required: true, message: '名称不能为空', trigger: 'blur'}
@@ -35,15 +35,57 @@ var vm = new Vue({
             name: ''
         },
         goodss: [],
-        specifications: []
+        specifications: [],
+        attributes: [],
+        attrVals: {}
     },
     methods: {
         getSpecification: function () {
+        },
+        getAttribute: function(id) {
+            var attribute = null;
+            //获取选中商品对应的类目
             Ajax.request({
-                url: "../specification/queryAll",
+                url: "../attribute/info/" + id,
+                async: false,
+                successCallback: function (r) {
+                    attribute = r.attribute;
+                }
+            });
+            return attribute;
+        },
+        getAttrVal: function(id) {
+            var attrVal = null;
+            //获取选中商品对应的类目
+            Ajax.request({
+                url: "../attribute/val/info/" + id,
+                async: false,
+                successCallback: function (r) {
+                    attrVal = r.data;
+                }
+            });
+            return attrVal;
+        },
+        selectGoods: function(e) {
+            vm.attributes=[];
+            vm.attrVals={};
+            vm.goodsSpecification.attributeIds = {};
+            Ajax.request({
+                url: "../attribute/val/listAttrs?productId=" + e,
                 async: true,
                 successCallback: function (r) {
-                    vm.specifications = r.list;
+                    for(var key in r.data) {
+                        vm.goodsSpecification.attributeIds[key]="";
+                        var attribute = vm.getAttribute(key);
+                        vm.attributes.push(attribute);
+                        var list = r.data[key];
+                        if(null != list) {
+                            vm.attrVals[key] = [];
+                            for(var i=0; i<list.length; i++) {
+                                vm.attrVals[key].push(vm.getAttrVal(list[i]));
+                            }
+                        }
+                    }
                 }
             });
         },
@@ -77,7 +119,7 @@ var vm = new Vue({
             vm.getInfo(id)
         },
         saveOrUpdate: function (event) {
-            var url = vm.goodsSpecification.id == null ? "../goodsspecification/save" : "../goodsspecification/update";
+            var url = "../sku/upsert";
 
             Ajax.request({
                 type: "POST",

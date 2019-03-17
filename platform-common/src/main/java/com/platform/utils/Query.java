@@ -19,6 +19,9 @@ public class Query extends LinkedHashMap<String, Object> {
     //每页条数
     private int limit = 10;
 
+    private static final String SIDX = "sidx";
+    private static final String ORDER = "order";
+
     public Query(Map<String, Object> params) {
         this.putAll(params);
 
@@ -30,10 +33,12 @@ public class Query extends LinkedHashMap<String, Object> {
         this.put("limit", limit);
 
         //防止SQL注入（因为sidx、order是通过拼接SQL实现排序的，会有SQL注入风险）
-        String sidx = params.get("sidx").toString();
-        String order = params.get("order").toString();
-        this.put("sidx", SQLFilter.sqlInject(sidx));
-        this.put("order", SQLFilter.sqlInject(order));
+        if(params.containsKey(SIDX) && params.containsKey(ORDER)) {
+            String sidx = params.get(SIDX).toString();
+            String order = params.get(ORDER).toString();
+            this.put(SIDX, SQLFilter.sqlInject(sidx));
+            this.put(ORDER, SQLFilter.sqlInject(order));
+        }
     }
 
 

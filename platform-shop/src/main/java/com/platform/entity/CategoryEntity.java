@@ -1,5 +1,7 @@
 package com.platform.entity;
 
+import java.util.List;
+
 /**
  * 实体
  * 表名 nideshop_category
@@ -43,6 +45,9 @@ public class CategoryEntity extends Tree<CategoryEntity> {
 
     //翻译用字段
     private String show;
+
+    //商品类目管理的SKU 属性
+    private String attrOptions;
 
     public String getShow() {
         return show;
@@ -260,5 +265,13 @@ public class CategoryEntity extends Tree<CategoryEntity> {
      */
     public String getFrontName() {
         return frontName;
+    }
+
+    public String getAttrOptions() {
+        return attrOptions;
+    }
+
+    public void setAttrOptions(String attrOptions) {
+        this.attrOptions = attrOptions;
     }
 }
